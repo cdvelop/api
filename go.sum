@@ -1,4 +1,4 @@
-github.com/cdvelop/gotools v0.0.13 h1:Z+OaeoG69Ix/OF10IjStnd4Eo3NUTcNPSmq9a6ogHwg=
-github.com/cdvelop/gotools v0.0.13/go.mod h1:vtiXdVpifS7nC00KARyrnsPQ0aPFGfmrjQ6F9F/N+Vc=
+github.com/cdvelop/gotools v0.0.15 h1:zxKT/T0I/mFVy6JdLylJhPP8HOZGYCXoxbN5PHyh+O8=
+github.com/cdvelop/gotools v0.0.15/go.mod h1:3c5/VV8f0ZJBPAGm5IC1bFavV8bSFLBNjkJOAl3k190=
 golang.org/x/text v0.9.0 h1:2sjJmO8cDvYveuX97RDLsxlyUxLl+GHoLxBiRdHllBE=
 golang.org/x/text v0.9.0/go.mod h1:e1OnstbJyHTd6l/uOt8jFFHp6TRDWZR/bV3emEE/zU8=
