@@ -10,7 +10,7 @@ require (
 )
 
 require (
-	github.com/cdvelop/gotools v0.0.15
+	github.com/cdvelop/gotools v0.0.16
 	golang.org/x/text v0.9.0 // indirect
 )
 
