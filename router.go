@@ -23,7 +23,7 @@ func (c config) SetupMuxRoutes() *http.ServeMux {
 				return
 			}
 
-			h, err := c.isHandlerOk("create", handler_name)
+			h, err := c.isHandlerOk(action_type, handler_name)
 			if err != nil {
 				c.error(w, err, h)
 				return
@@ -31,32 +31,13 @@ func (c config) SetupMuxRoutes() *http.ServeMux {
 
 			c.create(h, w, r)
 
-		case "readone":
-
-			h, err := c.isHandlerOk("readone", handler_name)
+		case "read":
+			h, err := c.isHandlerOk(action_type, handler_name)
 			if err != nil {
 				c.error(w, err, h)
 				return
 			}
-			c.readone(h, w, r)
-
-		case "readall":
-
-			h, err := c.isHandlerOk("readall", handler_name)
-			if err != nil {
-				c.error(w, err, h)
-				return
-			}
-			c.readall(h, w, r)
-
-		case "file":
-
-			h, err := c.isHandlerOk("file", handler_name)
-			if err != nil {
-				c.error(w, err, h)
-				return
-			}
-			c.readFile(h, w, r)
+			c.read(h, w, r)
 
 		case "update":
 			if r.Method != http.MethodPost {
@@ -64,7 +45,7 @@ func (c config) SetupMuxRoutes() *http.ServeMux {
 				return
 			}
 
-			h, err := c.isHandlerOk("update", handler_name)
+			h, err := c.isHandlerOk(action_type, handler_name)
 			if err != nil {
 				c.error(w, err, h)
 				return
@@ -78,7 +59,7 @@ func (c config) SetupMuxRoutes() *http.ServeMux {
 				return
 			}
 
-			h, err := c.isHandlerOk("delete", handler_name)
+			h, err := c.isHandlerOk(action_type, handler_name)
 			if err != nil {
 				c.error(w, err, h)
 				return
@@ -86,7 +67,20 @@ func (c config) SetupMuxRoutes() *http.ServeMux {
 
 			c.delete(h, w, r)
 
+		case "file":
+			h, err := c.isHandlerOk(action_type, handler_name)
+			if err != nil {
+				c.error(w, err, h)
+				return
+			}
+			c.readFile(h, w, r)
+
 		case "static":
+			if r.Method != http.MethodGet {
+				c.error(w, fmt.Errorf("método %v no permitido para archivos estáticos", r.Method), nil)
+				return
+			}
+
 			c.static(w, r)
 
 		default:

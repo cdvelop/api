@@ -9,6 +9,13 @@ var (
 			object:        product.Objects[0],
 			expected_code: 200,
 		},
+		"se espera lectura json de producto ok": {
+			endpoint:      "/read/" + product.Objects[0].Api(),
+			method:        "GET",
+			data:          map[string]string{"id_product": "1"},
+			object:        product.Objects[0],
+			expected_code: 200,
+		},
 		"se espera actualización de producto ok": {
 			endpoint:      "/update/" + product.Objects[0].Api(),
 			method:        "POST",
@@ -23,20 +30,7 @@ var (
 			object:        product.Objects[0],
 			expected_code: 200,
 		},
-		"se espera lectura json de producto ok": {
-			endpoint:      "/readone/" + product.Objects[0].Api(),
-			method:        "GET",
-			data:          map[string]string{"id_product": "1"},
-			object:        product.Objects[0],
-			expected_code: 200,
-		},
-		"se espera lectura json de productos ok": {
-			endpoint:      "/readall/" + product.Objects[0].Api(),
-			method:        "GET",
-			data:          map[string]string{"name": "frutas"},
-			object:        product.Objects[0],
-			expected_code: 200,
-		},
+
 		"se espera lectura fichero de productos ok": {
 			endpoint:      "/file/" + product.Objects[0].Api(),
 			method:        "GET",
@@ -49,6 +43,12 @@ var (
 			endpoint:      "/static/dino-test.png",
 			method:        "GET",
 			expected_code: 200,
+		},
+
+		"se espera error no existe controlador": {
+			endpoint:      "/create/dino",
+			method:        "POST",
+			expected_code: 400,
 		},
 	}
 )

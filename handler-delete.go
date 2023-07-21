@@ -18,7 +18,13 @@ func (c config) delete(o *model.Object, w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	err = o.Delete(&data)
+	err = o.ValidateData(false, true, data...)
+	if err != nil {
+		c.error(w, err, o)
+		return
+	}
+
+	err = o.Delete(data)
 	if err != nil {
 		c.error(w, err, o)
 		return

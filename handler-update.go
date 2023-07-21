@@ -17,7 +17,13 @@ func (c config) update(o *model.Object, w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	err = o.Update(&data)
+	err = o.ValidateData(false, true, data...)
+	if err != nil {
+		c.error(w, err, o)
+		return
+	}
+
+	err = o.Update(data)
 	if err != nil {
 		c.error(w, err, o)
 		return

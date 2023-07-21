@@ -2,10 +2,8 @@ package api
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/cdvelop/cutkey"
-	"github.com/cdvelop/gotools"
 	"github.com/cdvelop/model"
 )
 
@@ -17,11 +15,10 @@ func Add(modules []*model.Module, options ...string) *config {
 
 	c := config{
 		createHandlers:   []*model.Object{},
-		pathFileHandlers: []*model.Object{},
-		readOneHandlers:  []*model.Object{},
-		readAllHandlers:  []*model.Object{},
+		readHandlers:     []*model.Object{},
 		updateHandlers:   []*model.Object{},
 		deleteHandlers:   []*model.Object{},
+		pathFileHandlers: []*model.Object{},
 		static_cache:     "public, max-age=86400", // Configurar el encabezado de caché para 1 día
 	}
 
@@ -41,19 +38,9 @@ func Add(modules []*model.Module, options ...string) *config {
 						c.createHandlers = append(c.createHandlers, o)
 					}
 
-					if o.ReadOneApi != nil {
-						fmt.Println("readOneHandlers ", o.Name)
-						c.readOneHandlers = append(c.readOneHandlers, o)
-					}
-
-					if o.ReadAllApi != nil {
-						fmt.Println("readAllHandlers ", o.Name)
-						c.readAllHandlers = append(c.readAllHandlers, o)
-					}
-
-					if o.FileApi != nil {
-						fmt.Println("pathFileHandlers ", o.Name)
-						c.pathFileHandlers = append(c.pathFileHandlers, o)
+					if o.ReadApi != nil {
+						fmt.Println("readHandlers ", o.Name)
+						c.readHandlers = append(c.readHandlers, o)
 					}
 
 					if o.UpdateApi != nil {
@@ -64,6 +51,11 @@ func Add(modules []*model.Module, options ...string) *config {
 					if o.DeleteApi != nil {
 						// fmt.Println("deleteHandlers ", o.Name)
 						c.deleteHandlers = append(c.deleteHandlers, o)
+					}
+
+					if o.FileApi != nil {
+						fmt.Println("pathFileHandlers ", o.Name)
+						c.pathFileHandlers = append(c.pathFileHandlers, o)
 					}
 
 					registered[o.Name] = struct{}{}
@@ -79,41 +71,7 @@ func Add(modules []*model.Module, options ...string) *config {
 
 	c.Cut = cutkey.Add(module_objects...)
 
-	for _, option := range options {
-
-		switch {
-
-		case strings.Contains(option, "cache:"):
-			var cache_option string
-			err := gotools.ExtractTwoPointArgument(option, &cache_option)
-			if err == nil {
-
-				var seconds string
-
-				switch cache_option {
-
-				case "week":
-					seconds = "604800" // 7 días
-
-				case "month":
-					seconds = "2592000" // 1 mes
-
-				case "year":
-					seconds = "31536000" // 1 año
-				}
-
-				c.static_cache = "public, max-age=" + seconds
-			}
-
-		case option == "dev":
-			c.developer_mode = true
-
-		}
-	}
-
-	if c.developer_mode {
-		c.static_cache = "no-cache"
-	}
+	c.processOptions(options...)
 
 	return &c
 }

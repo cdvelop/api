@@ -18,11 +18,17 @@ func (c config) create(o *model.Object, w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	out, err := o.Create(&data)
+	err = o.ValidateData(true, false, data...)
 	if err != nil {
 		c.error(w, err, o)
 		return
 	}
 
-	c.success(w, "create", "ok", o, *out...)
+	err = o.Create(data)
+	if err != nil {
+		c.error(w, err, o)
+		return
+	}
+
+	c.success(w, "create", "ok", o)
 }

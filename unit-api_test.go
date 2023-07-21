@@ -1,6 +1,7 @@
 package api_test
 
 import (
+	"fmt"
 	"log"
 	"net/http/httptest"
 	"testing"
@@ -32,7 +33,9 @@ func Test_Api(t *testing.T) {
 
 			for _, resp := range responses {
 				if r.expected_code != code {
-					log.Fatalf("%v\n=>MENSAJE RESPUESTA: %v\n=>EXPECTATIVA: %v", resp, resp.Message, r.expected_code)
+					fmt.Println("=>PRUEBA: ", prueba)
+					fmt.Printf("=>RESPUESTA: %v\n=>MENSAJE: %v\n=>SE ESPERABA:[%v]\n=>SE OBTUVO:[%v]\n", resp, resp.Message, r.expected_code, code)
+					log.Fatal()
 				}
 			}
 

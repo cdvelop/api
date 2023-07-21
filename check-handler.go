@@ -17,22 +17,8 @@ func (c config) isHandlerOk(action_type, handler_name string) (*model.Object, er
 			}
 		}
 
-	case "readone":
-		for _, h := range c.readOneHandlers {
-			if h.Api() == handler_name {
-				return h, nil
-			}
-		}
-
-	case "readall":
-		for _, h := range c.readAllHandlers {
-			if h.Api() == handler_name {
-				return h, nil
-			}
-		}
-
-	case "file":
-		for _, h := range c.pathFileHandlers {
+	case "read":
+		for _, h := range c.readHandlers {
 			if h.Api() == handler_name {
 				return h, nil
 			}
@@ -47,6 +33,13 @@ func (c config) isHandlerOk(action_type, handler_name string) (*model.Object, er
 
 	case "delete":
 		for _, h := range c.deleteHandlers {
+			if h.Api() == handler_name {
+				return h, nil
+			}
+		}
+
+	case "file":
+		for _, h := range c.pathFileHandlers {
 			if h.Api() == handler_name {
 				return h, nil
 			}

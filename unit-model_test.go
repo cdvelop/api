@@ -25,12 +25,11 @@ func ModuleProduct() *model.Module {
 	newObject := model.Object{
 		Name: "product",
 		BackendRequest: model.BackendRequest{
-			CreateApi:  m,
-			ReadOneApi: m,
-			ReadAllApi: m,
-			FileApi:    m,
-			UpdateApi:  m,
-			DeleteApi:  m,
+			CreateApi: m,
+			ReadApi:   m,
+			UpdateApi: m,
+			DeleteApi: m,
+			FileApi:   m,
 		},
 
 		Fields: []model.Field{
@@ -44,40 +43,35 @@ func ModuleProduct() *model.Module {
 	fmt.Printf("TAMAÑO OBJETOS MODULO: [%v]\n", len(newModule.Objects))
 
 	return &newModule
-
 }
 
-func (m module) Create(params *[]map[string]string) (*[]map[string]string, error) {
+func (m module) Create(params []map[string]string) error {
 	fmt.Println("parámetros Create recibidos:", params)
-	return &[]map[string]string{
-		{"id": "2"},
-	}, nil
-}
 
-func (m module) Update(params *[]map[string]string) error {
-	fmt.Println("parámetros Update recibidos:", params)
+	params[0]["id"] = "2"
+
 	return nil
 }
 
-func (m module) Delete(params *[]map[string]string) error {
-	fmt.Println("parámetros Delete recibidos:", params)
-	return nil
-}
-func (m module) ReadOne(params *map[string]string) (*map[string]string, error) {
-	fmt.Println("parámetros leer uno recibidos:", params)
-	return &map[string]string{
-		"name": "manzana",
-	}, nil
-}
-func (m module) ReadAll(params *map[string]string) (*[]map[string]string, error) {
+func (m module) Read(params map[string]string) ([]map[string]string, error) {
 	fmt.Println("parámetros leer todo recibidos:", params)
-	return &[]map[string]string{
+	return []map[string]string{
 		{"name": "manzana"},
 		{"name": "peras"},
 	}, nil
 }
 
-func (m module) FilePath(params *map[string]string) (string, error) {
+func (m module) Update(params []map[string]string) error {
+	fmt.Println("parámetros Update recibidos:", params)
+	return nil
+}
+
+func (m module) Delete(params []map[string]string) error {
+	fmt.Println("parámetros Delete recibidos:", params)
+	return nil
+}
+
+func (m module) FilePath(params map[string]string) (string, error) {
 	fmt.Println("parámetros leer archivo recibidos:", params)
 	return "./README.md", nil
 }

@@ -9,14 +9,11 @@ type config struct {
 	*cutkey.Cut
 
 	createHandlers []*model.Object
-
-	pathFileHandlers []*model.Object
-
-	readOneHandlers []*model.Object
-	readAllHandlers []*model.Object
-
+	readHandlers   []*model.Object
 	updateHandlers []*model.Object
 	deleteHandlers []*model.Object
+
+	pathFileHandlers []*model.Object
 
 	developer_mode bool
 	static_cache   string

@@ -8,7 +8,7 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func getParams(r *http.Request) (*map[string]string, error) {
+func getParams(r *http.Request) (map[string]string, error) {
 	err := r.ParseForm()
 	if err != nil {
 		return nil, err
@@ -27,10 +27,10 @@ func getParams(r *http.Request) (*map[string]string, error) {
 		}
 	}
 
-	return &params, nil
+	return params, nil
 }
 
-func paramsCheckIn(r *http.Request, its_new, its_update_or_delete bool, o *model.Object) (*map[string]string, error) {
+func paramsCheckIn(r *http.Request, its_new, its_update_or_delete bool, o *model.Object) (map[string]string, error) {
 
 	params, err := getParams(r)
 	if err != nil {
