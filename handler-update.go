@@ -23,11 +23,11 @@ func (c config) update(o *model.Object, w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	err = o.Update(data)
+	recovered_data, err := o.Update(data...)
 	if err != nil {
 		c.error(w, err, o)
 		return
 	}
 
-	c.success(w, "update", "ok", o)
+	c.success(w, "update", "ok", o, recovered_data...)
 }

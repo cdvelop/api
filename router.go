@@ -3,9 +3,10 @@ package api
 import (
 	"fmt"
 	"net/http"
+	"strings"
 )
 
-func (c config) SetupMuxRoutes() *http.ServeMux {
+func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 	mux := http.NewServeMux()
 
@@ -13,7 +14,7 @@ func (c config) SetupMuxRoutes() *http.ServeMux {
 
 		action_type, handler_name := getMethodAndObjectFromPath(r.URL.Path)
 
-		// fmt.Println("action_type ", action_type, " handler_name ", handler_name)
+		fmt.Printf("action_type: [%s] handler_name: [%s]\n", action_type, handler_name)
 
 		switch action_type {
 
@@ -23,13 +24,23 @@ func (c config) SetupMuxRoutes() *http.ServeMux {
 				return
 			}
 
+			content_type := r.Header.Get("Content-Type")
+			if strings.HasPrefix(content_type, "multipart/form-data") {
+				action_type = "file"
+			}
+
 			h, err := c.isHandlerOk(action_type, handler_name)
 			if err != nil {
 				c.error(w, err, h)
 				return
 			}
 
-			c.create(h, w, r)
+			if action_type == "file" {
+				c.uploadFile(h, w, r)
+
+			} else {
+				c.create(h, w, r)
+			}
 
 		case "read":
 			h, err := c.isHandlerOk(action_type, handler_name)
@@ -68,11 +79,20 @@ func (c config) SetupMuxRoutes() *http.ServeMux {
 			c.delete(h, w, r)
 
 		case "file":
+
+			fmt.Println("ROUTER API READ FILE")
+
+			if r.Method != http.MethodGet {
+				c.error(w, fmt.Errorf("método %v no permitido en el Manejador de archivos", r.Method), nil)
+				return
+			}
+
 			h, err := c.isHandlerOk(action_type, handler_name)
 			if err != nil {
 				c.error(w, err, h)
 				return
 			}
+
 			c.readFile(h, w, r)
 
 		case "static":
@@ -89,7 +109,6 @@ func (c config) SetupMuxRoutes() *http.ServeMux {
 				// fmt.Fprint(w, "¡Hola! Esta es la página principal.")
 
 				http.ServeFile(w, r, INDEX_FOLDER+"/index.html")
-
 			} else {
 				http.NotFound(w, r)
 			}

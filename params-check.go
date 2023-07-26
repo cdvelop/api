@@ -8,31 +8,9 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func getParams(r *http.Request) (map[string]string, error) {
-	err := r.ParseForm()
-	if err != nil {
-		return nil, err
-	}
+func paramsCheckIn(its_new, its_update_or_delete, content_is_file bool, o *model.Object, w http.ResponseWriter, r *http.Request) (map[string]string, error) {
 
-	params := make(map[string]string)
-	for key := range r.Form {
-		params[key] = r.Form.Get(key)
-	}
-
-	for key, values := range r.URL.Query() {
-		if len(values) > 1 {
-			params[key] = strings.Join(values, ",")
-		} else {
-			params[key] = values[0]
-		}
-	}
-
-	return params, nil
-}
-
-func paramsCheckIn(r *http.Request, its_new, its_update_or_delete bool, o *model.Object) (map[string]string, error) {
-
-	params, err := getParams(r)
+	params, err := getParams(o, content_is_file, w, r)
 	if err != nil {
 		return nil, err
 	}
@@ -42,6 +20,50 @@ func paramsCheckIn(r *http.Request, its_new, its_update_or_delete bool, o *model
 	err = o.ValidateData(its_new, its_update_or_delete, params)
 	if err != nil {
 		return nil, err
+	}
+
+	return params, nil
+}
+
+// content_type = file
+func getParams(o *model.Object, content_is_file bool, w http.ResponseWriter, r *http.Request) (map[string]string, error) {
+
+	if content_is_file {
+
+		r.Body = http.MaxBytesReader(w, r.Body, o.MaximumFileSize()) // 220 KB
+
+		err := r.ParseMultipartForm(o.MaximumFileSize()) // Specify the maximum memory allowed for parsing (e.g., 10 MB)
+		if err != nil {
+			if strings.Contains(err.Error(), "multipart") {
+				return nil, fmt.Errorf("UploadFile error ParseMultipartForm %v", err)
+			} else {
+				return nil, fmt.Errorf("error tamaño de archivo excedido máximo admitido: %v kb", o.MaximumFileSize())
+			}
+		}
+	} else {
+		err := r.ParseForm()
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	params := make(map[string]string)
+	for key, values := range r.PostForm {
+		if len(values) > 1 {
+			params[key] = strings.Join(values, ",")
+		} else {
+			params[key] = values[0]
+		}
+	}
+
+	for key, values := range r.URL.Query() {
+		if _, exists := params[key]; !exists {
+			if len(values) > 1 {
+				params[key] = strings.Join(values, ",")
+			} else {
+				params[key] = values[0]
+			}
+		}
 	}
 
 	return params, nil

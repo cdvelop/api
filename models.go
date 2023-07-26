@@ -13,7 +13,7 @@ type config struct {
 	updateHandlers []*model.Object
 	deleteHandlers []*model.Object
 
-	pathFileHandlers []*model.Object
+	fileHandlers []*model.Object
 
 	developer_mode bool
 	static_cache   string

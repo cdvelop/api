@@ -11,6 +11,7 @@ func (c config) isHandlerOk(action_type, handler_name string) (*model.Object, er
 	switch action_type {
 
 	case "create":
+
 		for _, h := range c.createHandlers {
 			if h.Api() == handler_name {
 				return h, nil
@@ -39,7 +40,7 @@ func (c config) isHandlerOk(action_type, handler_name string) (*model.Object, er
 		}
 
 	case "file":
-		for _, h := range c.pathFileHandlers {
+		for _, h := range c.fileHandlers {
 			if h.Api() == handler_name {
 				return h, nil
 			}

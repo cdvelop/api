@@ -2,6 +2,7 @@ package api_test
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/cdvelop/input"
 	"github.com/cdvelop/model"
@@ -45,7 +46,7 @@ func ModuleProduct() *model.Module {
 	return &newModule
 }
 
-func (m module) Create(params []map[string]string) error {
+func (m module) Create(params ...map[string]string) error {
 	fmt.Println("parámetros Create recibidos:", params)
 
 	params[0]["id"] = "2"
@@ -53,7 +54,7 @@ func (m module) Create(params []map[string]string) error {
 	return nil
 }
 
-func (m module) Read(params map[string]string) ([]map[string]string, error) {
+func (m module) Read(params ...map[string]string) ([]map[string]string, error) {
 	fmt.Println("parámetros leer todo recibidos:", params)
 	return []map[string]string{
 		{"name": "manzana"},
@@ -61,17 +62,27 @@ func (m module) Read(params map[string]string) ([]map[string]string, error) {
 	}, nil
 }
 
-func (m module) Update(params []map[string]string) error {
+func (m module) Update(params ...map[string]string) ([]map[string]string, error) {
 	fmt.Println("parámetros Update recibidos:", params)
-	return nil
+	return []map[string]string{}, nil
 }
 
-func (m module) Delete(params []map[string]string) error {
+func (m module) Delete(params ...map[string]string) ([]map[string]string, error) {
 	fmt.Println("parámetros Delete recibidos:", params)
-	return nil
+	return []map[string]string{}, nil
 }
 
 func (m module) FilePath(params map[string]string) (string, error) {
 	fmt.Println("parámetros leer archivo recibidos:", params)
 	return "./README.md", nil
+}
+
+func (m module) UploadFile(r *http.Request, params map[string]string) ([]map[string]string, error) {
+	fmt.Println("Upload File:", r)
+
+	return []map[string]string{{"file": "./README.md"}}, nil
+}
+
+func (m module) MaximumFileSize() int64 {
+	return 200
 }

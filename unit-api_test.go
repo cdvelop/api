@@ -14,7 +14,7 @@ func Test_Api(t *testing.T) {
 
 	conf := api.Add([]*model.Module{product})
 
-	mux := conf.SetupMuxRoutes()
+	mux := conf.ServeMuxAndRoutes()
 
 	srv := httptest.NewServer(mux)
 	defer srv.Close()

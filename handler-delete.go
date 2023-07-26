@@ -24,11 +24,11 @@ func (c config) delete(o *model.Object, w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	err = o.Delete(data)
+	recovered_data, err := o.Delete(data...)
 	if err != nil {
 		c.error(w, err, o)
 		return
 	}
 
-	c.success(w, "delete", "ok", o)
+	c.success(w, "delete", "ok", o, recovered_data...)
 }

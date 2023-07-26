@@ -37,6 +37,8 @@ func (c config) jsonResponse(w http.ResponseWriter, code int, action, message st
 		return
 	}
 
+	//NOTIFY HERE
+
 	w.Write(jsonBytes)
 }
 

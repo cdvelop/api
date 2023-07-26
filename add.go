@@ -14,12 +14,12 @@ import (
 func Add(modules []*model.Module, options ...string) *config {
 
 	c := config{
-		createHandlers:   []*model.Object{},
-		readHandlers:     []*model.Object{},
-		updateHandlers:   []*model.Object{},
-		deleteHandlers:   []*model.Object{},
-		pathFileHandlers: []*model.Object{},
-		static_cache:     "public, max-age=86400", // Configurar el encabezado de caché para 1 día
+		createHandlers: []*model.Object{},
+		readHandlers:   []*model.Object{},
+		updateHandlers: []*model.Object{},
+		deleteHandlers: []*model.Object{},
+		fileHandlers:   []*model.Object{},
+		static_cache:   "public, max-age=86400", // Configurar el encabezado de caché para 1 día
 	}
 
 	var registered = make(map[string]struct{})
@@ -54,8 +54,8 @@ func Add(modules []*model.Module, options ...string) *config {
 					}
 
 					if o.FileApi != nil {
-						fmt.Println("pathFileHandlers ", o.Name)
-						c.pathFileHandlers = append(c.pathFileHandlers, o)
+						fmt.Println("fileHandlers ", o.Name)
+						c.fileHandlers = append(c.fileHandlers, o)
 					}
 
 					registered[o.Name] = struct{}{}

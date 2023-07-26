@@ -7,7 +7,7 @@ import (
 )
 
 func (c config) StartServer() {
-	mux := c.SetupMuxRoutes()
+	mux := c.ServeMuxAndRoutes()
 	addr := "localhost:8080"
 	server := &http.Server{
 		Addr:    addr,
