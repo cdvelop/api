@@ -19,8 +19,8 @@ func ModuleProduct() *model.Module {
 	m := module{}
 
 	newModule := model.Module{
-		Name:  "product",
-		Title: "Producto",
+		ModuleName: "product",
+		Title:      "Producto",
 	}
 
 	newObject := model.Object{

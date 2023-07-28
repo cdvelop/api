@@ -22,24 +22,26 @@ func Test_Api(t *testing.T) {
 	for prueba, r := range testData {
 		t.Run((prueba), func(t *testing.T) {
 
+			r.Cut = conf.Cut
+			r.Server = srv
+
 			var responses []model.Response
 			var code int
 
-			if r.method == "GET" {
-				responses, code = r.get(srv, conf.Cut)
+			if r.Method == "GET" {
+				responses, code = r.Get()
 			} else {
-				responses, code = r.post(srv, conf.Cut)
+				responses, code = r.Post()
 			}
 
 			for _, resp := range responses {
-				if r.expected_code != code {
+				if r.ExpectedCode != code {
 					fmt.Println("=>PRUEBA: ", prueba)
-					fmt.Printf("=>RESPUESTA: %v\n=>MENSAJE: %v\n=>SE ESPERABA:[%v]\n=>SE OBTUVO:[%v]\n", resp, resp.Message, r.expected_code, code)
+					fmt.Printf("=>RESPUESTA: %v\n=>MENSAJE: %v\n=>SE ESPERABA:[%v]\n=>SE OBTUVO:[%v]\n", resp, resp.Message, r.ExpectedCode, code)
 					log.Fatal()
 				}
 			}
 
 		})
 	}
-
 }

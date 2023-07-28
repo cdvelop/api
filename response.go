@@ -8,30 +8,20 @@ import (
 )
 
 // action ej: create, read, update,delete, error
-func (c config) jsonResponse(w http.ResponseWriter, code int, action, message string, o *model.Object, data_out ...map[string]string) {
+func (c config) jsonResponse(w http.ResponseWriter, code int, action, message string, obj_in *model.Object, data_out ...map[string]string) {
 
 	w.Header().Set("Content-Action", "application/json; charset=utf-8")
 	w.Header().Set("X-Content-Action-Options", "nosniff")
 	w.WriteHeader(code)
 
 	// fmt.Println("HERE 2", message, "Objeto: ", o)
-	var object_name = "error"
-	var module_name = "api.error"
+	o := model.Object{Name: "error"}
 
-	if o != nil {
-		object_name = o.Name
-		module_name = o.ModuleName()
+	if obj_in != nil {
+		o = *obj_in
 	}
 
-	r := model.Response{
-		Action:  action,
-		Data:    data_out,
-		Object:  object_name,
-		Module:  module_name,
-		Message: message,
-	}
-
-	jsonBytes, err := c.EncodeResponses([]model.Response{r})
+	jsonBytes, err := c.EncodeResponses([]model.Response{*o.Response(action, message, data_out...)})
 	if err != nil {
 		fmt.Fprintln(w, `{"Action":"error", "Message":"`+err.Error()+`"}`)
 		return

@@ -60,7 +60,7 @@ func Add(modules []*model.Module, options ...string) *config {
 
 					registered[o.Name] = struct{}{}
 
-					if o.Module.Name == m.Name {
+					if o.Module.ModuleName == m.ModuleName {
 						module_objects = append(module_objects, o)
 					}
 

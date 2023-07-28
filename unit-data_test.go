@@ -1,54 +1,56 @@
 package api_test
 
+import "github.com/cdvelop/api"
+
 var (
-	testData = map[string]request{
+	testData = map[string]api.Request{
 		"se espera creación de producto ok": {
-			endpoint:      "/create/" + product.Objects[0].Api(),
-			method:        "POST",
-			data:          map[string]string{"name": "manzana"},
-			object:        product.Objects[0],
-			expected_code: 200,
+			Endpoint:     "/create/" + product.Objects[0].Api(),
+			Method:       "POST",
+			Data:         []map[string]string{{"name": "manzana"}},
+			Object:       product.Objects[0],
+			ExpectedCode: 200,
 		},
 		"se espera lectura json de producto ok": {
-			endpoint:      "/read/" + product.Objects[0].Api(),
-			method:        "GET",
-			data:          map[string]string{"id_product": "1"},
-			object:        product.Objects[0],
-			expected_code: 200,
+			Endpoint:     "/read/" + product.Objects[0].Api(),
+			Method:       "GET",
+			Data:         []map[string]string{{"id_product": "1"}},
+			Object:       product.Objects[0],
+			ExpectedCode: 200,
 		},
 		"se espera actualización de producto ok": {
-			endpoint:      "/update/" + product.Objects[0].Api(),
-			method:        "POST",
-			data:          map[string]string{"id_product": "1", "name": "pera"},
-			object:        product.Objects[0],
-			expected_code: 200,
+			Endpoint:     "/update/" + product.Objects[0].Api(),
+			Method:       "POST",
+			Data:         []map[string]string{{"id_product": "1", "name": "pera"}},
+			Object:       product.Objects[0],
+			ExpectedCode: 200,
 		},
 		"se espera eliminación de producto ok": {
-			endpoint:      "/delete/" + product.Objects[0].Api(),
-			method:        "POST",
-			data:          map[string]string{"id_product": "1"},
-			object:        product.Objects[0],
-			expected_code: 200,
+			Endpoint:     "/delete/" + product.Objects[0].Api(),
+			Method:       "POST",
+			Data:         []map[string]string{{"id_product": "1"}},
+			Object:       product.Objects[0],
+			ExpectedCode: 200,
 		},
 
 		"se espera lectura fichero de productos ok": {
-			endpoint:      "/file/" + product.Objects[0].Api(),
-			method:        "GET",
-			data:          map[string]string{"id_product": "1"},
-			object:        product.Objects[0],
-			expected_code: 200,
+			Endpoint:     "/file/" + product.Objects[0].Api(),
+			Method:       "GET",
+			Data:         []map[string]string{{"id_product": "1"}},
+			Object:       product.Objects[0],
+			ExpectedCode: 200,
 		},
 
 		"se espera lectura fichero estático  ok": {
-			endpoint:      "/static/dino-test.png",
-			method:        "GET",
-			expected_code: 200,
+			Endpoint:     "/static/dino-test.png",
+			Method:       "GET",
+			ExpectedCode: 200,
 		},
 
 		"se espera error no existe controlador": {
-			endpoint:      "/create/dino",
-			method:        "POST",
-			expected_code: 400,
+			Endpoint:     "/create/dino",
+			Method:       "POST",
+			ExpectedCode: 400,
 		},
 	}
 )
