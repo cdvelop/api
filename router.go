@@ -14,7 +14,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 		action_type, handler_name := getMethodAndObjectFromPath(r.URL.Path)
 
-		fmt.Printf("action_type: [%s] handler_name: [%s]\n", action_type, handler_name)
+		// fmt.Printf("action_type: [%s] handler_name: [%s] method[%s]\n", action_type, handler_name, r.Method)
 
 		switch action_type {
 
@@ -31,12 +31,14 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 			h, err := c.isHandlerOk(action_type, handler_name)
 			if err != nil {
+				// fmt.Println("HERE 2 ", " action ", action_type, err)
+
 				c.error(w, err, h)
 				return
 			}
 
 			if action_type == "file" {
-				c.uploadFile(h, w, r)
+				c.createFile(h, w, r)
 
 			} else {
 				c.create(h, w, r)
@@ -80,7 +82,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 		case "file":
 
-			fmt.Println("ROUTER API READ FILE")
+			// fmt.Println("ROUTER API READ FILE")
 
 			if r.Method != http.MethodGet {
 				c.error(w, fmt.Errorf("método %v no permitido en el Manejador de archivos", r.Method), nil)

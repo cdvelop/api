@@ -1,7 +1,6 @@
 package api_test
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/cdvelop/input"
@@ -41,13 +40,13 @@ func ModuleProduct() *model.Module {
 
 	newObject.AddModule(&newModule)
 
-	fmt.Printf("TAMAÑO OBJETOS MODULO: [%v]\n", len(newModule.Objects))
+	// fmt.Printf("TAMAÑO OBJETOS MODULO: [%v]\n", len(newModule.Objects))
 
 	return &newModule
 }
 
 func (m module) Create(params ...map[string]string) error {
-	fmt.Println("parámetros Create recibidos:", params)
+	// fmt.Println("parámetros Create recibidos:", params)
 
 	params[0]["id"] = "2"
 
@@ -55,7 +54,7 @@ func (m module) Create(params ...map[string]string) error {
 }
 
 func (m module) Read(params ...map[string]string) ([]map[string]string, error) {
-	fmt.Println("parámetros leer todo recibidos:", params)
+	// fmt.Println("parámetros leer todo recibidos:", params)
 	return []map[string]string{
 		{"name": "manzana"},
 		{"name": "peras"},
@@ -63,22 +62,22 @@ func (m module) Read(params ...map[string]string) ([]map[string]string, error) {
 }
 
 func (m module) Update(params ...map[string]string) ([]map[string]string, error) {
-	fmt.Println("parámetros Update recibidos:", params)
+	// fmt.Println("parámetros Update recibidos:", params)
 	return []map[string]string{}, nil
 }
 
 func (m module) Delete(params ...map[string]string) ([]map[string]string, error) {
-	fmt.Println("parámetros Delete recibidos:", params)
+	// fmt.Println("parámetros Delete recibidos:", params)
 	return []map[string]string{}, nil
 }
 
 func (m module) FilePath(params map[string]string) (string, error) {
-	fmt.Println("parámetros leer archivo recibidos:", params)
+	// fmt.Println("parámetros leer archivo recibidos:", params)
 	return "./README.md", nil
 }
 
-func (m module) UploadFile(r *http.Request, params map[string]string) ([]map[string]string, error) {
-	fmt.Println("Upload File:", r)
+func (m module) CreateFile(r *http.Request, params map[string]string) ([]map[string]string, error) {
+	// fmt.Println("Upload File:", r)
 
 	return []map[string]string{{"file": "./README.md"}}, nil
 }

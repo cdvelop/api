@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/cdvelop/cutkey"
@@ -10,7 +9,7 @@ import (
 
 func (c config) delete(o *model.Object, w http.ResponseWriter, r *http.Request) {
 
-	fmt.Printf("Estás en la página de eliminación de %s\n", o.Name)
+	// fmt.Printf("Estás en la página de eliminación de %s\n", o.Name)
 
 	data, err := cutkey.Decode(r.Body, o)
 	if err != nil {

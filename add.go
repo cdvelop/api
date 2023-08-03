@@ -1,8 +1,6 @@
 package api
 
 import (
-	"fmt"
-
 	"github.com/cdvelop/cutkey"
 	"github.com/cdvelop/model"
 )
@@ -10,10 +8,11 @@ import (
 // options:
 // dev (modo desarrollador)
 // static cache duración de archivos estáticos en el navegador
-// ej: "cache:year" (un año) default day. modo dev = no-cache
+// ej: "cache:year" (un año), week (semana), month (mes) default day. modo dev = no-cache
 func Add(modules []*model.Module, options ...string) *config {
 
 	c := config{
+		Cut:            nil,
 		createHandlers: []*model.Object{},
 		readHandlers:   []*model.Object{},
 		updateHandlers: []*model.Object{},
@@ -39,7 +38,7 @@ func Add(modules []*model.Module, options ...string) *config {
 					}
 
 					if o.ReadApi != nil {
-						fmt.Println("readHandlers ", o.Name)
+						// fmt.Println("readHandlers ", o.Name)
 						c.readHandlers = append(c.readHandlers, o)
 					}
 
@@ -54,13 +53,13 @@ func Add(modules []*model.Module, options ...string) *config {
 					}
 
 					if o.FileApi != nil {
-						fmt.Println("fileHandlers ", o.Name)
+						// fmt.Println("fileHandlers ", o.Name)
 						c.fileHandlers = append(c.fileHandlers, o)
 					}
 
 					registered[o.Name] = struct{}{}
 
-					if o.Module.ModuleName == m.ModuleName {
+					if o.ModuleName() == m.ModuleName {
 						module_objects = append(module_objects, o)
 					}
 

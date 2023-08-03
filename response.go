@@ -14,14 +14,13 @@ func (c config) jsonResponse(w http.ResponseWriter, code int, action, message st
 	w.Header().Set("X-Content-Action-Options", "nosniff")
 	w.WriteHeader(code)
 
-	// fmt.Println("HERE 2", message, "Objeto: ", o)
 	o := model.Object{Name: "error"}
 
 	if obj_in != nil {
 		o = *obj_in
 	}
 
-	jsonBytes, err := c.EncodeResponses([]model.Response{*o.Response(action, message, data_out...)})
+	jsonBytes, err := c.EncodeResponses([]model.Response{o.Response(action, message, data_out...)})
 	if err != nil {
 		fmt.Fprintln(w, `{"Action":"error", "Message":"`+err.Error()+`"}`)
 		return

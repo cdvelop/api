@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/cdvelop/cutkey"
@@ -9,7 +8,6 @@ import (
 )
 
 func (c config) update(o *model.Object, w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("Estás en la página de actualización del objeto %s\n", o.Name)
 
 	data, err := cutkey.Decode(r.Body, o)
 	if err != nil {
@@ -17,17 +15,23 @@ func (c config) update(o *model.Object, w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
+	// fmt.Printf("Estás en la página de actualización del objeto %s\nData: %s\n", o.Name, data)
+
 	err = o.ValidateData(false, true, data...)
 	if err != nil {
 		c.error(w, err, o)
 		return
 	}
 
+	// fmt.Println("OBJETO VALIDADO: ", o.Name)
+
 	recovered_data, err := o.Update(data...)
 	if err != nil {
 		c.error(w, err, o)
 		return
 	}
+
+	// fmt.Println("DATA DESPUÉS DE ACTUALIZAR: ", recovered_data)
 
 	c.success(w, "update", "ok", o, recovered_data...)
 }

@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/cdvelop/model"
@@ -9,7 +8,7 @@ import (
 
 func (c config) read(o *model.Object, w http.ResponseWriter, r *http.Request) {
 
-	fmt.Printf("Estás en el Manejador de lectura de data de %s\n", o.Name)
+	// fmt.Printf("Estás en el Manejador de lectura de data de %s\n", o.Name)
 
 	params, err := paramsCheckIn(false, false, false, o, w, r)
 	if err != nil {
@@ -28,7 +27,7 @@ func (c config) read(o *model.Object, w http.ResponseWriter, r *http.Request) {
 
 func (c config) readFile(o *model.Object, w http.ResponseWriter, r *http.Request) {
 	// retorna objeto estático ej imagen.jpg
-	fmt.Printf("Estás en la página de lectura del archivo %s\n", o.Name)
+	// fmt.Printf("Estás en la página de lectura del archivo %s\n", o.Name)
 
 	params, err := paramsCheckIn(false, false, false, o, w, r)
 	if err != nil {

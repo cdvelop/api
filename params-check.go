@@ -15,7 +15,7 @@ func paramsCheckIn(its_new, its_update_or_delete, content_is_file bool, o *model
 		return nil, err
 	}
 
-	fmt.Println("PARÁMETROS RECIBIDOS: ", params)
+	// fmt.Println("PARÁMETROS RECIBIDOS: ", params)
 
 	err = o.ValidateData(its_new, its_update_or_delete, params)
 	if err != nil {
@@ -35,7 +35,7 @@ func getParams(o *model.Object, content_is_file bool, w http.ResponseWriter, r *
 		err := r.ParseMultipartForm(o.MaximumFileSize()) // Specify the maximum memory allowed for parsing (e.g., 10 MB)
 		if err != nil {
 			if strings.Contains(err.Error(), "multipart") {
-				return nil, fmt.Errorf("UploadFile error ParseMultipartForm %v", err)
+				return nil, fmt.Errorf("CreateFile error ParseMultipartForm %v", err)
 			} else {
 				return nil, fmt.Errorf("error tamaño de archivo excedido máximo admitido: %v kb", o.MaximumFileSize())
 			}

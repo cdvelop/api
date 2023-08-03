@@ -1,13 +1,13 @@
 package api_test
 
 import (
-	"fmt"
 	"log"
 	"net/http/httptest"
 	"testing"
 
 	"github.com/cdvelop/api"
 	"github.com/cdvelop/model"
+	"github.com/cdvelop/testools"
 )
 
 func Test_Api(t *testing.T) {
@@ -27,21 +27,21 @@ func Test_Api(t *testing.T) {
 
 			var responses []model.Response
 			var code int
+			var err error
 
 			if r.Method == "GET" {
-				responses, code = r.Get()
+				responses, code, err = r.Get(r.Data...)
 			} else {
-				responses, code = r.Post()
+				responses, code, err = r.CutPost()
+			}
+
+			if err != nil {
+				log.Fatal(err)
 			}
 
 			for _, resp := range responses {
-				if r.ExpectedCode != code {
-					fmt.Println("=>PRUEBA: ", prueba)
-					fmt.Printf("=>RESPUESTA: %v\n=>MENSAJE: %v\n=>SE ESPERABA:[%v]\n=>SE OBTUVO:[%v]\n", resp, resp.Message, r.ExpectedCode, code)
-					log.Fatal()
-				}
+				testools.CheckTest(prueba, r.ExpectedCode, code, resp)
 			}
-
 		})
 	}
 }

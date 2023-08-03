@@ -1,9 +1,11 @@
 package api_test
 
-import "github.com/cdvelop/api"
+import (
+	"github.com/cdvelop/testools"
+)
 
 var (
-	testData = map[string]api.Request{
+	testData = map[string]testools.Request{
 		"se espera creación de producto ok": {
 			Endpoint:     "/create/" + product.Objects[0].Api(),
 			Method:       "POST",

@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/cdvelop/cutkey"
@@ -10,7 +9,7 @@ import (
 
 func (c config) create(o *model.Object, w http.ResponseWriter, r *http.Request) {
 
-	fmt.Printf("Estás en el Manejador de creación del objeto %s\n", o.Name)
+	// fmt.Printf("Estás en el Manejador de creación del objeto %s\n", o.Name)
 
 	data, err := cutkey.Decode(r.Body, o)
 	if err != nil {
@@ -33,9 +32,9 @@ func (c config) create(o *model.Object, w http.ResponseWriter, r *http.Request) 
 	c.success(w, "create", "ok", o, data...)
 }
 
-func (c config) uploadFile(o *model.Object, w http.ResponseWriter, r *http.Request) {
+func (c config) createFile(o *model.Object, w http.ResponseWriter, r *http.Request) {
 	// retorna objeto estático ej imagen.jpg
-	fmt.Printf("Estás en el Manejador de subida de archivos %s\n", o.Name)
+	// fmt.Printf("Estás en el Manejador de subida de archivos %s\n", o.Name)
 
 	params, err := paramsCheckIn(true, false, true, o, w, r)
 	if err != nil {
@@ -45,7 +44,7 @@ func (c config) uploadFile(o *model.Object, w http.ResponseWriter, r *http.Reque
 
 	// fmt.Println("OBJETO: ", o)
 
-	data, err := o.UploadFile(r, params)
+	data, err := o.CreateFile(r, params)
 	if err != nil {
 		c.error(w, err, o)
 		return

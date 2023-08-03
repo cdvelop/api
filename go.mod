@@ -11,11 +11,14 @@ require (
 
 require (
 	github.com/cdvelop/gotools v0.0.18
+	github.com/cdvelop/testools v0.0.1
 	golang.org/x/text v0.9.0 // indirect
 )
 
 replace github.com/cdvelop/model => ../model
 
+replace github.com/cdvelop/cutkey => ../cutkey
+
 replace github.com/cdvelop/input => ../input
 
-replace github.com/cdvelop/cutkey => ../cutkey
+replace github.com/cdvelop/testools => ../testools

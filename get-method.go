@@ -1,16 +1,19 @@
 package api
 
 import (
-	"fmt"
 	"strings"
 )
 
 func getMethodAndObjectFromPath(path string) (string, string) {
 
+	// fmt.Println("Path: ", path)
+
+	if path == "/file" {
+		return "file", ""
+	}
+
 	parts := strings.Split(path, "/")
-
-	fmt.Println("Path: ", path, "PARTES: TAMAÑO: ", len(parts), " ", parts)
-
+	// fmt.Println("Path: ", path, "PARTES: TAMAÑO: ", len(parts), " ", parts)
 	if len(parts) < 3 || parts[1] == "" {
 		return "", ""
 	}
