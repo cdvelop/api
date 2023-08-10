@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"github.com/cdvelop/gotools"
+	. "github.com/cdvelop/gotools"
 )
 
 func (c *config) processOptions(options ...string) {
@@ -41,5 +42,6 @@ func (c *config) processOptions(options ...string) {
 
 	if c.developer_mode {
 		c.static_cache = "no-cache"
+		PrintWarning("*** Api en Modo Desarrollo ***\n")
 	}
 }

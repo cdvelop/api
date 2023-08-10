@@ -13,19 +13,19 @@ func (c config) create(o *model.Object, w http.ResponseWriter, r *http.Request) 
 
 	data, err := cutkey.Decode(r.Body, o)
 	if err != nil {
-		c.error(w, err, o)
+		c.error(w, r, err, o)
 		return
 	}
 
 	err = o.ValidateData(true, false, data...)
 	if err != nil {
-		c.error(w, err, o)
+		c.error(w, r, err, o)
 		return
 	}
 
 	err = o.Create(data...)
 	if err != nil {
-		c.error(w, err, o)
+		c.error(w, r, err, o)
 		return
 	}
 
@@ -38,7 +38,7 @@ func (c config) createFile(o *model.Object, w http.ResponseWriter, r *http.Reque
 
 	params, err := paramsCheckIn(true, false, true, o, w, r)
 	if err != nil {
-		c.error(w, err, o)
+		c.error(w, r, err, o)
 		return
 	}
 
@@ -46,7 +46,7 @@ func (c config) createFile(o *model.Object, w http.ResponseWriter, r *http.Reque
 
 	data, err := o.CreateFile(r, params)
 	if err != nil {
-		c.error(w, err, o)
+		c.error(w, r, err, o)
 		return
 	}
 

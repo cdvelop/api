@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/cdvelop/cutkey"
+	. "github.com/cdvelop/gotools"
 	"github.com/cdvelop/model"
 )
 
@@ -10,6 +11,8 @@ import (
 // static cache duración de archivos estáticos en el navegador
 // ej: "cache:year" (un año), week (semana), month (mes) default day. modo dev = no-cache
 func Add(modules []*model.Module, options ...string) *config {
+
+	SetupLogsToFile("app")
 
 	c := config{
 		Cut:            nil,

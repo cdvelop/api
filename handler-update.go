@@ -11,7 +11,7 @@ func (c config) update(o *model.Object, w http.ResponseWriter, r *http.Request) 
 
 	data, err := cutkey.Decode(r.Body, o)
 	if err != nil {
-		c.error(w, err, o)
+		c.error(w, r, err, o)
 		return
 	}
 
@@ -19,7 +19,7 @@ func (c config) update(o *model.Object, w http.ResponseWriter, r *http.Request) 
 
 	err = o.ValidateData(false, true, data...)
 	if err != nil {
-		c.error(w, err, o)
+		c.error(w, r, err, o)
 		return
 	}
 
@@ -27,7 +27,7 @@ func (c config) update(o *model.Object, w http.ResponseWriter, r *http.Request) 
 
 	recovered_data, err := o.Update(data...)
 	if err != nil {
-		c.error(w, err, o)
+		c.error(w, r, err, o)
 		return
 	}
 

@@ -15,13 +15,15 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 		action_type, handler_name := getMethodAndObjectFromPath(r.URL.Path)
 
-		PrintInfo(fmt.Sprintf("[%s]: action: [%s] handler: [%s]", r.Method, action_type, handler_name))
+		if action_type != "" {
+			PrintInfo(fmt.Sprintf("[%s]: [%s]: [%s]", r.Method, action_type, handler_name))
+		}
 
 		switch action_type {
 
 		case "create":
 			if r.Method != http.MethodPost {
-				c.error(w, fmt.Errorf("método %v no permitido para crear", r.Method), nil)
+				c.error(w, r, fmt.Errorf("método %v no permitido para crear", r.Method), nil)
 				return
 			}
 
@@ -34,7 +36,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 			if err != nil {
 				// fmt.Println("HERE 2 ", " action ", action_type, err)
 
-				c.error(w, err, h)
+				c.error(w, r, err, h)
 				return
 			}
 
@@ -48,20 +50,20 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 		case "read":
 			h, err := c.isHandlerOk(action_type, handler_name)
 			if err != nil {
-				c.error(w, err, h)
+				c.error(w, r, err, h)
 				return
 			}
 			c.read(h, w, r)
 
 		case "update":
 			if r.Method != http.MethodPost {
-				c.error(w, fmt.Errorf("método %v no permitido para actualizar", r.Method), nil)
+				c.error(w, r, fmt.Errorf("método %v no permitido para actualizar", r.Method), nil)
 				return
 			}
 
 			h, err := c.isHandlerOk(action_type, handler_name)
 			if err != nil {
-				c.error(w, err, h)
+				c.error(w, r, err, h)
 				return
 			}
 
@@ -69,13 +71,13 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 		case "delete":
 			if r.Method != http.MethodPost {
-				c.error(w, fmt.Errorf("método %v no permitido para eliminar", r.Method), nil)
+				c.error(w, r, fmt.Errorf("método %v no permitido para eliminar", r.Method), nil)
 				return
 			}
 
 			h, err := c.isHandlerOk(action_type, handler_name)
 			if err != nil {
-				c.error(w, err, h)
+				c.error(w, r, err, h)
 				return
 			}
 
@@ -86,13 +88,13 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 			// fmt.Println("ROUTER API READ FILE")
 
 			if r.Method != http.MethodGet {
-				c.error(w, fmt.Errorf("método %v no permitido en el Manejador de archivos", r.Method), nil)
+				c.error(w, r, fmt.Errorf("método %v no permitido en el Manejador de archivos", r.Method), nil)
 				return
 			}
 
 			h, err := c.isHandlerOk(action_type, handler_name)
 			if err != nil {
-				c.error(w, err, h)
+				c.error(w, r, err, h)
 				return
 			}
 
@@ -100,7 +102,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 		case "static":
 			if r.Method != http.MethodGet {
-				c.error(w, fmt.Errorf("método %v no permitido para archivos estáticos", r.Method), nil)
+				c.error(w, r, fmt.Errorf("método %v no permitido para archivos estáticos", r.Method), nil)
 				return
 			}
 
@@ -113,6 +115,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 				http.ServeFile(w, r, INDEX_FOLDER+"/index.html")
 			} else {
+				logError(w, r, fmt.Errorf("error not found %v", r.URL.Path))
 				http.NotFound(w, r)
 			}
 		}

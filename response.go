@@ -2,6 +2,7 @@ package api
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/cdvelop/model"
@@ -35,6 +36,13 @@ func (c config) success(w http.ResponseWriter, action, message string, o *model.
 	c.jsonResponse(w, http.StatusOK, action, message, o, data...)
 }
 
-func (c config) error(w http.ResponseWriter, err error, o *model.Object) {
+func (c config) error(w http.ResponseWriter, r *http.Request, err error, o *model.Object) {
+
+	logError(w, r, err)
+
 	c.jsonResponse(w, http.StatusBadRequest, "error", err.Error(), o)
+}
+
+func logError(w http.ResponseWriter, r *http.Request, err error) {
+	log.Printf("%v %v %v", r.Method, r.RemoteAddr, err)
 }
