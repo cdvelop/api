@@ -15,7 +15,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 		action_type, handler_name := getMethodAndObjectFromPath(r.URL.Path)
 
-		Print("info", fmt.Sprintf("[%s]: action: [%s] handler: [%s]", r.Method, action_type, handler_name))
+		PrintInfo(fmt.Sprintf("[%s]: action: [%s] handler: [%s]", r.Method, action_type, handler_name))
 
 		switch action_type {
 
