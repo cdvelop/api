@@ -11,7 +11,7 @@ require (
 )
 
 require (
-	github.com/cdvelop/gotools v0.0.21
+	github.com/cdvelop/gotools v0.0.22
 	golang.org/x/text v0.9.0 // indirect
 )
 
@@ -22,3 +22,5 @@ replace github.com/cdvelop/cutkey => ../cutkey
 replace github.com/cdvelop/input => ../input
 
 replace github.com/cdvelop/testools => ../testools
+
+replace github.com/cdvelop/gotools => ../gotools

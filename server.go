@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	. "github.com/cdvelop/gotools"
 )
 
 func (c config) StartServer() {
@@ -14,11 +16,9 @@ func (c config) StartServer() {
 		Handler: mux,
 	}
 
-	// go func() {
-	fmt.Printf("Servidor escuchando en http://%s/\n", addr)
+	Print("ok", fmt.Sprintf("Servidor escuchando en http://%s/", addr))
 	if err := server.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}
-	// }()
 
 }

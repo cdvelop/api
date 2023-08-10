@@ -4,17 +4,18 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+
+	. "github.com/cdvelop/gotools"
 )
 
 func (c config) ServeMuxAndRoutes() *http.ServeMux {
-
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
 		action_type, handler_name := getMethodAndObjectFromPath(r.URL.Path)
 
-		// fmt.Printf("action_type: [%s] handler_name: [%s] method[%s]\n", action_type, handler_name, r.Method)
+		Print("info", fmt.Sprintf("[%s]: action: [%s] handler: [%s]", r.Method, action_type, handler_name))
 
 		switch action_type {
 
