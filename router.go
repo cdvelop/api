@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	. "github.com/cdvelop/gotools"
+	. "github.com/cdvelop/output"
 )
 
 func (c config) ServeMuxAndRoutes() *http.ServeMux {
@@ -16,7 +16,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 		action_type, handler_name := getMethodAndObjectFromPath(r.URL.Path)
 
 		if action_type != "" {
-			PrintInfo(fmt.Sprintf("[%s]: [%s]: [%s]", r.Method, action_type, handler_name))
+			PrintInfo(fmt.Sprintf("[%v]: [%v]: [%v]", r.Method, action_type, handler_name))
 		}
 
 		switch action_type {

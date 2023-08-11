@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	. "github.com/cdvelop/gotools"
+	. "github.com/cdvelop/output"
 )
 
 func (c config) StartServer() {
