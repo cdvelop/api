@@ -6,7 +6,7 @@ require github.com/cdvelop/model v0.0.37
 
 require (
 	github.com/cdvelop/cutkey v0.6.0
-	github.com/cdvelop/input v0.0.17
+	github.com/cdvelop/input v0.0.19
 	github.com/cdvelop/testools v0.0.3
 )
 
