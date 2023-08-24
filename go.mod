@@ -11,7 +11,7 @@ require (
 )
 
 require (
-	github.com/cdvelop/gotools v0.0.26
+	github.com/cdvelop/gotools v0.0.30
 	github.com/cdvelop/output v0.0.2
 	golang.org/x/text v0.12.0 // indirect
 )
