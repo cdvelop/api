@@ -112,8 +112,10 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 			if r.URL.Path == "/" && r.Method == http.MethodGet {
 
 				// add headers to index response
-				for k, v := range c.HeaderBackendRequest() {
-					w.Header().Add(k, v)
+				if c.headerHandler != nil {
+					for k, v := range c.headerHandler.HeaderBackendRequest() {
+						w.Header().Add(k, v)
+					}
 				}
 				// w.Header.Set()
 				// fmt.Fprint(w, "¡Hola! Esta es la página principal.")

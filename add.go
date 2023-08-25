@@ -14,14 +14,14 @@ func Add(modules []*model.Module, h model.BackendHeaderHandler, options ...strin
 	SetupLogsToFile("app")
 
 	c := config{
-		Cut:                  nil,
-		createHandlers:       []*model.Object{},
-		readHandlers:         []*model.Object{},
-		updateHandlers:       []*model.Object{},
-		deleteHandlers:       []*model.Object{},
-		fileHandlers:         []*model.Object{},
-		static_cache:         "public, max-age=86400", // Configurar el encabezado de caché para 1 día
-		BackendHeaderHandler: h,
+		Cut:            nil,
+		createHandlers: []*model.Object{},
+		readHandlers:   []*model.Object{},
+		updateHandlers: []*model.Object{},
+		deleteHandlers: []*model.Object{},
+		fileHandlers:   []*model.Object{},
+		static_cache:   "public, max-age=86400", // Configurar el encabezado de caché para 1 día
+		headerHandler:  h,
 	}
 
 	var registered = make(map[string]struct{})
