@@ -2,11 +2,11 @@ module github.com/cdvelop/api
 
 go 1.20
 
-require github.com/cdvelop/model v0.0.41
+require github.com/cdvelop/model v0.0.42
 
 require (
 	github.com/cdvelop/cutkey v0.6.0
-	github.com/cdvelop/input v0.0.21
+	github.com/cdvelop/input v0.0.24
 	github.com/cdvelop/testools v0.0.3
 )
 
