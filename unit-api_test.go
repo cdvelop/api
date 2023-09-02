@@ -10,15 +10,9 @@ import (
 	"github.com/cdvelop/testools"
 )
 
-type header struct{}
-
-func (header) HeaderBackendRequest() map[string]string {
-	return map[string]string{"Test-Header": "valor header test"}
-}
-
 func Test_Api(t *testing.T) {
 
-	conf := api.Add([]*model.Module{product}, header{})
+	conf := api.Add([]*model.Module{product}, nil)
 
 	mux := conf.ServeMuxAndRoutes()
 

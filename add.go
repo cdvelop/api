@@ -9,7 +9,7 @@ import (
 // options:
 // static cache duración de archivos estáticos en el navegador
 // ej: "cache:year" (un año), week (semana), month (mes) default day. NOTE: modo dev = no-cache
-func Add(modules []*model.Module, h model.BackendHeaderHandler, options ...string) *config {
+func Add(modules []*model.Module, a model.BackendAuthHandler, options ...string) *config {
 
 	SetupLogsToFile("app")
 
@@ -21,7 +21,11 @@ func Add(modules []*model.Module, h model.BackendHeaderHandler, options ...strin
 		deleteHandlers: []*model.Object{},
 		fileHandlers:   []*model.Object{},
 		static_cache:   "public, max-age=86400", // Configurar el encabezado de caché para 1 día
-		headerHandler:  h,
+		auth:           a,
+	}
+
+	if c.auth == nil {
+		c.auth = model.DefaultAuthHandler{}
 	}
 
 	var registered = make(map[string]struct{})

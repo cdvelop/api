@@ -2,7 +2,11 @@ package api
 
 import (
 	"fmt"
+	"html/template"
+	"log"
 	"net/http"
+	"os"
+	"path/filepath"
 	"strings"
 
 	. "github.com/cdvelop/output"
@@ -111,16 +115,30 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 		default:
 			if r.URL.Path == "/" && r.Method == http.MethodGet {
 
-				// add headers to index response
-				if c.headerHandler != nil {
-					for k, v := range c.headerHandler.HeaderBackendRequest() {
-						w.Header().Add(k, v)
-					}
+				index_content, err := os.ReadFile(filepath.Join(INDEX_FOLDER, "index.html"))
+				if err != nil {
+					log.Println(err)
+					return
 				}
+
+				t, err := template.New("").Parse(string(index_content))
+				if err != nil {
+					log.Println(err)
+					return
+				}
+
+				err = t.Execute(w, c.auth.AddBootDataActions())
+				if err != nil {
+					logError(w, r, fmt.Errorf("error al retornar pagina %v", err))
+					return
+				}
+
 				// w.Header.Set()
 				// fmt.Fprint(w, "¡Hola! Esta es la página principal.")
 
-				http.ServeFile(w, r, INDEX_FOLDER+"/index.html")
+				// w.Write()
+
+				// http.ServeFile(w, r, INDEX_FOLDER+"/index.html")
 			} else {
 				logError(w, r, fmt.Errorf("error not found %v", r.URL.Path))
 				http.NotFound(w, r)

@@ -18,5 +18,5 @@ type config struct {
 	developer_mode bool
 	static_cache   string
 
-	headerHandler model.BackendHeaderHandler
+	auth model.BackendAuthHandler
 }
