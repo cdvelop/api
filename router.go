@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/cdvelop/model"
 	. "github.com/cdvelop/output"
 )
 
@@ -127,7 +128,42 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 					return
 				}
 
-				err = t.Execute(w, c.auth.AddBootDataActions())
+				// var responses []model.Response
+				// var data []byte
+
+				// user := model.User{
+				// 	Token:          "123",
+				// 	Ip:             "",
+				// 	Name:           "Juan Ortiz",
+				// 	Area:           "",
+				// 	AccessLevel:    "",
+				// 	LastConnection: "",
+				// }
+
+				// for _, o := range c.bootHandlers {
+				// 	PrintError("boot handler:" + o.Name)
+
+				// 	resp, err := o.AddBootResponse(&user)
+				// 	if err != nil {
+				// 		PrintError("error boot response:", o.Name, err.Error())
+				// 	} else if len(resp) != 0 {
+				// 		responses = append(responses, resp...)
+				// 	}
+
+				// }
+
+				// data, err = c.EncodeResponses(responses)
+				// if err != nil {
+				// 	log.Println(err)
+				// 	return
+				// }
+
+				var actions = model.BootActions{
+					JsonBootActions: "sin data x",
+					// JsonBootActions: string(data),
+				}
+
+				err = t.Execute(w, actions)
 				if err != nil {
 					logError(w, r, fmt.Errorf("error al retornar pagina %v", err))
 					return

@@ -15,6 +15,7 @@ func Add(modules []*model.Module, a model.BackendAuthHandler, options ...string)
 
 	c := config{
 		Cut:            nil,
+		bootHandlers:   []*model.Object{},
 		createHandlers: []*model.Object{},
 		readHandlers:   []*model.Object{},
 		updateHandlers: []*model.Object{},
@@ -22,10 +23,6 @@ func Add(modules []*model.Module, a model.BackendAuthHandler, options ...string)
 		fileHandlers:   []*model.Object{},
 		static_cache:   "public, max-age=86400", // Configurar el encabezado de caché para 1 día
 		auth:           a,
-	}
-
-	if c.auth == nil {
-		c.auth = model.DefaultAuthHandler{}
 	}
 
 	var registered = make(map[string]struct{})
@@ -38,6 +35,10 @@ func Add(modules []*model.Module, a model.BackendAuthHandler, options ...string)
 			if o != nil {
 
 				if _, exist := registered[o.Name]; !exist {
+
+					if o.BootResponse != nil {
+						c.bootHandlers = append(c.bootHandlers, o)
+					}
 
 					if o.CreateApi != nil {
 						// fmt.Println("createHandlers ", o.Name)

@@ -16,7 +16,7 @@ func (c config) StartServer() {
 		Handler: mux,
 	}
 
-	PrintOK(fmt.Sprintf("Servidor escuchando en http://%s/", addr))
+	PrintOK(fmt.Sprintf("Servidor escuchando en http://%v/", addr))
 	if err := server.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}

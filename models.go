@@ -7,6 +7,7 @@ import (
 
 type config struct {
 	*cutkey.Cut
+	bootHandlers []*model.Object
 
 	createHandlers []*model.Object
 	readHandlers   []*model.Object
