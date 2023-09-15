@@ -2,18 +2,18 @@ module github.com/cdvelop/api
 
 go 1.20
 
-require github.com/cdvelop/model v0.0.45
+require github.com/cdvelop/model v0.0.46
 
 require (
 	github.com/cdvelop/cutkey v0.6.0
-	github.com/cdvelop/input v0.0.26
-	github.com/cdvelop/testools v0.0.3
+	github.com/cdvelop/input v0.0.29
+	github.com/cdvelop/testools v0.0.12
 )
 
 require (
-	github.com/cdvelop/gotools v0.0.30
-	github.com/cdvelop/output v0.0.2
-	golang.org/x/text v0.12.0 // indirect
+	github.com/cdvelop/gotools v0.0.37
+	github.com/cdvelop/output v0.0.3
+	golang.org/x/text v0.13.0 // indirect
 )
 
 replace github.com/cdvelop/model => ../model

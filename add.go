@@ -67,7 +67,7 @@ func Add(modules []*model.Module, a model.BackendAuthHandler, options ...string)
 
 					registered[o.Name] = struct{}{}
 
-					if o.ModuleName() == m.ModuleName {
+					if o.ModuleName == m.ModuleName {
 						module_objects = append(module_objects, o)
 					}
 

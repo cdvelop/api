@@ -17,14 +17,15 @@ type module struct {
 func ModuleProduct() *model.Module {
 	m := module{}
 
-	newModule := model.Module{
+	newModule := &model.Module{
 		ModuleName: "product",
 		Title:      "Producto",
+		Objects:    nil,
 	}
 
 	newObject := model.Object{
 		Name: "product",
-		BackendRequest: model.BackendRequest{
+		BackendHandler: model.BackendHandler{
 			CreateApi: m,
 			ReadApi:   m,
 			UpdateApi: m,
@@ -36,13 +37,14 @@ func ModuleProduct() *model.Module {
 			{Name: "id_product", Legend: "Id", Input: input.Pk()},
 			{Name: "name", Legend: "Nombre", Input: input.Text()},
 		},
+		Module: newModule,
 	}
 
-	newObject.AddModule(&newModule)
+	newModule.Objects = append(newModule.Objects, &newObject)
 
 	// fmt.Printf("TAMAÑO OBJETOS MODULO: [%v]\n", len(newModule.Objects))
 
-	return &newModule
+	return newModule
 }
 
 func (m module) Create(params ...map[string]string) error {
