@@ -7,7 +7,7 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func (c config) delete(o *model.Object, w http.ResponseWriter, r *http.Request) {
+func (c config) delete(u *model.User, o *model.Object, w http.ResponseWriter, r *http.Request) {
 
 	// fmt.Printf("Estás en la página de eliminación de %s\n", o.Name)
 
@@ -23,7 +23,7 @@ func (c config) delete(o *model.Object, w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	recovered_data, err := o.Delete(data...)
+	recovered_data, err := o.Delete(u, data...)
 	if err != nil {
 		c.error(w, r, err, o)
 		return

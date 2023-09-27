@@ -21,7 +21,7 @@ func (c config) jsonResponse(w http.ResponseWriter, code int, action, message st
 		o = *obj_in
 	}
 
-	jsonBytes, err := c.EncodeResponses([]model.Response{o.Response(action, message, data_out...)})
+	jsonBytes, err := c.EncodeResponses([]model.Response{o.Response(data_out, action, message)})
 	if err != nil {
 		fmt.Fprintln(w, `{"Action":"error", "Message":"`+err.Error()+`"}`)
 		return

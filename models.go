@@ -1,6 +1,8 @@
 package api
 
 import (
+	"net/http"
+
 	"github.com/cdvelop/cutkey"
 	"github.com/cdvelop/model"
 )
@@ -19,5 +21,9 @@ type config struct {
 	developer_mode bool
 	static_cache   string
 
-	auth model.BackendAuthHandler
+	auth authAdapter
+}
+
+type authAdapter interface {
+	GetUser(r *http.Request) *model.User
 }

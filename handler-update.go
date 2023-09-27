@@ -7,7 +7,7 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func (c config) update(o *model.Object, w http.ResponseWriter, r *http.Request) {
+func (c config) update(u *model.User, o *model.Object, w http.ResponseWriter, r *http.Request) {
 
 	data, err := cutkey.Decode(r.Body, o)
 	if err != nil {
@@ -25,7 +25,7 @@ func (c config) update(o *model.Object, w http.ResponseWriter, r *http.Request) 
 
 	// fmt.Println("OBJETO VALIDADO: ", o.Name)
 
-	recovered_data, err := o.Update(data...)
+	recovered_data, err := o.Update(u, data...)
 	if err != nil {
 		c.error(w, r, err, o)
 		return

@@ -2,6 +2,7 @@ package api_test
 
 import (
 	"log"
+	"net/http"
 	"net/http/httptest"
 	"testing"
 
@@ -10,9 +11,26 @@ import (
 	"github.com/cdvelop/testools"
 )
 
+type auth struct{}
+
+func (auth) GetUser(r *http.Request) *model.User {
+
+	user := model.User{
+		Token:          "123",
+		Id:             "16357250724400",
+		Ip:             "172.0.0.1", //"172.0.0.41"
+		Name:           "don Juanito test",
+		Area:           "s",
+		AccessLevel:    "",
+		LastConnection: "",
+	}
+
+	return &user
+}
+
 func Test_Api(t *testing.T) {
 
-	conf := api.Add([]*model.Module{product}, nil)
+	conf := api.Add([]*model.Module{product}, auth{})
 
 	mux := conf.ServeMuxAndRoutes()
 

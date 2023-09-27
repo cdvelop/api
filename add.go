@@ -9,7 +9,7 @@ import (
 // options:
 // static cache duración de archivos estáticos en el navegador
 // ej: "cache:year" (un año), week (semana), month (mes) default day. NOTE: modo dev = no-cache
-func Add(modules []*model.Module, a model.BackendAuthHandler, options ...string) *config {
+func Add(modules []*model.Module, a authAdapter, options ...string) *config {
 
 	SetupLogsToFile("app")
 

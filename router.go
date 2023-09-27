@@ -18,9 +18,15 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
+		u := c.auth.GetUser(r)
+
 		action_type, handler_name := getMethodAndObjectFromPath(r.URL.Path)
 
-		if action_type != "" {
+		if u == nil { // si el usuario no es valido solo puede acceder a la pagina principal
+			action_type = ""
+		}
+
+		if action_type != "" && r.Method != "GET" {
 			PrintInfo(fmt.Sprintf("[%v]: [%v]: [%v]", r.Method, action_type, handler_name))
 		}
 
@@ -46,10 +52,10 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 			}
 
 			if action_type == "file" {
-				c.createFile(h, w, r)
+				c.createFile(u, h, w, r)
 
 			} else {
-				c.create(h, w, r)
+				c.create(u, h, w, r)
 			}
 
 		case "read":
@@ -58,7 +64,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 				c.error(w, r, err, h)
 				return
 			}
-			c.read(h, w, r)
+			c.read(u, h, w, r)
 
 		case "update":
 			if r.Method != http.MethodPost {
@@ -72,7 +78,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 				return
 			}
 
-			c.update(h, w, r)
+			c.update(u, h, w, r)
 
 		case "delete":
 			if r.Method != http.MethodPost {
@@ -86,7 +92,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 				return
 			}
 
-			c.delete(h, w, r)
+			c.delete(u, h, w, r)
 
 		case "file":
 
@@ -103,7 +109,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 				return
 			}
 
-			c.readFile(h, w, r)
+			c.readFile(u, h, w, r)
 
 		case "static":
 			if r.Method != http.MethodGet {
@@ -128,39 +134,30 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 					return
 				}
 
-				// var responses []model.Response
-				// var data []byte
+				var responses []model.Response
+				var data []byte
 
-				// user := model.User{
-				// 	Token:          "123",
-				// 	Ip:             "",
-				// 	Name:           "Juan Ortiz",
-				// 	Area:           "",
-				// 	AccessLevel:    "",
-				// 	LastConnection: "",
-				// }
+				for _, o := range c.bootHandlers {
+					PrintError("boot handler:" + o.Name)
 
-				// for _, o := range c.bootHandlers {
-				// 	PrintError("boot handler:" + o.Name)
+					resp, err := o.AddBootResponse(u)
+					if err != nil {
+						PrintError("error boot response:", o.Name, err.Error())
+					} else if len(resp) != 0 {
+						responses = append(responses, resp...)
+					}
 
-				// 	resp, err := o.AddBootResponse(&user)
-				// 	if err != nil {
-				// 		PrintError("error boot response:", o.Name, err.Error())
-				// 	} else if len(resp) != 0 {
-				// 		responses = append(responses, resp...)
-				// 	}
+				}
 
-				// }
-
-				// data, err = c.EncodeResponses(responses)
-				// if err != nil {
-				// 	log.Println(err)
-				// 	return
-				// }
+				data, err = c.EncodeResponses(responses)
+				if err != nil {
+					log.Println(err)
+					return
+				}
 
 				var actions = model.BootActions{
-					JsonBootActions: "sin data x",
-					// JsonBootActions: string(data),
+					// JsonBootActions: "sin data x",
+					JsonBootActions: string(data),
 				}
 
 				err = t.Execute(w, actions)

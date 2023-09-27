@@ -7,7 +7,7 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func (c config) create(o *model.Object, w http.ResponseWriter, r *http.Request) {
+func (c config) create(u *model.User, o *model.Object, w http.ResponseWriter, r *http.Request) {
 
 	// fmt.Printf("Estás en el Manejador de creación del objeto %s\n", o.Name)
 
@@ -23,7 +23,7 @@ func (c config) create(o *model.Object, w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	err = o.Create(data...)
+	err = o.Create(u, data...)
 	if err != nil {
 		c.error(w, r, err, o)
 		return
@@ -32,7 +32,7 @@ func (c config) create(o *model.Object, w http.ResponseWriter, r *http.Request) 
 	c.success(w, "create", "ok", o, data...)
 }
 
-func (c config) createFile(o *model.Object, w http.ResponseWriter, r *http.Request) {
+func (c config) createFile(u *model.User, o *model.Object, w http.ResponseWriter, r *http.Request) {
 	// retorna objeto estático ej imagen.jpg
 	// fmt.Printf("Estás en el Manejador de subida de archivos %s\n", o.Name)
 
@@ -44,7 +44,7 @@ func (c config) createFile(o *model.Object, w http.ResponseWriter, r *http.Reque
 
 	// fmt.Println("OBJETO: ", o)
 
-	data, err := o.CreateFile(r, params)
+	data, err := o.CreateFile(u, r, params)
 	if err != nil {
 		c.error(w, r, err, o)
 		return

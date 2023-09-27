@@ -6,7 +6,7 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func (c config) read(o *model.Object, w http.ResponseWriter, r *http.Request) {
+func (c config) read(u *model.User, o *model.Object, w http.ResponseWriter, r *http.Request) {
 
 	// fmt.Printf("Estás en el Manejador de lectura de data de %s\n", o.Name)
 
@@ -16,7 +16,7 @@ func (c config) read(o *model.Object, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data, err := o.Read(params)
+	data, err := o.Read(u, params)
 	if err != nil {
 		c.error(w, r, err, o)
 		return
@@ -25,7 +25,7 @@ func (c config) read(o *model.Object, w http.ResponseWriter, r *http.Request) {
 	c.success(w, "read", "ok", o, data...)
 }
 
-func (c config) readFile(o *model.Object, w http.ResponseWriter, r *http.Request) {
+func (c config) readFile(u *model.User, o *model.Object, w http.ResponseWriter, r *http.Request) {
 	// retorna objeto estático ej imagen.jpg
 	// fmt.Printf("Estás en la página de lectura del archivo %s\n", o.Name)
 
@@ -35,7 +35,7 @@ func (c config) readFile(o *model.Object, w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	file_path, err := o.FilePath(params)
+	file_path, err := o.FilePath(u, params)
 	if err != nil {
 		c.error(w, r, err, o)
 		return
