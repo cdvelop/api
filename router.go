@@ -138,8 +138,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 				var data []byte
 
 				for _, o := range c.bootHandlers {
-					PrintError("boot handler:" + o.Name)
-
+					// PrintError("boot handler:" + o.Name)
 					resp, err := o.AddBootResponse(u)
 					if err != nil {
 						PrintError("error boot response:", o.Name, err.Error())
