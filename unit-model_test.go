@@ -5,6 +5,7 @@ import (
 
 	"github.com/cdvelop/input"
 	"github.com/cdvelop/model"
+	"github.com/cdvelop/unixid"
 )
 
 var (
@@ -35,7 +36,7 @@ func ModuleProduct() *model.Module {
 		},
 
 		Fields: []model.Field{
-			{Name: "id_product", Legend: "Id", Input: input.Pk()},
+			{Name: "id_product", Legend: "Id", Input: unixid.InputPK()},
 			{Name: "name", Legend: "Nombre", Input: input.Text()},
 		},
 		Module: newModule,

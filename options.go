@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"github.com/cdvelop/gotools"
-	. "github.com/cdvelop/output"
 )
 
 func (c *config) processOptions(options ...string) {
@@ -41,13 +40,7 @@ func (c *config) processOptions(options ...string) {
 	for _, arg := range os.Args {
 		if arg == "dev" {
 			c.developer_mode = true
-			c.static_cache = "no-cache"
-			PrintWarning("*** Api en Modo Desarrollo ***\n")
 		}
-	}
-
-	if !c.developer_mode {
-		PrintOK("*** Api en Modo Producción ***\n")
 	}
 
 }

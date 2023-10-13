@@ -9,6 +9,7 @@ import (
 // options:
 // static cache duración de archivos estáticos en el navegador
 // ej: "cache:year" (un año), week (semana), month (mes) default day. NOTE: modo dev = no-cache
+// ej: authAdapter = GetUser(r *http.Request) *model.User. nil case default dev user
 func Add(modules []*model.Module, a authAdapter, options ...string) *config {
 
 	SetupLogsToFile("app")
@@ -30,6 +31,8 @@ func Add(modules []*model.Module, a authAdapter, options ...string) *config {
 	var module_objects []*model.Object
 
 	for _, m := range modules {
+
+		// fmt.Println("**TAMAÑO OBJETOS:", m.ModuleName, len(m.Objects))
 
 		for _, o := range m.Objects {
 			if o != nil {
@@ -67,9 +70,7 @@ func Add(modules []*model.Module, a authAdapter, options ...string) *config {
 
 					registered[o.Name] = struct{}{}
 
-					if o.ModuleName == m.ModuleName {
-						module_objects = append(module_objects, o)
-					}
+					module_objects = append(module_objects, o)
 
 				}
 			}
@@ -79,6 +80,18 @@ func Add(modules []*model.Module, a authAdapter, options ...string) *config {
 	c.Cut = cutkey.Add(module_objects...)
 
 	c.processOptions(options...)
+
+	if c.auth == nil {
+		c.auth = auth{}
+		c.developer_mode = true
+	}
+
+	if !c.developer_mode {
+		PrintOK("*** Api en Modo Producción ***\n")
+	} else {
+		PrintWarning("*** Api en Modo Desarrollo ***\n")
+		c.static_cache = "no-cache"
+	}
 
 	return &c
 }

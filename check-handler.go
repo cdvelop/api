@@ -8,6 +8,10 @@ import (
 
 func (c config) isHandlerOk(action_type, api_name string) (*model.Object, error) {
 
+	// for _, f := range c.fileHandlers {
+	// 	fmt.Println("FILE HANDLERS: ", f.Name)
+	// }
+
 	switch action_type {
 
 	case "create":
@@ -46,10 +50,6 @@ func (c config) isHandlerOk(action_type, api_name string) (*model.Object, error)
 			}
 		}
 	}
-
-	// for _, f := range c.fileHandlers {
-	// 	fmt.Println("FILE HANDLERS: ", f.Name)
-	// }
 
 	return nil, fmt.Errorf("no existe el controlador: %v para la acción: %v", api_name, action_type)
 }

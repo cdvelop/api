@@ -46,7 +46,6 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 			h, err := c.isHandlerOk(action_type, handler_name)
 			if err != nil {
 				// fmt.Println("HERE 2 ", " action ", action_type, err)
-
 				c.error(w, r, err, h)
 				return
 			}
