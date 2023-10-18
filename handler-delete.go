@@ -13,19 +13,19 @@ func (c config) delete(u *model.User, o *model.Object, w http.ResponseWriter, r 
 
 	data, err := cutkey.Decode(r.Body, o)
 	if err != nil {
-		c.error(w, r, err, o)
+		c.error(u, w, r, err, o)
 		return
 	}
 
 	err = o.ValidateData(false, true, data...)
 	if err != nil {
-		c.error(w, r, err, o)
+		c.error(u, w, r, err, o)
 		return
 	}
 
 	recovered_data, err := o.Delete(u, data...)
 	if err != nil {
-		c.error(w, r, err, o)
+		c.error(u, w, r, err, o)
 		return
 	}
 

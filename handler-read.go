@@ -12,13 +12,13 @@ func (c config) read(u *model.User, o *model.Object, w http.ResponseWriter, r *h
 
 	params, err := paramsCheckIn(false, false, false, o, w, r)
 	if err != nil {
-		c.error(w, r, err, o)
+		c.error(u, w, r, err, o)
 		return
 	}
 
 	data, err := o.Read(u, params)
 	if err != nil {
-		c.error(w, r, err, o)
+		c.error(u, w, r, err, o)
 		return
 	}
 
@@ -31,13 +31,13 @@ func (c config) readFile(u *model.User, o *model.Object, w http.ResponseWriter, 
 
 	params, err := paramsCheckIn(false, false, false, o, w, r)
 	if err != nil {
-		c.error(w, r, err, o)
+		c.error(u, w, r, err, o)
 		return
 	}
 
 	file_path, err := o.FilePath(u, params)
 	if err != nil {
-		c.error(w, r, err, o)
+		c.error(u, w, r, err, o)
 		return
 	}
 
