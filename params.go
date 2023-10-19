@@ -30,16 +30,17 @@ func getParams(o *model.Object, content_is_file bool, w http.ResponseWriter, r *
 
 	if content_is_file {
 
-		r.Body = http.MaxBytesReader(w, r.Body, o.MaximumFileSize()) // 220 KB
+		r.Body = http.MaxBytesReader(w, r.Body, o.ConfigFile().MaximumFileSize) // 220 KB
 
-		err := r.ParseMultipartForm(o.MaximumFileSize()) // Specify the maximum memory allowed for parsing (e.g., 10 MB)
+		err := r.ParseMultipartForm(o.ConfigFile().MaximumFileSize) // Specify the maximum memory allowed for parsing (e.g., 10 MB)
 		if err != nil {
 			if strings.Contains(err.Error(), "multipart") {
 				return nil, fmt.Errorf("CreateFile error ParseMultipartForm %v", err)
 			} else {
-				return nil, fmt.Errorf("error tamaño de archivo excedido máximo admitido: %v kb", o.MaximumFileSize())
+				return nil, fmt.Errorf("error tamaño de archivo excedido máximo admitido: %v kb", o.ConfigFile().MaximumFileSize)
 			}
 		}
+
 	} else {
 		err := r.ParseForm()
 		if err != nil {

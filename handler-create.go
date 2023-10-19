@@ -31,24 +31,3 @@ func (c config) create(u *model.User, o *model.Object, w http.ResponseWriter, r 
 
 	c.success(w, "create", "ok", o, data...)
 }
-
-func (c config) createFile(u *model.User, o *model.Object, w http.ResponseWriter, r *http.Request) {
-	// retorna objeto estático ej imagen.jpg
-	// fmt.Printf("Estás en el Manejador de subida de archivos %s\n", o.Name)
-
-	params, err := paramsCheckIn(true, false, true, o, w, r)
-	if err != nil {
-		c.error(u, w, r, err, o)
-		return
-	}
-
-	// fmt.Println("OBJETO: ", o)
-
-	data, err := o.CreateFile(u, r, params)
-	if err != nil {
-		c.error(u, w, r, err, o)
-		return
-	}
-
-	c.success(w, "create", "ok", o, data...)
-}

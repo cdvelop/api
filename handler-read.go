@@ -35,7 +35,7 @@ func (c config) readFile(u *model.User, o *model.Object, w http.ResponseWriter, 
 		return
 	}
 
-	file_path, err := o.FilePath(u, params)
+	file_path, err := o.GetFilePath(u, params)
 	if err != nil {
 		c.error(u, w, r, err, o)
 		return

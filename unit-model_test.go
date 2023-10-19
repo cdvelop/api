@@ -1,8 +1,6 @@
 package api_test
 
 import (
-	"net/http"
-
 	"github.com/cdvelop/input"
 	"github.com/cdvelop/model"
 	"github.com/cdvelop/unixid"
@@ -75,17 +73,31 @@ func (m module) Delete(u *model.User, params ...map[string]string) ([]map[string
 	return []map[string]string{}, nil
 }
 
-func (m module) FilePath(u *model.User, params map[string]string) (string, error) {
+func (m module) GetFilePath(u *model.User, params map[string]string) (string, error) {
 	// fmt.Println("parámetros leer archivo recibidos:", params)
 	return "./README.md", nil
 }
 
-func (m module) CreateFile(u *model.User, r *http.Request, params map[string]string) ([]map[string]string, error) {
+func (m module) RegisterNewFile(header_name, upload_folder, file_name, extension string, form_data map[string]string) (map[string]string, error) {
 	// fmt.Println("Upload File:", r)
 
-	return []map[string]string{{"file": "./README.md"}}, nil
+	return map[string]string{"file": "./README.md"}, nil
 }
 
-func (m module) MaximumFileSize() int64 {
-	return 200
+func (m module) ConfigFile() *model.FileConfig {
+	return &model.FileConfig{
+		MaximumFilesAllowed: 6,
+		InputNameWithFiles:  "files",
+		MaximumFileSize:     0,
+		MaximumKbSize:       50,
+		AllowedExtensions:   ".jpg, .png, .jpeg",
+	}
+}
+
+func (module) FileName() string {
+	return "123"
+}
+
+func (module) UploadFolderPath(form_data map[string]string) string {
+	return "/"
 }
