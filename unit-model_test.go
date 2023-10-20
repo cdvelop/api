@@ -26,11 +26,11 @@ func ModuleProduct() *model.Module {
 		Name:  "product",
 		Table: "product",
 		BackendHandler: model.BackendHandler{
-			CreateApi: m,
-			ReadApi:   m,
-			UpdateApi: m,
-			DeleteApi: m,
-			FileApi:   m,
+			CreateApi:   m,
+			ReadApi:     m,
+			UpdateApi:   m,
+			DeleteApi:   m,
+			FileHandler: m,
 		},
 
 		Fields: []model.Field{
@@ -73,9 +73,9 @@ func (m module) Delete(u *model.User, params ...map[string]string) ([]map[string
 	return []map[string]string{}, nil
 }
 
-func (m module) GetFilePath(u *model.User, params map[string]string) (string, error) {
+func (m module) GetFilePathByID(params map[string]string) (file_path, file_area string, err error) {
 	// fmt.Println("parámetros leer archivo recibidos:", params)
-	return "./README.md", nil
+	return "./README.md", "A", nil
 }
 
 func (m module) RegisterNewFile(header_name, upload_folder, file_name, extension string, form_data map[string]string) (map[string]string, error) {

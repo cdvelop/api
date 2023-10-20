@@ -43,6 +43,11 @@ func (c config) error(u *model.User, w http.ResponseWriter, r *http.Request, err
 	c.jsonResponse(w, http.StatusBadRequest, "error", err.Error(), o)
 }
 
+func errorHttp(w http.ResponseWriter, err error, code int) {
+	w.WriteHeader(code)
+	fmt.Fprintln(w, `[{"o":["error","`+err.Error()+`"]}]`)
+}
+
 func logError(u *model.User, r *http.Request, err error) {
 
 	if u == nil {

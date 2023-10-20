@@ -36,9 +36,9 @@ var (
 		},
 
 		"se espera lectura fichero de productos ok": {
-			Endpoint:     "/file/" + product.Objects[0].Name,
+			Endpoint:     "/file?id=1",
 			Method:       "GET",
-			Data:         []map[string]string{{"id_product": "1"}},
+			Data:         []map[string]string{{}},
 			Object:       product.Objects[0],
 			ExpectedCode: 200,
 		},

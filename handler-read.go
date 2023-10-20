@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/cdvelop/model"
@@ -25,19 +26,25 @@ func (c config) read(u *model.User, o *model.Object, w http.ResponseWriter, r *h
 	c.success(w, "read", "ok", o, data...)
 }
 
-func (c config) readFile(u *model.User, o *model.Object, w http.ResponseWriter, r *http.Request) {
+func (c config) readFile(u *model.User, w http.ResponseWriter, r *http.Request) {
 	// retorna objeto estático ej imagen.jpg
-	// fmt.Printf("Estás en la página de lectura del archivo %s\n", o.Name)
+	params := make(map[string]string)
 
-	params, err := paramsCheckIn(false, false, false, o, w, r)
+	gerUrlParams(r, params)
+
+	fmt.Printf("Estás en la página de lectura archivo %s\n", params)
+
+	file_path, file_area, err := c.fileApi.GetFilePathByID(params)
 	if err != nil {
-		c.error(u, w, r, err, o)
+		errorHttp(w, err, http.StatusBadRequest)
 		return
 	}
 
-	file_path, err := o.GetFilePath(u, params)
-	if err != nil {
-		c.error(u, w, r, err, o)
+	fmt.Println("AREA ARCHIVO", file_area)
+	fmt.Println("AREA USUARIO", u.Area)
+
+	if file_area != u.Area {
+		errorHttp(w, model.Error("no autorizado para leer archivo"), http.StatusUnauthorized)
 		return
 	}
 

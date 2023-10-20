@@ -15,7 +15,7 @@ func paramsCheckIn(its_new, its_update_or_delete, content_is_file bool, o *model
 		return nil, err
 	}
 
-	// fmt.Println("PARÁMETROS RECIBIDOS: ", params)
+	fmt.Println("PARÁMETROS RECIBIDOS: ", params)
 
 	err = o.ValidateData(its_new, its_update_or_delete, params)
 	if err != nil {
@@ -57,15 +57,21 @@ func getParams(o *model.Object, content_is_file bool, w http.ResponseWriter, r *
 		}
 	}
 
+	gerUrlParams(r, params)
+
+	return params, nil
+}
+
+func gerUrlParams(r *http.Request, params_out map[string]string) {
+
 	for key, values := range r.URL.Query() {
-		if _, exists := params[key]; !exists {
+		if _, exists := params_out[key]; !exists {
 			if len(values) > 1 {
-				params[key] = strings.Join(values, ",")
+				params_out[key] = strings.Join(values, ",")
 			} else {
-				params[key] = values[0]
+				params_out[key] = values[0]
 			}
 		}
 	}
 
-	return params, nil
 }

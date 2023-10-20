@@ -16,7 +16,7 @@ func (auth) GetUser(r *http.Request) *model.User {
 		Id:             "123456789101112",
 		Ip:             "172.0.0.1",
 		Name:           "don Juanito dev test",
-		Area:           "d",
+		Area:           "A",
 		AccessLevel:    "1",
 		LastConnection: time.Now().Format("2006-01-02 15:04:05"),
 	}

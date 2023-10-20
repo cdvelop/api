@@ -101,13 +101,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 				return
 			}
 
-			h, err := c.isHandlerOk(action_type, handler_name)
-			if err != nil {
-				c.error(u, w, r, err, h)
-				return
-			}
-
-			c.readFile(u, h, w, r)
+			c.readFile(u, w, r)
 
 		case "static":
 			if r.Method != http.MethodGet {

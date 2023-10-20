@@ -17,6 +17,7 @@ type config struct {
 	deleteHandlers []*model.Object
 
 	fileHandlers []*model.Object
+	fileApi      model.FileApi
 
 	developer_mode bool
 	static_cache   string

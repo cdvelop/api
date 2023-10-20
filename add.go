@@ -22,8 +22,9 @@ func Add(modules []*model.Module, a authAdapter, options ...string) *config {
 		updateHandlers: []*model.Object{},
 		deleteHandlers: []*model.Object{},
 		fileHandlers:   []*model.Object{},
-		static_cache:   "public, max-age=86400", // Configurar el encabezado de caché para 1 día
-		auth:           a,
+
+		static_cache: "public, max-age=86400", // Configurar el encabezado de caché para 1 día
+		auth:         a,
 	}
 
 	var registered = make(map[string]struct{})
@@ -63,9 +64,15 @@ func Add(modules []*model.Module, a authAdapter, options ...string) *config {
 						c.deleteHandlers = append(c.deleteHandlers, o)
 					}
 
-					if o.FileApi != nil {
+					if o.FileHandler != nil {
 						// fmt.Println("fileHandlers ", o.Name)
 						c.fileHandlers = append(c.fileHandlers, o)
+
+						// agregamos file api al sistema solo si es nil
+						if c.fileApi == nil {
+							c.fileApi = o.FileHandler
+						}
+
 					}
 
 					registered[o.Name] = struct{}{}
