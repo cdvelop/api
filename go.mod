@@ -2,17 +2,16 @@ module github.com/cdvelop/api
 
 go 1.20
 
-require github.com/cdvelop/model v0.0.57
+require github.com/cdvelop/model v0.0.58
 
 require (
 	github.com/cdvelop/cutkey v0.6.0
 	github.com/cdvelop/fileserver v0.0.0-20231019144903-226983493529
-	github.com/cdvelop/input v0.0.40
+	github.com/cdvelop/input v0.0.41
 	github.com/cdvelop/testools v0.0.23
 )
 
 require (
-	github.com/cdvelop/fileinput v0.0.1 // indirect
 	github.com/cdvelop/timetools v0.0.7 // indirect
 	golang.org/x/net v0.17.0 // indirect
 )
