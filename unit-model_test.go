@@ -75,7 +75,7 @@ func (m module) Delete(u *model.User, params ...map[string]string) ([]map[string
 
 func (m module) GetFilePathByID(params map[string]string) (file_path, file_area string, err error) {
 	// fmt.Println("parámetros leer archivo recibidos:", params)
-	return "./README.md", "A", nil
+	return "./README.md", "s", nil
 }
 
 func (m module) RegisterNewFile(header_name, upload_folder, file_name, extension string, form_data map[string]string) (map[string]string, error) {

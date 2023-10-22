@@ -7,19 +7,19 @@ require github.com/cdvelop/model v0.0.59
 require (
 	github.com/cdvelop/cutkey v0.6.0
 	github.com/cdvelop/fileserver v0.0.0-20231019144903-226983493529
-	github.com/cdvelop/input v0.0.41
-	github.com/cdvelop/testools v0.0.23
+	github.com/cdvelop/input v0.0.43
+	github.com/cdvelop/testools v0.0.25
 )
 
 require (
-	github.com/cdvelop/timetools v0.0.7 // indirect
+	github.com/cdvelop/timetools v0.0.9 // indirect
 	golang.org/x/net v0.17.0 // indirect
 )
 
 require (
-	github.com/cdvelop/gotools v0.0.45
-	github.com/cdvelop/output v0.0.6
-	github.com/cdvelop/unixid v0.0.7
+	github.com/cdvelop/gotools v0.0.48
+	github.com/cdvelop/output v0.0.8
+	github.com/cdvelop/unixid v0.0.9
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	golang.org/x/text v0.13.0 // indirect
 )
