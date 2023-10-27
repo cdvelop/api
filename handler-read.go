@@ -40,8 +40,8 @@ func (c config) readFile(u *model.User, w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	fmt.Println("AREA ARCHIVO", file_area)
-	fmt.Println("AREA USUARIO", u.Area)
+	// fmt.Println("AREA ARCHIVO", file_area)
+	// fmt.Println("AREA USUARIO", u.Area)
 
 	if file_area != u.Area {
 		errorHttp(w, model.Error("no autorizado para leer archivo"), http.StatusUnauthorized)
