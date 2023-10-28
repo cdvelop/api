@@ -16,7 +16,7 @@ func (c config) createFile(u *model.User, o *model.Object, w http.ResponseWriter
 		return
 	}
 
-	data_out, err := fileserver.CreateFileInServer(r, o, form_data)
+	data_out, err := fileserver.CreateFileInServer(r, o, u.Area, form_data)
 	if err != nil {
 		c.error(u, w, r, err, o)
 		return

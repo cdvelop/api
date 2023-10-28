@@ -78,7 +78,7 @@ func (m module) GetFilePathByID(params map[string]string) (file_path, file_area 
 	return "./README.md", "s", nil
 }
 
-func (m module) RegisterNewFile(header_name, upload_folder, file_name, extension string, form_data map[string]string) (map[string]string, error) {
+func (m module) RegisterNewFile(new *model.FileNewToStore, form_data map[string]string) (map[string]string, error) {
 	// fmt.Println("Upload File:", r)
 
 	return map[string]string{"file": "./README.md"}, nil
@@ -94,7 +94,7 @@ func (m module) ConfigFile() *model.FileConfig {
 	}
 }
 
-func (module) FileName() string {
+func (module) GenerateFileNameOnDisk() string {
 	return "123"
 }
 

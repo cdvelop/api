@@ -15,7 +15,7 @@ func paramsCheckIn(its_new, its_update_or_delete, content_is_file bool, o *model
 		return nil, err
 	}
 
-	fmt.Println("PARÁMETROS RECIBIDOS: ", params)
+	// fmt.Println("PARÁMETROS RECIBIDOS: ", params)
 
 	err = o.ValidateData(its_new, its_update_or_delete, params)
 	if err != nil {
