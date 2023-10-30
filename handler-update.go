@@ -9,13 +9,12 @@ import (
 
 func (c config) update(u *model.User, o *model.Object, w http.ResponseWriter, r *http.Request) {
 
+	// fmt.Printf("Estás en la página de actualización del objeto %s\nData: %s\n", o.Name, u.Name)
 	data, err := cutkey.Decode(r.Body, o)
 	if err != nil {
 		c.error(u, w, r, err, o)
 		return
 	}
-
-	// fmt.Printf("Estás en la página de actualización del objeto %s\nData: %s\n", o.Name, data)
 
 	err = o.ValidateData(false, true, data...)
 	if err != nil {

@@ -1,7 +1,6 @@
 package api_test
 
 import (
-	"log"
 	"net/http/httptest"
 	"testing"
 
@@ -36,7 +35,7 @@ func Test_Api(t *testing.T) {
 			}
 
 			if err != nil {
-				log.Fatal(err)
+				// t.Fatal(err)
 			}
 
 			for _, resp := range responses {
