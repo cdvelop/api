@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	. "github.com/cdvelop/output"
+	out "github.com/cdvelop/output"
 )
 
 func (c config) StartServer() {
@@ -16,7 +16,7 @@ func (c config) StartServer() {
 		Handler: mux,
 	}
 
-	PrintOK(fmt.Sprintf("Servidor escuchando en http://%v/", addr))
+	out.PrintOK(fmt.Sprintf("Servidor escuchando en http://%v/", addr))
 	if err := server.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}

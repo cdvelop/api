@@ -26,17 +26,17 @@ func Test_Api(t *testing.T) {
 
 			var responses []model.Response
 			var code int
-			var err error
+			// var err error
 
 			if r.Method == "GET" {
-				responses, code, err = r.Get(r.Data...)
+				responses, code, _ = r.Get(r.Data...)
 			} else {
-				responses, code, err = r.CutPost()
+				responses, code, _ = r.CutPost()
 			}
 
-			if err != nil {
-				// t.Fatal(err)
-			}
+			// if err != nil {
+			// t.Fatal(err)
+			// }
 
 			for _, resp := range responses {
 				testools.CheckTest(prueba, r.ExpectedCode, code, resp)

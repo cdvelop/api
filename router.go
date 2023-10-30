@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/cdvelop/model"
-	. "github.com/cdvelop/output"
+	out "github.com/cdvelop/output"
 )
 
 func (c config) ServeMuxAndRoutes() *http.ServeMux {
@@ -26,7 +26,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 		}
 
 		if action_type != "" && r.Method != "GET" {
-			PrintInfo(fmt.Sprintf("[%v]: [%v]: [%v]", r.Method, action_type, handler_name))
+			out.PrintInfo(fmt.Sprintf("[%v]: [%v]: [%v]", r.Method, action_type, handler_name))
 		}
 
 		switch action_type {
@@ -133,7 +133,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 					// PrintError("boot handler:" + o.Name)
 					resp, err := o.AddBootResponse(u)
 					if err != nil {
-						PrintError("error boot response:", o.Name, err.Error())
+						out.PrintError("error boot response:", o.Name, err.Error())
 					} else if len(resp) != 0 {
 						responses = append(responses, resp...)
 					}

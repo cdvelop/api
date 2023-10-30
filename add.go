@@ -3,7 +3,7 @@ package api
 import (
 	"github.com/cdvelop/cutkey"
 	"github.com/cdvelop/model"
-	. "github.com/cdvelop/output"
+	out "github.com/cdvelop/output"
 )
 
 // options:
@@ -12,7 +12,7 @@ import (
 // ej: authAdapter = GetUser(r *http.Request) *model.User. nil case default dev user
 func Add(modules []*model.Module, a authAdapter, options ...string) *config {
 
-	SetupLogsToFile("app")
+	out.SetupLogsToFile("app")
 
 	c := config{
 		Cut:            nil,
@@ -94,9 +94,9 @@ func Add(modules []*model.Module, a authAdapter, options ...string) *config {
 	}
 
 	if !c.developer_mode {
-		PrintOK("*** Api en Modo Producción ***\n")
+		out.PrintOK("*** Api en Modo Producción ***\n")
 	} else {
-		PrintWarning("*** Api en Modo Desarrollo ***\n")
+		out.PrintWarning("*** Api en Modo Desarrollo ***\n")
 		c.static_cache = "no-cache"
 	}
 
