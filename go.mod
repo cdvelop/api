@@ -8,7 +8,7 @@ require (
 	github.com/cdvelop/cutkey v0.6.0
 	github.com/cdvelop/fileserver v0.0.0-00010101000000-000000000000
 	github.com/cdvelop/input v0.0.46
-	github.com/cdvelop/testools v0.0.28
+	github.com/cdvelop/testools v0.0.30
 )
 
 require (

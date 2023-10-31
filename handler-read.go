@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/cdvelop/model"
@@ -23,6 +22,8 @@ func (c config) read(u *model.User, o *model.Object, w http.ResponseWriter, r *h
 		return
 	}
 
+	// fmt.Printf("Manejador de lectura RESPUESTA %s\n", data)
+
 	c.success(w, "read", "ok", o, data...)
 }
 
@@ -32,7 +33,7 @@ func (c config) readFile(u *model.User, w http.ResponseWriter, r *http.Request) 
 
 	gerUrlParams(r, params)
 
-	fmt.Printf("Estás en la página de lectura archivo %s\n", params)
+	// fmt.Printf("Estás en la página de lectura archivo %s\n", params)
 
 	file_path, file_area, err := c.fileApi.GetFilePathByID(params)
 	if err != nil {
