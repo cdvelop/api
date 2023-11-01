@@ -1,10 +1,10 @@
-github.com/cdvelop/dbtools v0.0.53 h1:4VW0kL8+8CHxuHAfmLWvpfEmHKiuuOZqqeOfkgP1CiE=
-github.com/cdvelop/fileinput v0.0.15 h1:tdvpGIYCtbNu1JlLX6OaPD7SYX9gDtZi69fFPOu9tio=
+github.com/cdvelop/dbtools v0.0.54 h1:CbpiryhheYNid+/QYCqgzlj+GpzUlL7LkKcocgsvQlI=
+github.com/cdvelop/fileinput v0.0.16 h1:XUutaZDoQTpBnggKqzCzZJTm+bCfxaOoRdtMNQvshGM=
 github.com/cdvelop/object v0.0.20 h1:stvrk+9Dt+N7ko1blpTz9+Pl4FPXgzUE5Yj40j9f6o4=
-github.com/cdvelop/objectdb v0.0.76 h1:5eVtPYeFWNbEnMsE58lOT0h1WXlPAmIJp0Mjv3IYtig=
-github.com/cdvelop/sqlite v0.0.71 h1:gaS7Cn5jvO8rig8ydmiFnSQ3seAQPRwwfFdOvyyS0f8=
+github.com/cdvelop/objectdb v0.0.77 h1:pIeGqavnqnSdUS+koULd7DmO0lLZ6Wv/b7BD/gy6lGI=
+github.com/cdvelop/sqlite v0.0.72 h1:56wmaTO/fLBV/2CF0wySdF4RsytsmwJXu81wYLW8Q/4=
 github.com/cdvelop/strings v0.0.4 h1:8289J+TEh6rauNRVNfausfVHgUG+RGebuUQ8R+E4I4w=
-github.com/cdvelop/timeserver v0.0.11 h1:Y1MqUhvj1+bKu59mRk5mvfxxR2Afcaa9LgLM1vCh7rI=
+github.com/cdvelop/timeserver v0.0.12 h1:hm8jrgM1MZl1wqg6clqwFijjaGF+DA7xKmeUVJp85Sc=
 github.com/gabriel-vasile/mimetype v1.4.3 h1:in2uUcidCuFcDKtdcBxlR0rJ1+fsokWf+uqxgUFjbI0=
 github.com/gabriel-vasile/mimetype v1.4.3/go.mod h1:d8uq/6HKRL6CGdk+aubisF/M5GcPfT7nKyLpA0lbSSk=
 github.com/mattn/go-sqlite3 v1.14.17 h1:mCRHCLDUBXgpKAqIKsaAaAsrAlbkeomtRFKXh2L6YIM=
