@@ -1,5 +1,5 @@
 github.com/cdvelop/dbtools v0.0.53 h1:4VW0kL8+8CHxuHAfmLWvpfEmHKiuuOZqqeOfkgP1CiE=
-github.com/cdvelop/fileinput v0.0.14 h1:+z1X6Qt53ZTsrIzB9psBGqCiiknHQJ+gwnUHHMdhJEI=
+github.com/cdvelop/fileinput v0.0.15 h1:tdvpGIYCtbNu1JlLX6OaPD7SYX9gDtZi69fFPOu9tio=
 github.com/cdvelop/object v0.0.20 h1:stvrk+9Dt+N7ko1blpTz9+Pl4FPXgzUE5Yj40j9f6o4=
 github.com/cdvelop/objectdb v0.0.76 h1:5eVtPYeFWNbEnMsE58lOT0h1WXlPAmIJp0Mjv3IYtig=
 github.com/cdvelop/sqlite v0.0.71 h1:gaS7Cn5jvO8rig8ydmiFnSQ3seAQPRwwfFdOvyyS0f8=
