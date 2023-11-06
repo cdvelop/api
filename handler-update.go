@@ -24,7 +24,7 @@ func (c config) update(u *model.User, o *model.Object, w http.ResponseWriter, r 
 
 	// fmt.Println("OBJETO VALIDADO: ", o.Name)
 
-	recovered_data, err := o.Update(u, data...)
+	err = o.Update(u, data...)
 	if err != nil {
 		c.error(u, w, r, err, o)
 		return
@@ -32,5 +32,5 @@ func (c config) update(u *model.User, o *model.Object, w http.ResponseWriter, r 
 
 	// fmt.Println("DATA DESPUÉS DE ACTUALIZAR: ", recovered_data)
 
-	c.success(w, "update", "ok", o, recovered_data...)
+	c.success(w, "update", "ok", o)
 }

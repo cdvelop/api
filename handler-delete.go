@@ -23,6 +23,8 @@ func (c config) delete(u *model.User, o *model.Object, w http.ResponseWriter, r 
 		return
 	}
 
+	// fmt.Println("data recibida para eliminar:", data)
+
 	recovered_data, err := o.Delete(u, data...)
 	if err != nil {
 		c.error(u, w, r, err, o)

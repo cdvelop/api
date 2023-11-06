@@ -8,8 +8,8 @@ import (
 
 func (c config) isHandlerOk(action_type, api_name string) (*model.Object, error) {
 
-	// for _, f := range c.fileHandlers {
-	// 	fmt.Println("FILE HANDLERS: ", f.Name)
+	// for _, f := range c.updateHandlers {
+	// 	log.Println("updateHandlers: ", f.Name)
 	// }
 
 	switch action_type {

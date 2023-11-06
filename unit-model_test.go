@@ -63,9 +63,9 @@ func (m module) Read(u *model.User, params ...map[string]string) ([]map[string]s
 	}, nil
 }
 
-func (m module) Update(u *model.User, params ...map[string]string) ([]map[string]string, error) {
+func (m module) Update(u *model.User, params ...map[string]string) error {
 	// fmt.Println("parámetros Update recibidos:", params)
-	return []map[string]string{}, nil
+	return nil
 }
 
 func (m module) Delete(u *model.User, params ...map[string]string) ([]map[string]string, error) {
