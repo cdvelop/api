@@ -1,6 +1,9 @@
 package api_test
 
 import (
+	"fmt"
+
+	"github.com/cdvelop/filehandler"
 	"github.com/cdvelop/input"
 	"github.com/cdvelop/model"
 	"github.com/cdvelop/unixid"
@@ -25,19 +28,18 @@ func ModuleProduct() *model.Module {
 	newObject := model.Object{
 		Name:  "product",
 		Table: "product",
-		BackendHandler: model.BackendHandler{
-			CreateApi:   m,
-			ReadApi:     m,
-			UpdateApi:   m,
-			DeleteApi:   m,
-			FileHandler: m,
-		},
 
 		Fields: []model.Field{
 			{Name: "id_product", Legend: "Id", Input: unixid.InputPK()},
 			{Name: "name", Legend: "Nombre", Input: input.Text()},
 		},
 		Module: newModule,
+		BackendHandler: model.BackendHandler{
+			CreateApi: m,
+			ReadApi:   m,
+			UpdateApi: m,
+			DeleteApi: m,
+		},
 	}
 
 	newModule.Objects = append(newModule.Objects, &newObject)
@@ -48,9 +50,9 @@ func ModuleProduct() *model.Module {
 }
 
 func (m module) Create(u *model.User, params ...map[string]string) error {
-	// fmt.Println("parámetros Create recibidos:", params)
+	fmt.Println("parámetros Create recibidos:", params)
 
-	params[0]["id"] = "2"
+	params[0]["id_product"] = "4"
 
 	return nil
 }
@@ -73,24 +75,21 @@ func (m module) Delete(u *model.User, params ...map[string]string) ([]map[string
 	return []map[string]string{}, nil
 }
 
-func (m module) GetFilePathByID(params map[string]string) (file_path, file_area string, err error) {
+func (m module) FilePath(params map[string]string) (file_path, file_area string, err error) {
 	// fmt.Println("parámetros leer archivo recibidos:", params)
 	return "./README.md", "s", nil
 }
 
-func (m module) RegisterNewFile(new *model.FileNewToStore, form_data map[string]string) (map[string]string, error) {
-	// fmt.Println("Upload File:", r)
+// func (m module) FileRegisterInDB(new *newFileToStore, form_data map[string]string) (map[string]string, error) {
+// 	// fmt.Println("FileInput File:", r)
 
-	return map[string]string{"file": "./README.md"}, nil
-}
+// 	return map[string]string{"file": "./README.md"}, nil
+// }
 
-func (m module) ConfigFile() *model.FileConfig {
-	return &model.FileConfig{
+func (m module) GetFileSettings() *filehandler.FileSetting {
+	return &filehandler.FileSetting{
 		MaximumFilesAllowed: 6,
-		InputNameWithFiles:  "files",
-		MaximumFileSize:     0,
 		MaximumKbSize:       50,
-		AllowedExtensions:   ".jpg, .png, .jpeg",
 	}
 }
 

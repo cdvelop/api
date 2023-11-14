@@ -3,44 +3,81 @@ package api_test
 import (
 	"net/http/httptest"
 	"testing"
+	"time"
 
 	"github.com/cdvelop/api"
+	"github.com/cdvelop/cutkey"
+	"github.com/cdvelop/fetchserver"
+	"github.com/cdvelop/fileserver"
+	"github.com/cdvelop/logserver"
 	"github.com/cdvelop/model"
 	"github.com/cdvelop/testools"
 )
 
-func Test_Api(t *testing.T) {
+type auth struct{}
 
-	conf := api.Add([]*model.Module{product}, nil)
+func (auth) GetLoginUser(params any) (*model.User, error) {
+
+	user := model.User{
+		Token:          "123",
+		Id:             "123456789101112",
+		Ip:             "172.0.0.1",
+		Name:           "don Juanito dev test",
+		Area:           "s",
+		AccessLevel:    "1",
+		LastConnection: time.Now().Format("2006-01-02 15:04:05"),
+	}
+
+	return &user, nil
+}
+
+func (auth) UserAuthNumber() (string, error) {
+	return "1", nil
+}
+
+func Test_Api(t *testing.T) {
+	h := &model.Handlers{
+		AuthAdapter: auth{},
+		Logger:      logserver.Add(),
+	}
+
+	objects := ModuleProduct().Objects
+	h.AddObjects(objects...)
+
+	cutkey.AddDataConverter(h)
+
+	fileserver.AddFileApi(h)
+
+	fetchserver.AddFetchAdapter(h)
+
+	conf, err := api.Add(h)
+	if err != nil {
+		t.Fatal(err)
+		return
+	}
 
 	mux := conf.ServeMuxAndRoutes()
-
 	srv := httptest.NewServer(mux)
 	defer srv.Close()
 
 	for prueba, r := range testData {
 		t.Run((prueba), func(t *testing.T) {
 
-			r.Cut = conf.Cut
 			r.Server = srv
 
-			var responses []model.Response
-			var code int
+			endpoint := srv.URL + "/" + r.Endpoint + "/" + r.Object
+
+			// fmt.Println("ENDPOINT:", endpoint)
 			// var err error
+			h.SendOneRequest(r.Method, endpoint, r.Object, r.Data, func(resp []map[string]string, err error) {
 
-			if r.Method == "GET" {
-				responses, code, _ = r.Get(r.Data...)
-			} else {
-				responses, code, _ = r.CutPost()
-			}
+				if err != nil {
+					t.Fatal(err)
+					return
+				}
+				testools.CheckTest(prueba, r.Expected, resp, t)
+			})
 
-			// if err != nil {
-			// t.Fatal(err)
-			// }
-
-			for _, resp := range responses {
-				testools.CheckTest(prueba, r.ExpectedCode, code, resp)
-			}
 		})
 	}
 }

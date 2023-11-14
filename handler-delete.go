@@ -1,35 +1,33 @@
 package api
 
 import (
-	"net/http"
-
-	"github.com/cdvelop/cutkey"
 	"github.com/cdvelop/model"
 )
 
-func (c config) delete(u *model.User, o *model.Object, w http.ResponseWriter, r *http.Request) {
+func (c config) delete(p *petition) {
 
 	// fmt.Printf("Estás en la página de eliminación de %s\n", o.Name)
 
-	data, err := cutkey.Decode(r.Body, o)
+	// Leer el cuerpo de la solicitud en un slice de bytes
+	data, err := c.decodeStringMapData(p)
 	if err != nil {
-		c.error(u, w, r, err, o)
+		c.error(p, model.Error("delete", err))
 		return
 	}
 
-	err = o.ValidateData(false, true, data...)
+	err = p.o.ValidateData(false, true, data...)
 	if err != nil {
-		c.error(u, w, r, err, o)
+		c.error(p, err)
 		return
 	}
 
 	// fmt.Println("data recibida para eliminar:", data)
 
-	recovered_data, err := o.Delete(u, data...)
+	recovered_data, err := p.o.Delete(p.u, data...)
 	if err != nil {
-		c.error(u, w, r, err, o)
+		c.error(p, err)
 		return
 	}
 
-	c.success(w, "delete", "ok", o, recovered_data...)
+	c.success(p, "delete", "ok", recovered_data...)
 }

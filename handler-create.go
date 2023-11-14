@@ -1,33 +1,29 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
-
-	"github.com/cdvelop/cutkey"
-	"github.com/cdvelop/model"
 )
 
-func (c config) create(u *model.User, o *model.Object, w http.ResponseWriter, r *http.Request) {
+func (c config) create(p *petition) {
 
-	data, err := cutkey.Decode(r.Body, o)
+	data, err := c.decodeStringMapData(p)
 	if err != nil {
-		c.error(u, w, r, err, o)
+		c.error(p, err, http.StatusInternalServerError)
 		return
 	}
-	fmt.Printf("Estás en el Manejador de creación del objeto %s\n", o.Name)
+	// fmt.Printf("\nEstás en creación objeto %s\n", p.o.Name)
 
-	err = o.ValidateData(true, false, data...)
+	err = p.o.ValidateData(true, false, data...)
 	if err != nil {
-		c.error(u, w, r, err, o)
-		return
-	}
-
-	err = o.Create(u, data...)
-	if err != nil {
-		c.error(u, w, r, err, o)
+		c.error(p, err)
 		return
 	}
 
-	c.success(w, "create", "ok", o, data...)
+	err = p.o.Create(p.u, data...)
+	if err != nil {
+		c.error(p, err)
+		return
+	}
+
+	c.success(p, "create", "ok", data...)
 }

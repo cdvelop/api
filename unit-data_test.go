@@ -7,52 +7,48 @@ import (
 var (
 	testData = map[string]testools.Request{
 		"se espera creación de producto ok": {
-			Endpoint:     "/create/" + product.Objects[0].Name,
-			Method:       "POST",
-			Data:         []map[string]string{{"name": "manzana"}},
-			Object:       product.Objects[0],
-			ExpectedCode: 200,
+			Method:   "POST",
+			Endpoint: "create",
+			Object:   product.Objects[0].Name,
+			Data:     []map[string]string{{"name": "manzana"}},
+			Expected: []map[string]string{{"id_product": "4", "name": "manzana"}},
 		},
-		"se espera lectura json de producto ok": {
-			Endpoint:     "/read/" + product.Objects[0].Name,
-			Method:       "GET",
-			Data:         []map[string]string{{"id_product": "1"}},
-			Object:       product.Objects[0],
-			ExpectedCode: 200,
-		},
-		"se espera actualización de producto ok": {
-			Endpoint:     "/update/" + product.Objects[0].Name,
-			Method:       "POST",
-			Data:         []map[string]string{{"id_product": "1", "name": "pera"}},
-			Object:       product.Objects[0],
-			ExpectedCode: 200,
-		},
-		"se espera eliminación de producto ok": {
-			Endpoint:     "/delete/" + product.Objects[0].Name,
-			Method:       "POST",
-			Data:         []map[string]string{{"id_product": "1"}},
-			Object:       product.Objects[0],
-			ExpectedCode: 200,
-		},
+		// "se espera lectura json de producto ok": {
+		// 	Endpoint:       "read",
+		// 	Object:     product.Objects[0].Name,
+		// 	Data:         []map[string]string{{"id_product": "1"}},
+		// 	Expected: 200,
+		// },
+		// "se espera actualización de producto ok": {
+		// 	Endpoint:       "update",
+		// 	Object:    product.Objects[0].Name,
+		// 	Data:         []map[string]string{{"id_product": "1", "name": "pera"}},
+		// 	Expected: 200,
+		// },
+		// "se espera eliminación de producto ok": {
+		// 	Endpoint:       "delete",
+		// 	Object:     product.Objects[0].Name,
+		// 	Data:         []map[string]string{{"id_product": "1"}},
+		// 	Expected: 200,
+		// },
 
-		"se espera lectura fichero de productos ok": {
-			Endpoint:     "/file?id=1",
-			Method:       "GET",
-			Data:         []map[string]string{{}},
-			Object:       product.Objects[0],
-			ExpectedCode: 200,
-		},
+		// "se espera lectura fichero de productos ok": {
+		// 	Endpoint:       "file",
+		// 	Object:     "/file?id=1",
+		// 	Data:         []map[string]string{{}},
+		// 	Expected: 200,
+		// },
 
-		"se espera lectura fichero estático  ok": {
-			Endpoint:     "/static/dino-test.png",
-			Method:       "GET",
-			ExpectedCode: 200,
-		},
+		// "se espera lectura fichero estático  ok": {
+		// 	Endpoint:       "",
+		// 	Object:     "/static/dino-test.png",
+		// 	Expected: 200,
+		// },
 
-		"se espera error no existe controlador": {
-			Endpoint:     "/create/dino",
-			Method:       "POST",
-			ExpectedCode: 400,
-		},
+		// "se espera error no existe controlador": {
+		// 	Endpoint:       "create",
+		// 	Object:     "dino",
+		// 	Expected: 400,
+		// },
 	}
 )

@@ -6,48 +6,48 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func (c config) read(u *model.User, o *model.Object, w http.ResponseWriter, r *http.Request) {
+func (c config) read(p *petition) {
 
 	// fmt.Printf("Estás en el Manejador de lectura de data de %s\n", o.Name)
 
-	params, err := paramsCheckIn(false, false, false, o, w, r)
+	params, err := paramsCheckIn(p, false, false)
 	if err != nil {
-		c.error(u, w, r, err, o)
+		c.error(p, err)
 		return
 	}
 
-	data, err := o.Read(u, params)
+	data, err := p.o.Read(p.u, params)
 	if err != nil {
-		c.error(u, w, r, err, o)
+		c.error(p, err)
 		return
 	}
 
 	// fmt.Printf("Manejador de lectura RESPUESTA %s\n", data)
 
-	c.success(w, "read", "ok", o, data...)
+	c.success(p, "read", "ok", data...)
 }
 
-func (c config) readFile(u *model.User, w http.ResponseWriter, r *http.Request) {
+func (c config) readFile(p *petition) {
 	// retorna objeto estático ej imagen.jpg
 	params := make(map[string]string)
 
-	gerUrlParams(r, params)
+	gerUrlParams(p.r, params)
 
 	// fmt.Printf("Estás en la página de lectura archivo %s\n", params)
 
-	file_path, file_area, err := c.fileApi.GetFilePathByID(params)
+	file_path, file_area, err := c.FilePath(params)
 	if err != nil {
-		errorHttp(w, err, http.StatusBadRequest)
+		errorHttp(p.w, err, http.StatusBadRequest)
 		return
 	}
 
 	// fmt.Println("AREA ARCHIVO", file_area)
 	// fmt.Println("AREA USUARIO", u.Area)
 
-	if file_area != u.Area {
-		errorHttp(w, model.Error("no autorizado para leer archivo"), http.StatusUnauthorized)
+	if file_area != p.u.Area {
+		errorHttp(p.w, model.Error("no autorizado para leer archivo"), http.StatusUnauthorized)
 		return
 	}
 
-	http.ServeFile(w, r, file_path)
+	http.ServeFile(p.w, p.r, file_path)
 }

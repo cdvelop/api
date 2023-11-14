@@ -1,36 +1,33 @@
 package api
 
 import (
-	"net/http"
-
-	"github.com/cdvelop/cutkey"
 	"github.com/cdvelop/model"
 )
 
-func (c config) update(u *model.User, o *model.Object, w http.ResponseWriter, r *http.Request) {
+func (c config) update(p *petition) {
 
 	// fmt.Printf("Estás en la página de actualización del objeto %s\nData: %s\n", o.Name, u.Name)
-	data, err := cutkey.Decode(r.Body, o)
+	data, err := c.decodeStringMapData(p)
 	if err != nil {
-		c.error(u, w, r, err, o)
+		c.error(p, model.Error("update", err))
 		return
 	}
 
-	err = o.ValidateData(false, true, data...)
+	err = p.o.ValidateData(false, true, data...)
 	if err != nil {
-		c.error(u, w, r, err, o)
+		c.error(p, err)
 		return
 	}
 
 	// fmt.Println("OBJETO VALIDADO: ", o.Name)
 
-	err = o.Update(u, data...)
+	err = p.o.Update(p.u, data...)
 	if err != nil {
-		c.error(u, w, r, err, o)
+		c.error(p, err)
 		return
 	}
 
 	// fmt.Println("DATA DESPUÉS DE ACTUALIZAR: ", recovered_data)
 
-	c.success(w, "update", "ok", o)
+	c.success(p, "update", "ok")
 }

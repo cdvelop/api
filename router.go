@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"strings"
+	"time"
 
 	"github.com/cdvelop/model"
 	out "github.com/cdvelop/output"
@@ -17,157 +17,146 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
-		u := c.auth.GetUser(r)
+		action_type, api_name := getMethodAndObjectFromPath(r.URL.Path)
 
-		action_type, handler_name := getMethodAndObjectFromPath(r.URL.Path)
+		// fmt.Println("ACTION", action_type, "API NAME", api_name)
 
-		if u == nil { // si el usuario no es valido solo puede acceder a la pagina principal
-			action_type = ""
+		var registered_user bool
+		u, err := c.GetLoginUser(r)
+		if err == nil {
+			registered_user = true
+		}
+
+		// fmt.Println("registered_user", registered_user, u)
+
+		p := &petition{
+			u: u,
+			o: &model.Object{Name: "error"},
+			r: r,
+			w: w,
+			t: time.Now(),
+			e: err,
 		}
 
 		if action_type != "" && r.Method != "GET" {
-			out.PrintInfo(fmt.Sprintf("[%v]: [%v]: [%v]", r.Method, action_type, handler_name))
+			out.PrintInfo(fmt.Sprintf("[%v]: [%v]: [%v]", r.Method, action_type, api_name))
 		}
 
-		switch action_type {
+		if r.Method == "POST" {
 
-		case "create":
-			if r.Method != http.MethodPost {
-				c.error(u, w, r, fmt.Errorf("método %v no permitido para crear", r.Method), nil)
+			if !registered_user {
+				c.unauthorized(p, "realizar cambios")
 				return
 			}
 
-			content_type := r.Header.Get("Content-Type")
-			if strings.HasPrefix(content_type, "multipart/form-data") {
-				action_type = "file"
-			}
-
-			h, err := c.isHandlerOk(action_type, handler_name)
+			err := c.isHandlerOk(p, action_type, api_name)
 			if err != nil {
-				// fmt.Println("HERE 2 ", " action ", action_type, err)
-				c.error(u, w, r, err, h)
+				c.error(p, err)
 				return
 			}
 
-			if action_type == "file" {
-				c.createFile(u, h, w, r)
+			switch p.action {
+			case "create":
+				c.create(p)
 
-			} else {
-				c.create(u, h, w, r)
+			case "update":
+				c.update(p)
+
+			case "delete":
+				c.delete(p)
+
+			case "upload":
+				c.upload(p)
+
 			}
 
-		case "read":
-			h, err := c.isHandlerOk(action_type, handler_name)
-			if err != nil {
-				c.error(u, w, r, err, h)
-				return
-			}
-			c.read(u, h, w, r)
+		} else if r.Method == "GET" {
 
-		case "update":
-			if r.Method != http.MethodPost {
-				c.error(u, w, r, fmt.Errorf("método %v no permitido para actualizar", r.Method), nil)
-				return
-			}
+			switch action_type {
 
-			h, err := c.isHandlerOk(action_type, handler_name)
-			if err != nil {
-				c.error(u, w, r, err, h)
-				return
-			}
-
-			c.update(u, h, w, r)
-
-		case "delete":
-			if r.Method != http.MethodPost {
-				c.error(u, w, r, fmt.Errorf("método %v no permitido para eliminar", r.Method), nil)
-				return
-			}
-
-			h, err := c.isHandlerOk(action_type, handler_name)
-			if err != nil {
-				c.error(u, w, r, err, h)
-				return
-			}
-
-			c.delete(u, h, w, r)
-
-		case "file":
-
-			// fmt.Println("ROUTER API READ FILE")
-
-			if r.Method != http.MethodGet {
-				c.error(u, w, r, fmt.Errorf("método %v no permitido en el Manejador de archivos", r.Method), nil)
-				return
-			}
-
-			c.readFile(u, w, r)
-
-		case "static":
-			if r.Method != http.MethodGet {
-				c.error(u, w, r, fmt.Errorf("método %v no permitido para archivos estáticos", r.Method), nil)
-				return
-			}
-
-			c.static(w, r)
-
-		default:
-			if r.URL.Path == "/" && r.Method == http.MethodGet {
-
-				index_content, err := os.ReadFile(filepath.Join(INDEX_FOLDER, "index.html"))
-				if err != nil {
-					logError(u, r, err)
+			case "read":
+				if !registered_user {
+					c.unauthorized(p, "obtener información")
 					return
 				}
 
-				t, err := template.New("").Parse(string(index_content))
+				err := c.isHandlerOk(p, action_type, api_name)
 				if err != nil {
-					logError(u, r, err)
+					c.error(p, err)
+					return
+				}
+				c.read(p)
+
+			case "file":
+				if !registered_user {
+					c.unauthorized(p, "leer archivos")
 					return
 				}
 
-				var responses []model.Response
-				var data []byte
+				c.readFile(p)
 
-				for _, o := range c.bootHandlers {
-					// PrintError("boot handler:" + o.Name)
-					resp, err := o.AddBootResponse(u)
+			case "static":
+				c.static(w, r)
+
+			default:
+				if r.URL.Path == "/" {
+
+					index_content, err := os.ReadFile(filepath.Join(INDEX_FOLDER, "index.html"))
 					if err != nil {
-						out.PrintError("error boot response:", o.Name, err.Error())
-					} else if len(resp) != 0 {
-						responses = append(responses, resp...)
+						c.logError(p, err)
+						return
 					}
 
+					t, err := template.New("").Parse(string(index_content))
+					if err != nil {
+						c.logError(p, err)
+						return
+					}
+
+					var responses []model.Response
+					var data []byte
+
+					for _, o := range c.bootHandlers {
+						// PrintError("boot handler:" + o.Name)
+						resp, err := o.AddBootResponse(p.u)
+						if err != nil {
+							out.PrintError("error boot response:", o.Name, err.Error())
+						} else if len(resp) != 0 {
+							responses = append(responses, resp...)
+						}
+
+					}
+
+					data, err = c.EncodeResponses(responses)
+					if err != nil {
+						c.logError(p, err)
+						return
+					}
+
+					var actions = model.BootActions{
+						// JsonBootActions: "sin data x",
+						JsonBootActions: string(data),
+					}
+
+					err = t.Execute(w, actions)
+					if err != nil {
+						c.logError(p, fmt.Errorf("error al retornar pagina %v", err))
+						return
+					}
+					// w.Header.Set()
+					// fmt.Fprint(w, "¡Hola! Esta es la página principal.")
+					// w.Write()
+					// http.ServeFile(w, r, INDEX_FOLDER+"/index.html")
+				} else {
+					c.logError(p, fmt.Errorf("error not found %v", r.URL.Path))
+					http.NotFound(w, r)
 				}
-
-				data, err = c.EncodeResponses(responses)
-				if err != nil {
-					logError(u, r, err)
-					return
-				}
-
-				var actions = model.BootActions{
-					// JsonBootActions: "sin data x",
-					JsonBootActions: string(data),
-				}
-
-				err = t.Execute(w, actions)
-				if err != nil {
-					logError(u, r, fmt.Errorf("error al retornar pagina %v", err))
-					return
-				}
-
-				// w.Header.Set()
-				// fmt.Fprint(w, "¡Hola! Esta es la página principal.")
-
-				// w.Write()
-
-				// http.ServeFile(w, r, INDEX_FOLDER+"/index.html")
-			} else {
-				logError(u, r, fmt.Errorf("error not found %v", r.URL.Path))
-				http.NotFound(w, r)
 			}
+
+		} else {
+			c.error(p, model.Error("método ", r.Method, "no permitido"), http.StatusMethodNotAllowed)
 		}
+
 	})
 
 	return mux

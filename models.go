@@ -2,29 +2,31 @@ package api
 
 import (
 	"net/http"
+	"time"
 
-	"github.com/cdvelop/cutkey"
 	"github.com/cdvelop/model"
 )
 
 type config struct {
-	*cutkey.Cut
+	model.LoginUser
+	model.ObjectsHandler
+	model.DataConverter
+	model.FileApi
+	model.Logger
+
 	bootHandlers []*model.Object
-
-	createHandlers []*model.Object
-	readHandlers   []*model.Object
-	updateHandlers []*model.Object
-	deleteHandlers []*model.Object
-
-	fileHandlers []*model.Object
-	fileApi      model.FileApi
 
 	developer_mode bool
 	static_cache   string
-
-	auth authAdapter
 }
 
-type authAdapter interface {
-	GetUser(r *http.Request) *model.User
+type petition struct {
+	action   string // action ej: create,delete,crud,update,upload
+	u        *model.User
+	o        *model.Object
+	r        *http.Request
+	w        http.ResponseWriter
+	t        time.Time
+	e        error
+	multiple bool
 }

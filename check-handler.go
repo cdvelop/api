@@ -2,54 +2,56 @@ package api
 
 import (
 	"fmt"
-
-	"github.com/cdvelop/model"
 )
 
-func (c config) isHandlerOk(action_type, api_name string) (*model.Object, error) {
+func (c config) isHandlerOk(p *petition, action_type, api_name string) error {
 
-	// for _, f := range c.updateHandlers {
-	// 	log.Println("updateHandlers: ", f.Name)
-	// }
+	if action_type == "crud" {
+		p.action = "crud"
+		p.multiple = true
+		return nil
+	}
+
+	h, err := c.GetObjectByName(api_name)
+	if err != nil {
+		return err
+	}
 
 	switch action_type {
 
 	case "create":
-
-		for _, h := range c.createHandlers {
-			if h.Name == api_name {
-				return h, nil
-			}
+		if h.CreateApi != nil {
+			p.action = "create"
+			p.o = h
+			return nil
 		}
 
 	case "read":
-		for _, h := range c.readHandlers {
-			if h.Name == api_name {
-				return h, nil
-			}
+		if h.ReadApi != nil {
+			p.action = "read"
+			p.o = h
+			return nil
 		}
 
 	case "update":
-		for _, h := range c.updateHandlers {
-			if h.Name == api_name {
-				return h, nil
-			}
+		if h.UpdateApi != nil {
+			p.action = "update"
+			p.o = h
+			return nil
 		}
 
 	case "delete":
-		for _, h := range c.deleteHandlers {
-			if h.Name == api_name {
-				return h, nil
-			}
+		if h.DeleteApi != nil {
+			p.action = "delete"
+			p.o = h
+			return nil
 		}
 
-	case "file":
-		for _, h := range c.fileHandlers {
-			if h.Name == api_name {
-				return h, nil
-			}
-		}
+	case "upload":
+		p.action = "upload"
+		p.o = h
+		return nil
 	}
 
-	return nil, fmt.Errorf("no existe el controlador: %v para la acción: %v", api_name, action_type)
+	return fmt.Errorf("no existe el controlador: %v para la acción: %v", api_name, action_type)
 }

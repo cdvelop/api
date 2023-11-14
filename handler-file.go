@@ -1,26 +1,13 @@
 package api
 
-import (
-	"net/http"
-
-	"github.com/cdvelop/fileserver"
-	"github.com/cdvelop/model"
-)
-
-func (c config) createFile(u *model.User, o *model.Object, w http.ResponseWriter, r *http.Request) {
+func (c config) upload(p *petition) {
 	// fmt.Printf("Estás en el Manejador de subida de archivos %s\n", o.Name)
 
-	form_data, err := paramsCheckIn(true, false, true, o, w, r)
+	data_out, err := c.FileUpload(p.o.Name, p.u.Area, p.r, p.w)
 	if err != nil {
-		c.error(u, w, r, err, o)
+		c.error(p, err)
 		return
 	}
 
-	data_out, err := fileserver.CreateFileInServer(r, o, u.Area, form_data)
-	if err != nil {
-		c.error(u, w, r, err, o)
-		return
-	}
-
-	c.success(w, "create", "ok", o, data_out...)
+	c.success(p, "create", "ok", data_out...)
 }

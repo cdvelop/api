@@ -2,45 +2,69 @@ package api
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/cdvelop/model"
+	out "github.com/cdvelop/output"
 )
 
 // action ej: create, read, update,delete, error
-func (c config) jsonResponse(w http.ResponseWriter, code int, action, message string, obj_in *model.Object, data_out ...map[string]string) {
+func (c config) jsonResponse(p *petition, code int, action, message string, body_out ...map[string]string) {
 
-	w.Header().Set("Content-Action", "application/json; charset=utf-8")
-	w.Header().Set("X-Content-Action-Options", "nosniff")
-	w.WriteHeader(code)
+	p.w.Header().Set("Content-Action", "application/json; charset=utf-8")
+	p.w.Header().Set("X-Content-Action-Options", "nosniff")
+	p.w.WriteHeader(code)
+
+	var out []byte
+	var err error
 
 	o := model.Object{Name: "error"}
 
-	if obj_in != nil {
-		o = *obj_in
+	if p.o != nil {
+		o = *p.o
 	}
 
-	jsonBytes, err := c.EncodeResponses([]model.Response{o.Response(data_out, action, message)})
-	if err != nil {
-		fmt.Fprintln(w, `{"Action":"error", "Message":"`+err.Error()+`"}`)
-		return
+	if p.multiple {
+		out, err = c.EncodeResponses([]model.Response{o.Response(body_out, action, message)})
+		if err != nil {
+			out = []byte(`{"Action":"error", "Message":"` + err.Error() + `"}`)
+		}
+	} else {
+
+		// fmt.Println("ANTES DE ENCODE:", body_out)
+
+		out, err = c.EncodeMaps(body_out, o.Name)
+		if err != nil {
+			out = []byte(err.Error())
+		}
 	}
 
+	// temp, _ := c.DecodeMaps(out, o.Name)
+	// fmt.Println("LO QUE SE ENVIÓ:", temp)
 	//NOTIFY HERE
 
-	w.Write(jsonBytes)
+	p.w.Write(out)
 }
 
-func (c config) success(w http.ResponseWriter, action, message string, o *model.Object, data ...map[string]string) {
-	c.jsonResponse(w, http.StatusOK, action, message, o, data...)
+func (c config) success(p *petition, action, message string, data ...map[string]string) {
+	c.jsonResponse(p, http.StatusOK, action, message, data...)
 }
 
-func (c config) error(u *model.User, w http.ResponseWriter, r *http.Request, err error, o *model.Object) {
+// no puedes: reason
+func (c config) unauthorized(p *petition, reason string) {
+	c.error(p, model.Error("no puedes", reason, "si no tiene una session en el sistema"), http.StatusNetworkAuthenticationRequired)
+}
 
-	logError(u, r, err)
+// status default: StatusBadRequest
+func (c config) error(p *petition, err error, status ...int) {
 
-	c.jsonResponse(w, http.StatusBadRequest, "error", err.Error(), o)
+	var code = http.StatusBadRequest
+	for _, n := range status {
+		code = n
+	}
+	c.logError(p, err, code)
+
+	c.jsonResponse(p, code, "error", err.Error())
 }
 
 func errorHttp(w http.ResponseWriter, err error, code int) {
@@ -48,11 +72,28 @@ func errorHttp(w http.ResponseWriter, err error, code int) {
 	fmt.Fprintln(w, `[{"o":["error","`+err.Error()+`"]}]`)
 }
 
-func logError(u *model.User, r *http.Request, err error) {
+func (c config) logError(p *petition, err error, status ...int) {
 
-	if u == nil {
-		u = &model.User{Name: "unregistered"}
+	var code = http.StatusInternalServerError
+	for _, s := range status {
+		code = s
 	}
 
-	log.Printf("%v %v user:%v id:%v %v", r.Method, r.RemoteAddr, u.Name, u.Id, err)
+	if p.u == nil {
+		p.u = &model.User{Name: "unregistered"}
+	}
+
+	var auth_state string
+	if p.e != nil {
+		auth_state = "auth:" + p.e.Error()
+	}
+
+	message_log := fmt.Sprint(p.r.Method, p.r.RemoteAddr, "user:", p.u.Name, "id:", p.u.Id, err, "code:", code, auth_state)
+
+	if c.Logger != nil {
+		c.Log(message_log)
+	} else {
+		out.PrintWarning(message_log)
+	}
+
 }
