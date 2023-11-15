@@ -29,7 +29,7 @@ func (c config) jsonResponse(p *petition, code int, message string, body_out ...
 
 	var object_name = o.Name
 	if p.multiple {
-		out, err = c.EncodeResponses([]model.Response{o.Response(body_out, p.action, message)})
+		out, err = c.EncodeResponses(o.Response(body_out, p.action, message))
 		if err != nil {
 			out = []byte(`{"Action":"error", "Message":"` + err.Error() + `"}`)
 		}
@@ -83,7 +83,7 @@ func errorHttp(p *petition, err error, code int) {
 	if p.multiple {
 		fmt.Fprintln(p.w, `[{"o":["error","`+err.Error()+`"]}]`)
 	} else {
-
+		fmt.Fprintln(p.w, err.Error())
 	}
 }
 

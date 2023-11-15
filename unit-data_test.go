@@ -25,7 +25,7 @@ var (
 			Endpoint: "read",
 			Object:   product.Objects[0].Name,
 			Data:     []map[string]string{{"id_product": "1"}},
-			Expected: []map[string]string{{"error": "acción: read  no permita con método POST"}},
+			Expected: []map[string]string{{"error": "acción: read no permitida con método POST"}},
 		},
 		"se espera actualización de producto ok": {
 			Method:   "POST",

@@ -69,7 +69,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 				c.upload(p)
 
 			default:
-				c.error(p, model.Error("acción:", p.action, " no permita con método", r.Method))
+				c.error(p, model.Error("acción:", p.action, "no permitida con método", r.Method))
 			}
 
 		} else if r.Method == "GET" {
@@ -129,7 +129,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 					}
 
-					data, err = c.EncodeResponses(responses)
+					data, err = c.EncodeResponses(responses...)
 					if err != nil {
 						c.logError(p, err)
 						return
