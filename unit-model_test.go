@@ -1,8 +1,6 @@
 package api_test
 
 import (
-	"fmt"
-
 	"github.com/cdvelop/filehandler"
 	"github.com/cdvelop/input"
 	"github.com/cdvelop/model"
@@ -13,8 +11,7 @@ var (
 	product = ModuleProduct()
 )
 
-type module struct {
-}
+type module struct{}
 
 func ModuleProduct() *model.Module {
 	m := module{}
@@ -50,7 +47,7 @@ func ModuleProduct() *model.Module {
 }
 
 func (m module) Create(u *model.User, params ...map[string]string) error {
-	fmt.Println("parámetros Create recibidos:", params)
+	// fmt.Println("parámetros Create recibidos:", params)
 
 	params[0]["id_product"] = "4"
 
@@ -72,19 +69,13 @@ func (m module) Update(u *model.User, params ...map[string]string) error {
 
 func (m module) Delete(u *model.User, params ...map[string]string) ([]map[string]string, error) {
 	// fmt.Println("parámetros Delete recibidos:", params)
-	return []map[string]string{}, nil
+	return []map[string]string{{"id_product": "1", "name": "pera"}}, nil
 }
 
 func (m module) FilePath(params map[string]string) (file_path, file_area string, err error) {
 	// fmt.Println("parámetros leer archivo recibidos:", params)
 	return "./README.md", "s", nil
 }
-
-// func (m module) FileRegisterInDB(new *newFileToStore, form_data map[string]string) (map[string]string, error) {
-// 	// fmt.Println("FileInput File:", r)
-
-// 	return map[string]string{"file": "./README.md"}, nil
-// }
 
 func (m module) GetFileSettings() *filehandler.FileSetting {
 	return &filehandler.FileSetting{
@@ -93,10 +84,6 @@ func (m module) GetFileSettings() *filehandler.FileSetting {
 	}
 }
 
-func (module) GenerateFileNameOnDisk() string {
-	return "123"
-}
-
-func (module) UploadFolderPath(form_data map[string]string) string {
-	return "/"
+func (module) FileUpload(object_name, area_file string, file_request ...any) (out []map[string]string, err error) {
+	return
 }

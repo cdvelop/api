@@ -8,7 +8,6 @@ import (
 	"github.com/cdvelop/api"
 	"github.com/cdvelop/cutkey"
 	"github.com/cdvelop/fetchserver"
-	"github.com/cdvelop/fileserver"
 	"github.com/cdvelop/logserver"
 	"github.com/cdvelop/model"
 	"github.com/cdvelop/testools"
@@ -39,14 +38,13 @@ func Test_Api(t *testing.T) {
 	h := &model.Handlers{
 		AuthAdapter: auth{},
 		Logger:      logserver.Add(),
+		FileApi:     module{},
 	}
 
 	objects := ModuleProduct().Objects
 	h.AddObjects(objects...)
 
 	cutkey.AddDataConverter(h)
-
-	fileserver.AddFileApi(h)
 
 	fetchserver.AddFetchAdapter(h)
 
@@ -65,8 +63,14 @@ func Test_Api(t *testing.T) {
 
 			r.Server = srv
 
-			endpoint := srv.URL + "/" + r.Endpoint + "/" + r.Object
+			endpoint := srv.URL
 
+			if r.Endpoint != "" {
+				endpoint += "/" + r.Endpoint
+			}
+			if r.Object != "" {
+				endpoint += "/" + r.Object
+			}
 			// fmt.Println("ENDPOINT:", endpoint)
 			// var err error
 			h.SendOneRequest(r.Method, endpoint, r.Object, r.Data, func(resp []map[string]string, err error) {
@@ -75,6 +79,7 @@ func Test_Api(t *testing.T) {
 					t.Fatal(err)
 					return
 				}
+
 				testools.CheckTest(prueba, r.Expected, resp, t)
 			})
 

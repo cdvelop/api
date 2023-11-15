@@ -29,5 +29,5 @@ func (c config) update(p *petition) {
 
 	// fmt.Println("DATA DESPUÉS DE ACTUALIZAR: ", recovered_data)
 
-	c.success(p, "update", "ok")
+	c.success(p, "update", "ok", data...)
 }

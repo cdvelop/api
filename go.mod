@@ -14,15 +14,13 @@ require (
 	github.com/cdvelop/maps v0.0.1 // indirect
 	github.com/cdvelop/object v0.0.26 // indirect
 	github.com/cdvelop/strings v0.0.6 // indirect
+	github.com/cdvelop/timeserver v0.0.12 // indirect
 	github.com/cdvelop/timetools v0.0.17 // indirect
-	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
-	golang.org/x/net v0.17.0 // indirect
 )
 
 require (
 	github.com/cdvelop/fetchserver v0.0.1
 	github.com/cdvelop/filehandler v0.0.3
-	github.com/cdvelop/fileserver v0.0.20
 	github.com/cdvelop/gotools v0.0.56
 	github.com/cdvelop/logserver v0.0.1
 	github.com/cdvelop/output v0.0.15

@@ -68,6 +68,8 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 			case "upload":
 				c.upload(p)
 
+			default:
+				c.error(p, model.Error("acción:", p.action, " no permita con método", r.Method))
 			}
 
 		} else if r.Method == "GET" {

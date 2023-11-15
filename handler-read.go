@@ -37,15 +37,14 @@ func (c config) readFile(p *petition) {
 
 	file_path, file_area, err := c.FilePath(params)
 	if err != nil {
-		errorHttp(p.w, err, http.StatusBadRequest)
+		errorHttp(p, err, http.StatusBadRequest)
 		return
 	}
 
-	// fmt.Println("AREA ARCHIVO", file_area)
 	// fmt.Println("AREA USUARIO", u.Area)
 
 	if file_area != p.u.Area {
-		errorHttp(p.w, model.Error("no autorizado para leer archivo"), http.StatusUnauthorized)
+		errorHttp(p, model.Error("no autorizado para leer archivo"), http.StatusUnauthorized)
 		return
 	}
 
