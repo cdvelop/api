@@ -7,7 +7,7 @@ require github.com/cdvelop/model v0.0.68
 require (
 	github.com/cdvelop/input v0.0.52
 	github.com/cdvelop/strings v0.0.7
-	github.com/cdvelop/testools v0.0.37
+	github.com/cdvelop/testools v0.0.38
 )
 
 require (
