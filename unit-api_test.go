@@ -25,6 +25,7 @@ func Test_Api(t *testing.T) {
 	for prueba, r := range testData {
 		t.Run((prueba), func(t *testing.T) {
 			r.ApiTest = app
+			r.TestName = prueba
 
 			// fmt.Println("ENDPOINT:", endpoint)
 			app.SendOneRequest(r.Method, app.BuildEndPoint(r), r.Object, r.Data, func(resp []map[string]string, err error) {
@@ -34,10 +35,10 @@ func Test_Api(t *testing.T) {
 				} else {
 					response = resp
 				}
-
 				// fmt.Println("RESPUESTA:", response)
-
-				testools.CheckTest(prueba, r.Expected, response, t)
+				if !r.CheckTest(r.Expected, response) {
+					t.Fatal()
+				}
 			})
 
 		})
