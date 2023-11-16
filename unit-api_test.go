@@ -3,6 +3,7 @@ package api_test
 import (
 	"testing"
 
+	"github.com/cdvelop/model"
 	"github.com/cdvelop/testools"
 )
 
@@ -10,7 +11,11 @@ func Test_Api(t *testing.T) {
 
 	objects := ModuleProduct().Objects
 
-	app, err := testools.NewApiTestDefault(t, module{}, objects...)
+	h := &model.Handlers{
+		FileApi: module{},
+	}
+
+	app, err := testools.NewApiTestDefault(t, h, objects...)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -19,27 +24,20 @@ func Test_Api(t *testing.T) {
 
 	for prueba, r := range testData {
 		t.Run((prueba), func(t *testing.T) {
+			r.ApiTest = app
 
-			r.Server = app.Server
-
-			endpoint := app.Server.URL
-
-			if r.Endpoint != "" {
-				endpoint += "/" + r.Endpoint
-			}
-			if r.Object != "" {
-				endpoint += "/" + r.Object
-			}
 			// fmt.Println("ENDPOINT:", endpoint)
-			// var err error
-			app.SendOneRequest(r.Method, endpoint, r.Object, r.Data, func(resp []map[string]string, err error) {
-
+			app.SendOneRequest(r.Method, app.BuildEndPoint(r), r.Object, r.Data, func(resp []map[string]string, err error) {
+				var response any
 				if err != nil {
-					t.Fatal(err)
-					return
+					response = err.Error()
+				} else {
+					response = resp
 				}
 
-				testools.CheckTest(prueba, r.Expected, resp, t)
+				// fmt.Println("RESPUESTA:", response)
+
+				testools.CheckTest(prueba, r.Expected, response, t)
 			})
 
 		})

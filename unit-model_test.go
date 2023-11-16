@@ -85,5 +85,6 @@ func (m module) GetFileSettings() *filehandler.FileSetting {
 }
 
 func (module) FileUpload(object_name, area_file string, file_request ...any) (out []map[string]string, err error) {
-	return
+
+	return []map[string]string{{"id_product": "200"}}, nil
 }

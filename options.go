@@ -2,7 +2,8 @@ package api
 
 import (
 	"os"
-	"strings"
+
+	"github.com/cdvelop/strings"
 
 	"github.com/cdvelop/gotools"
 )
@@ -12,7 +13,7 @@ func (c *config) processOptions(options ...string) {
 
 		switch {
 
-		case strings.Contains(option, "cache:"):
+		case strings.Contains(option, "cache:") != 0:
 			var cache_option string
 			err := gotools.ExtractTwoPointArgument(option, &cache_option)
 			if err == nil {

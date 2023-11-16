@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/cdvelop/model"
@@ -12,7 +11,7 @@ func (c config) jsonResponse(p *petition, code int, message string, body_out ...
 
 	p.w.Header().Set("Content-Action", "application/json; charset=utf-8")
 	p.w.Header().Set("X-Content-Action-Options", "nosniff")
-	p.w.Header().Set("Decode", p.decode)
+	// p.w.Header().Set("Decode", p.decode)
 	// ¡¡¡ antes de write header !!! de lo contrario no se guardan
 	p.w.WriteHeader(code)
 
@@ -35,7 +34,6 @@ func (c config) jsonResponse(p *petition, code int, message string, body_out ...
 		}
 	} else {
 		if message == "error" {
-
 			object_name = ""
 		}
 		// fmt.Println("OBJECT:", object_name)
@@ -66,40 +64,25 @@ func (c config) unauthorized(p *petition, reason string) {
 
 // status default: StatusBadRequest
 func (c config) error(p *petition, err error, status ...int) {
-	p.decode = "error"
+	// p.decode = "error"
 	var code = http.StatusBadRequest
 	for _, n := range status {
 		code = n
 	}
+	p.w.Header().Set("Status", err.Error())
+	p.w.WriteHeader(code)
 
 	c.logError(p, err, code)
 
-	c.jsonResponse(p, code, "error", map[string]string{"error": err.Error()})
+	// c.jsonResponse(p, code, "error", map[string]string{"error": err.Error()})
+	// fmt.Fprintln(p.w, `[{"o":["error","`+err.Error()+`"]}]`)
 }
 
-func errorHttp(p *petition, err error, code int) {
-	p.w.WriteHeader(code)
-
-	if p.multiple {
-		fmt.Fprintln(p.w, `[{"o":["error","`+err.Error()+`"]}]`)
-	} else {
-		fmt.Fprintln(p.w, err.Error())
-	}
-}
-
-func (c config) logError(p *petition, err error, status ...int) {
-
-	var code = http.StatusInternalServerError
-	for _, s := range status {
-		code = s
-	}
-
-	if p.u == nil {
-		p.u = &model.User{Name: "unregistered"}
-	}
+func (c config) logError(p *petition, err error, code int) {
 
 	var auth_state string
-	if p.e != nil {
+	if p.u == nil {
+		p.u = &model.User{Name: "unregistered"}
 		auth_state = "auth:" + p.e.Error()
 	}
 

@@ -1,8 +1,11 @@
 package api_test
 
 import (
+	"github.com/cdvelop/fileserver"
 	"github.com/cdvelop/testools"
 )
+
+const static_files = "frontend/built/static"
 
 var (
 	testData = map[string]testools.Request{
@@ -25,7 +28,7 @@ var (
 			Endpoint: "read",
 			Object:   product.Objects[0].Name,
 			Data:     []map[string]string{{"id_product": "1"}},
-			Expected: []map[string]string{{"error": "acción: read no permitida con método POST"}},
+			Expected: "acción: read no permitida con método POST",
 		},
 		"se espera actualización de producto ok": {
 			Method:   "POST",
@@ -46,23 +49,30 @@ var (
 		"se espera lectura fichero de productos ok": {
 			Method:   "GET",
 			Endpoint: "file?id=1",
-			Object:   "",
+			Object:   "file",
 			Data:     nil,
-			Expected: []map[string]string{{"status": "200 OK"}},
+			Expected: []map[string]string{{"file": string(fileserver.GetFile("./README.md"))}},
 		},
 
 		"se espera lectura fichero estático  ok": {
 			Method:   "GET",
 			Endpoint: "static/dino-test.png",
 			Object:   "",
-			Expected: []map[string]string{{"status": "200 OK"}},
+			Expected: []map[string]string{{"file": string(fileserver.GetFile(static_files + "/dino-test.png"))}},
 		},
 
 		"se espera bad request no existe controlador": {
 			Method:   "POST",
 			Endpoint: "create",
 			Object:   "dino",
-			Expected: []map[string]string{{"status": "400 Bad Request"}},
+			Expected: "error isHandlerOk objeto: dino no encontrado",
+		},
+		"se espera subida de archivo ok": {
+			Method:   "POST",
+			Endpoint: "upload",
+			Object:   product.Objects[0].Name,
+			Data:     []map[string]string{{"name": "1"}},
+			Expected: []map[string]string{{"id_product": "200"}},
 		},
 	}
 )

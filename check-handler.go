@@ -2,6 +2,8 @@ package api
 
 import (
 	"fmt"
+
+	"github.com/cdvelop/model"
 )
 
 func (c config) isHandlerOk(p *petition, action_type, api_name string) error {
@@ -14,7 +16,7 @@ func (c config) isHandlerOk(p *petition, action_type, api_name string) error {
 
 	h, err := c.GetObjectByName(api_name)
 	if err != nil {
-		return err
+		return model.Error("error isHandlerOk", err)
 	}
 
 	switch action_type {

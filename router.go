@@ -39,7 +39,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 		}
 
 		if action_type != "" && r.Method != "GET" {
-			out.PrintInfo(fmt.Sprintf("[%v]: [%v]: [%v]", r.Method, action_type, api_name))
+			out.PrintInfo(fmt.Sprintf("método:[%v]: acción:[%v]: objeto[%v]\n", r.Method, action_type, api_name))
 		}
 
 		if r.Method == "POST" {
@@ -105,13 +105,13 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 					index_content, err := os.ReadFile(filepath.Join(INDEX_FOLDER, "index.html"))
 					if err != nil {
-						c.logError(p, err)
+						c.error(p, err, http.StatusInternalServerError)
 						return
 					}
 
 					t, err := template.New("").Parse(string(index_content))
 					if err != nil {
-						c.logError(p, err)
+						c.error(p, err, http.StatusInternalServerError)
 						return
 					}
 
@@ -131,7 +131,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 					data, err = c.EncodeResponses(responses...)
 					if err != nil {
-						c.logError(p, err)
+						c.error(p, err, http.StatusInternalServerError)
 						return
 					}
 
@@ -142,7 +142,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 					err = t.Execute(w, actions)
 					if err != nil {
-						c.logError(p, fmt.Errorf("error al retornar pagina %v", err))
+						c.error(p, fmt.Errorf("error al retornar pagina %v", err), http.StatusInternalServerError)
 						return
 					}
 					// w.Header.Set()
@@ -150,7 +150,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 					// w.Write()
 					// http.ServeFile(w, r, INDEX_FOLDER+"/index.html")
 				} else {
-					c.logError(p, fmt.Errorf("error not found %v", r.URL.Path))
+					c.error(p, fmt.Errorf("error not found %v", r.URL.Path))
 					http.NotFound(w, r)
 				}
 			}
