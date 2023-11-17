@@ -56,10 +56,15 @@ func (m module) Create(u *model.User, params ...map[string]string) error {
 
 func (m module) Read(u *model.User, params ...map[string]string) ([]map[string]string, error) {
 	// fmt.Println("parámetros leer todo recibidos:", params)
-	return []map[string]string{
-		{"name": "manzana"},
-		{"name": "peras"},
-	}, nil
+	for _, v := range params {
+		if v["id_product"] == "1" {
+			return []map[string]string{
+				{"name": "manzana"},
+				{"name": "peras"},
+			}, nil
+		}
+	}
+	return nil, model.Error("nada encontrado")
 }
 
 func (m module) Update(u *model.User, params ...map[string]string) error {

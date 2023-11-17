@@ -53,7 +53,6 @@ func (c config) jsonResponse(p *petition, code int, message string, body_out ...
 }
 
 func (c config) success(p *petition, action, message string, data ...map[string]string) {
-	p.decode = p.o.Name
 	c.jsonResponse(p, http.StatusOK, message, data...)
 }
 

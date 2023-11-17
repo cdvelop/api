@@ -1,7 +1,5 @@
 package api
 
-import "fmt"
-
 func (c config) upload(p *petition) {
 	// fmt.Printf("Estás en el Manejador de subida de archivos %s\n", p.o.Name)
 
@@ -11,7 +9,7 @@ func (c config) upload(p *petition) {
 		c.error(p, err)
 		return
 	}
-	fmt.Println(p.o.Name)
+	// fmt.Println("api upload", p.o.Name)
 
 	// fmt.Println(" success SALIDA DATA UPLOAD:", data_out)
 

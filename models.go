@@ -29,5 +29,4 @@ type petition struct {
 	t        time.Time
 	e        error
 	multiple bool
-	decode   string
 }

@@ -59,6 +59,9 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 			case "create":
 				c.create(p)
 
+			case "read":
+				c.read(p)
+
 			case "update":
 				c.update(p)
 
@@ -75,19 +78,6 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 		} else if r.Method == "GET" {
 
 			switch action_type {
-
-			case "read":
-				if !registered_user {
-					c.unauthorized(p, "obtener información")
-					return
-				}
-
-				err := c.isHandlerOk(p, action_type, api_name)
-				if err != nil {
-					c.error(p, err)
-					return
-				}
-				c.read(p)
 
 			case "file":
 				if !registered_user {

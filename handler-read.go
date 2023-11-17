@@ -8,21 +8,25 @@ import (
 
 func (c config) read(p *petition) {
 
-	// fmt.Printf("Estás en el Manejador de lectura de data de %s\n", o.Name)
-
-	params, err := paramsCheckIn(p, false, false)
+	params, err := c.decodeStringMapData(p)
 	if err != nil {
 		c.error(p, err)
 		return
 	}
 
-	data, err := p.o.Read(p.u, params)
+	err = p.o.ValidateData(false, true, params...)
 	if err != nil {
 		c.error(p, err)
 		return
 	}
 
-	// fmt.Printf("Manejador de lectura RESPUESTA %s\n", data)
+	// fmt.Printf("params read(p *petition) %s\n", params)
+
+	data, err := p.o.Read(p.u, params...)
+	if err != nil {
+		c.error(p, err)
+		return
+	}
 
 	c.success(p, "read", "ok", data...)
 }

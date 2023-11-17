@@ -8,6 +8,11 @@ import (
 
 func (c config) isHandlerOk(p *petition, action_type, api_name string) error {
 
+	// fmt.Println("TOTAL MANEJADORES", len(c.GetObjects()))
+	// for _, o := range c.GetObjects() {
+	// 	fmt.Printf("Estás en el Manejador de lectura de data de %s\n", o.Name)
+	// }
+
 	if action_type == "crud" {
 		p.action = "crud"
 		p.multiple = true

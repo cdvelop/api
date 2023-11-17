@@ -21,8 +21,8 @@ require (
 
 require (
 	github.com/cdvelop/fetchserver v0.0.2 // indirect
-	github.com/cdvelop/filehandler v0.0.3
-	github.com/cdvelop/fileserver v0.0.21
+	github.com/cdvelop/filehandler v0.0.5
+	github.com/cdvelop/fileserver v0.0.23
 	github.com/cdvelop/gotools v0.0.57
 	github.com/cdvelop/logserver v0.0.3 // indirect
 	github.com/cdvelop/output v0.0.16

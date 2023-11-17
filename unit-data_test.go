@@ -17,19 +17,21 @@ var (
 			Expected: []map[string]string{{"id_product": "4", "name": "manzana"}},
 		},
 		"se espera lectura json de producto ok": {
-			Method:   "GET",
+			Method:   "POST",
 			Endpoint: "read",
 			Object:   product.Objects[0].Name,
 			Data:     []map[string]string{{"id_product": "1"}},
 			Expected: []map[string]string{{"name": "manzana"}, {"name": "peras"}},
 		},
-		"se espera error lectura no se puede con método post": {
+
+		"se espera error id 2 no esta en el controlador": {
 			Method:   "POST",
 			Endpoint: "read",
 			Object:   product.Objects[0].Name,
-			Data:     []map[string]string{{"id_product": "1"}},
-			Expected: "acción: read no permitida con método POST",
+			Data:     []map[string]string{{"id_product": "2"}},
+			Expected: "nada encontrado",
 		},
+
 		"se espera actualización de producto ok": {
 			Method:   "POST",
 			Endpoint: "update",
