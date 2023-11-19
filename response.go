@@ -20,13 +20,13 @@ func (c config) jsonResponse(p *petition, code int, message string, body_out ...
 	var out []byte
 	var err error
 
-	o := model.Object{Name: "error"}
+	o := model.Object{ObjectName: "error"}
 
 	if p.o != nil {
 		o = *p.o
 	}
 
-	var object_name = o.Name
+	var object_name = o.ObjectName
 	if p.multiple {
 		out, err = c.EncodeResponses(o.Response(body_out, p.action, message))
 		if err != nil {

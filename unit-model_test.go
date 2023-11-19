@@ -23,8 +23,8 @@ func ModuleProduct() *model.Module {
 	}
 
 	newObject := model.Object{
-		Name:  "product",
-		Table: "product",
+		ObjectName: "product",
+		Table:      "product",
 
 		Fields: []model.Field{
 			{Name: "id_product", Legend: "Id", Input: unixid.InputPK()},

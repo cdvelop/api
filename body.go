@@ -30,7 +30,7 @@ func (c config) decodeStringMapData(p *petition) ([]map[string]string, error) {
 		return nil, err
 	}
 
-	data, err := c.DecodeMaps(body, p.o.Name)
+	data, err := c.DecodeMaps(body, p.o.ObjectName)
 	if err != nil {
 		return nil, err
 	}

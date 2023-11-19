@@ -31,7 +31,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 		p := &petition{
 			u: u,
-			o: &model.Object{Name: "error"},
+			o: &model.Object{ObjectName: "error"},
 			r: r,
 			w: w,
 			t: time.Now(),
@@ -105,24 +105,27 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 						return
 					}
 
-					var responses []model.Response
 					var data []byte
 
-					for _, o := range c.bootHandlers {
-						// PrintError("boot handler:" + o.Name)
-						resp, err := o.AddBootResponse(p.u)
-						if err != nil {
-							out.PrintError("error boot response:", o.Name, err.Error())
-						} else if len(resp) != 0 {
-							responses = append(responses, resp...)
+					if registered_user {
+
+						var responses []model.Response
+						for _, o := range c.GetObjects() {
+							if o.BootResponse != nil {
+								resp, err := o.AddBootResponse(p.u)
+								if err != nil {
+									out.PrintError("error boot response:", o.ObjectName, err.Error())
+								} else if len(resp) != 0 {
+									responses = append(responses, resp...)
+								}
+							}
 						}
 
-					}
-
-					data, err = c.EncodeResponses(responses...)
-					if err != nil {
-						c.error(p, err, http.StatusInternalServerError)
-						return
+						data, err = c.EncodeResponses(responses...)
+						if err != nil {
+							c.error(p, err, http.StatusInternalServerError)
+							return
+						}
 					}
 
 					var actions = model.BootActions{

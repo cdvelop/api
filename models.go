@@ -8,13 +8,11 @@ import (
 )
 
 type config struct {
-	model.LoginUser
+	model.AuthAdapter
 	model.ObjectsHandler
 	model.DataConverter
 	model.FileApi
 	model.Logger
-
-	bootHandlers []*model.Object
 
 	developer_mode bool
 	static_cache   string

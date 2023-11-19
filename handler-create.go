@@ -11,7 +11,7 @@ func (c config) create(p *petition) {
 		c.error(p, err, http.StatusInternalServerError)
 		return
 	}
-	// fmt.Printf("\nEstás en creación objeto %s\n", p.o.Name)
+	// fmt.Printf("\nEstás en creación objeto %s\n", p.o.ObjectName)
 
 	err = p.o.ValidateData(true, false, data...)
 	if err != nil {

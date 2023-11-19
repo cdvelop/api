@@ -10,7 +10,7 @@ func (c config) isHandlerOk(p *petition, action_type, api_name string) error {
 
 	// fmt.Println("TOTAL MANEJADORES", len(c.GetObjects()))
 	// for _, o := range c.GetObjects() {
-	// 	fmt.Printf("Estás en el Manejador de lectura de data de %s\n", o.Name)
+	// 	fmt.Printf("Estás en el Manejador de lectura de data de %s\n", o.ObjectName)
 	// }
 
 	if action_type == "crud" {

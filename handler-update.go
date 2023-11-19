@@ -6,7 +6,7 @@ import (
 
 func (c config) update(p *petition) {
 
-	// fmt.Printf("Estás en la página de actualización del objeto %s\nData: %s\n", o.Name, u.Name)
+	// fmt.Printf("Estás en la página de actualización del objeto %s\nData: %s\n", o.ObjectName, u.Name)
 	data, err := c.decodeStringMapData(p)
 	if err != nil {
 		c.error(p, model.Error("update", err))
@@ -19,7 +19,7 @@ func (c config) update(p *petition) {
 		return
 	}
 
-	// fmt.Println("OBJETO VALIDADO: ", o.Name)
+	// fmt.Println("OBJETO VALIDADO: ", o.ObjectName)
 
 	err = p.o.Update(p.u, data...)
 	if err != nil {

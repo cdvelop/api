@@ -2,7 +2,7 @@ module github.com/cdvelop/api
 
 go 1.20
 
-require github.com/cdvelop/model v0.0.68
+require github.com/cdvelop/model v0.0.69
 
 require (
 	github.com/cdvelop/input v0.0.52
@@ -12,8 +12,8 @@ require (
 
 require (
 	github.com/cdvelop/cutkey v0.6.0 // indirect
-	github.com/cdvelop/maps v0.0.2 // indirect
-	github.com/cdvelop/object v0.0.27 // indirect
+	github.com/cdvelop/maps v0.0.3 // indirect
+	github.com/cdvelop/object v0.0.28 // indirect
 	github.com/cdvelop/timetools v0.0.18 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	golang.org/x/net v0.18.0 // indirect
@@ -22,7 +22,7 @@ require (
 require (
 	github.com/cdvelop/fetchserver v0.0.2 // indirect
 	github.com/cdvelop/filehandler v0.0.5
-	github.com/cdvelop/fileserver v0.0.23
+	github.com/cdvelop/fileserver v0.0.25
 	github.com/cdvelop/gotools v0.0.57
 	github.com/cdvelop/logserver v0.0.3 // indirect
 	github.com/cdvelop/output v0.0.16

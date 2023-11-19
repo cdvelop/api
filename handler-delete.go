@@ -6,7 +6,7 @@ import (
 
 func (c config) delete(p *petition) {
 
-	// fmt.Printf("Estás en la página de eliminación de %s\n", o.Name)
+	// fmt.Printf("Estás en la página de eliminación de %s\n", o.ObjectName)
 
 	// Leer el cuerpo de la solicitud en un slice de bytes
 	data, err := c.decodeStringMapData(p)
