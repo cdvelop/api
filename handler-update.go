@@ -21,7 +21,7 @@ func (c config) update(p *petition) {
 
 	// fmt.Println("OBJETO VALIDADO: ", o.ObjectName)
 
-	err = p.o.Update(p.u, data...)
+	err = p.o.BackHandler.Update(p.u, data...)
 	if err != nil {
 		c.error(p, err)
 		return

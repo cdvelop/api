@@ -2,31 +2,31 @@ module github.com/cdvelop/api
 
 go 1.20
 
-require github.com/cdvelop/model v0.0.69
+require github.com/cdvelop/model v0.0.70
 
 require (
-	github.com/cdvelop/input v0.0.52
+	github.com/cdvelop/input v0.0.53
 	github.com/cdvelop/strings v0.0.7
 	github.com/cdvelop/testools v0.0.38
 )
 
 require (
 	github.com/cdvelop/cutkey v0.6.0 // indirect
-	github.com/cdvelop/maps v0.0.3 // indirect
-	github.com/cdvelop/object v0.0.28 // indirect
-	github.com/cdvelop/timetools v0.0.18 // indirect
+	github.com/cdvelop/maps v0.0.5 // indirect
+	github.com/cdvelop/object v0.0.32 // indirect
+	github.com/cdvelop/timetools v0.0.19 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	golang.org/x/net v0.18.0 // indirect
 )
 
 require (
-	github.com/cdvelop/fetchserver v0.0.2 // indirect
-	github.com/cdvelop/filehandler v0.0.5
-	github.com/cdvelop/fileserver v0.0.25
-	github.com/cdvelop/gotools v0.0.57
-	github.com/cdvelop/logserver v0.0.3 // indirect
+	github.com/cdvelop/fetchserver v0.0.3 // indirect
+	github.com/cdvelop/filehandler v0.0.6
+	github.com/cdvelop/fileserver v0.0.26
+	github.com/cdvelop/gotools v0.0.58
+	github.com/cdvelop/logserver v0.0.4 // indirect
 	github.com/cdvelop/output v0.0.16
-	github.com/cdvelop/unixid v0.0.18
+	github.com/cdvelop/unixid v0.0.19
 	golang.org/x/text v0.14.0 // indirect
 )
 

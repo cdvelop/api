@@ -23,7 +23,7 @@ func (c config) delete(p *petition) {
 
 	// fmt.Println("data recibida para eliminar:", data)
 
-	recovered_data, err := p.o.Delete(p.u, data...)
+	recovered_data, err := p.o.BackHandler.Delete(p.u, data...)
 	if err != nil {
 		c.error(p, err)
 		return

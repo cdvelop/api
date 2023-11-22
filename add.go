@@ -14,6 +14,7 @@ func Add(h *model.Handlers, options ...string) (*config, error) {
 	c := &config{
 		AuthAdapter:    h,
 		ObjectsHandler: h,
+		ModuleHandler:  h,
 		DataConverter:  h,
 		FileApi:        h,
 		Logger:         h,

@@ -1,7 +1,7 @@
 github.com/cdvelop/dbtools v0.0.59 h1:s4f9Yrc7qsf5plTqp6DToy6DwYPHVPCLVHDf2owY5SY=
 github.com/cdvelop/fileinput v0.0.26 h1:6YnZV7Q7UVz+b3kSeCRthJBfg54RH0vhQwsClnyNSpg=
-github.com/cdvelop/maps v0.0.3 h1:wIEBT/DZPvxXloruv2ksqUQsCGGC/b4mRQO1bqFrB2E=
-github.com/cdvelop/maps v0.0.3/go.mod h1:Yb8XruAxg5z8CIi+pIJSJ9xq6Qfu6qWHBuaTHq2/uxc=
+github.com/cdvelop/maps v0.0.5 h1:e6U+jJMpEDhQXnUXp7MrX3BqzyYI8JCQPxEjHEFXKQc=
+github.com/cdvelop/maps v0.0.5/go.mod h1:df0svHR1uEDIiQ0QuyfZ8F35beYKIy/KDQygbjRdlXQ=
 github.com/cdvelop/objectdb v0.0.82 h1:7HSj4ZX2Rr2YcJjop3kO8xW8331O14Ysnbfc68pKt1c=
 github.com/cdvelop/sqlite v0.0.77 h1:LfJOnUpmgN4Gau2tB+8mhuDp8DdJNhGhmDkwCmx9ugg=
 github.com/cdvelop/timeserver v0.0.17 h1:YCRvPYMiRS64ejpO+7WiBUsWl8xvMNjrRAcQ79j/Zx4=

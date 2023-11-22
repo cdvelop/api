@@ -10,6 +10,7 @@ import (
 type config struct {
 	model.AuthAdapter
 	model.ObjectsHandler
+	model.ModuleHandler
 	model.DataConverter
 	model.FileApi
 	model.Logger

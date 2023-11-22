@@ -19,7 +19,7 @@ func (c config) create(p *petition) {
 		return
 	}
 
-	err = p.o.Create(p.u, data...)
+	err = p.o.BackHandler.Create(p.u, data...)
 	if err != nil {
 		c.error(p, err)
 		return

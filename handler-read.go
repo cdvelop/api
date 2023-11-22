@@ -22,7 +22,7 @@ func (c config) read(p *petition) {
 
 	// fmt.Printf("params read(p *petition) %s\n", params)
 
-	data, err := p.o.Read(p.u, params...)
+	data, err := p.o.BackHandler.Read(p.u, params...)
 	if err != nil {
 		c.error(p, err)
 		return

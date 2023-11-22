@@ -31,7 +31,7 @@ func ModuleProduct() *model.Module {
 			{Name: "name", Legend: "Nombre", Input: input.Text()},
 		},
 		Module: newModule,
-		BackendHandler: model.BackendHandler{
+		BackHandler: model.BackendHandler{
 			CreateApi: m,
 			ReadApi:   m,
 			UpdateApi: m,

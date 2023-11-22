@@ -27,28 +27,28 @@ func (c config) isHandlerOk(p *petition, action_type, api_name string) error {
 	switch action_type {
 
 	case "create":
-		if h.CreateApi != nil {
+		if h.BackHandler.CreateApi != nil {
 			p.action = "create"
 			p.o = h
 			return nil
 		}
 
 	case "read":
-		if h.ReadApi != nil {
+		if h.BackHandler.ReadApi != nil {
 			p.action = "read"
 			p.o = h
 			return nil
 		}
 
 	case "update":
-		if h.UpdateApi != nil {
+		if h.BackHandler.UpdateApi != nil {
 			p.action = "update"
 			p.o = h
 			return nil
 		}
 
 	case "delete":
-		if h.DeleteApi != nil {
+		if h.BackHandler.DeleteApi != nil {
 			p.action = "delete"
 			p.o = h
 			return nil

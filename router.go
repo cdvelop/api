@@ -111,8 +111,12 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 						var responses []model.Response
 						for _, o := range c.GetObjects() {
-							if o.BootResponse != nil {
-								resp, err := o.AddBootResponse(p.u)
+
+							// fmt.Println("BackHandler.BootResponse", o.ObjectName)
+							// fmt.Println("Estado Back:", o.BackHandler.BootResponse)
+
+							if o.BackHandler.BootResponse != nil {
+								resp, err := o.BackHandler.AddBootResponse(p.u)
 								if err != nil {
 									out.PrintError("error boot response:", o.ObjectName, err.Error())
 								} else if len(resp) != 0 {
@@ -128,9 +132,26 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 						}
 					}
 
+					var testData []byte
+
+					if c.developer_mode {
+						fmt.Println("EN DESARROLLO CARGANDO TEST")
+						var responses []model.Response
+						for _, m := range c.GetModules() {
+							responses = append(responses, m.Tests...)
+						}
+
+						testData, err = c.EncodeResponses(responses...)
+						if err != nil {
+							c.error(p, err, http.StatusInternalServerError)
+							return
+						}
+					}
+
 					var actions = model.BootActions{
 						// JsonBootActions: "sin data x",
 						JsonBootActions: string(data),
+						JsonBootTests:   string(testData),
 					}
 
 					err = t.Execute(w, actions)
