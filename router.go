@@ -23,19 +23,19 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 		var registered_user bool
 		u, err := c.GetLoginUser(r)
-		if err == nil {
+		if err == "" {
 			registered_user = true
 		}
 
 		// fmt.Println("registered_user", registered_user, u)
 
 		p := &petition{
-			u: u,
-			o: &model.Object{ObjectName: "error"},
-			r: r,
-			w: w,
-			t: time.Now(),
-			e: err,
+			u:   u,
+			o:   &model.Object{ObjectName: "error"},
+			r:   r,
+			w:   w,
+			t:   time.Now(),
+			err: err,
 		}
 
 		if action_type != "" && r.Method != "GET" {
@@ -50,7 +50,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 			}
 
 			err := c.isHandlerOk(p, action_type, api_name)
-			if err != nil {
+			if err != "" {
 				c.error(p, err)
 				return
 			}
@@ -72,7 +72,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 				c.upload(p)
 
 			default:
-				c.error(p, model.Error("acción:", p.action, "no permitida con método", r.Method))
+				c.error(p, "acción: "+p.action+" no permitida con método "+r.Method)
 			}
 
 		} else if r.Method == "GET" {
@@ -93,15 +93,17 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 			default:
 				if r.URL.Path == "/" {
 
-					index_content, err := os.ReadFile(filepath.Join(INDEX_FOLDER, "index.html"))
-					if err != nil {
-						c.error(p, err, http.StatusInternalServerError)
+					index_content, e := os.ReadFile(filepath.Join(INDEX_FOLDER, "index.html"))
+					if e != nil {
+						c.error(p, "ReadFile error. pagina index.html no encontrada", http.StatusInternalServerError)
+						c.Log(e)
 						return
 					}
 
-					t, err := template.New("").Parse(string(index_content))
-					if err != nil {
-						c.error(p, err, http.StatusInternalServerError)
+					t, e := template.New("").Parse(string(index_content))
+					if e != nil {
+						c.error(p, "template html error", http.StatusInternalServerError)
+						c.Log(e)
 						return
 					}
 
@@ -117,8 +119,8 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 							if o.BackHandler.BootResponse != nil {
 								resp, err := o.BackHandler.AddBootResponse(p.u)
-								if err != nil {
-									out.PrintError("error boot response:", o.ObjectName, err.Error())
+								if err != "" {
+									out.PrintError("error boot response:", o.ObjectName, err)
 								} else if len(resp) != 0 {
 									responses = append(responses, resp...)
 								}
@@ -126,7 +128,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 						}
 
 						data, err = c.EncodeResponses(responses...)
-						if err != nil {
+						if err != "" {
 							c.error(p, err, http.StatusInternalServerError)
 							return
 						}
@@ -134,7 +136,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 					var testData []byte
 
-					if c.developer_mode {
+					if !c.production_mode {
 						fmt.Println("EN DESARROLLO CARGANDO TEST")
 						var responses []model.Response
 						for _, m := range c.GetModules() {
@@ -142,7 +144,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 						}
 
 						testData, err = c.EncodeResponses(responses...)
-						if err != nil {
+						if err != "" {
 							c.error(p, err, http.StatusInternalServerError)
 							return
 						}
@@ -154,9 +156,10 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 						JsonBootTests:   string(testData),
 					}
 
-					err = t.Execute(w, actions)
-					if err != nil {
-						c.error(p, fmt.Errorf("error al retornar pagina %v", err), http.StatusInternalServerError)
+					e = t.Execute(w, actions)
+					if e != nil {
+						c.error(p, "error al renderizar sitio", http.StatusInternalServerError)
+						c.Log(e)
 						return
 					}
 					// w.Header.Set()
@@ -164,13 +167,13 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 					// w.Write()
 					// http.ServeFile(w, r, INDEX_FOLDER+"/index.html")
 				} else {
-					c.error(p, fmt.Errorf("error not found %v", r.URL.Path))
+					c.error(p, "error not found "+r.URL.Path)
 					http.NotFound(w, r)
 				}
 			}
 
 		} else {
-			c.error(p, model.Error("método ", r.Method, "no permitido"), http.StatusMethodNotAllowed)
+			c.error(p, "método "+r.Method+" no permitido", http.StatusMethodNotAllowed)
 		}
 
 	})

@@ -29,7 +29,7 @@ var (
 			Endpoint: "read",
 			Object:   product.Objects[0].ObjectName,
 			Data:     []map[string]string{{"id_product": "2"}},
-			Expected: "nada encontrado",
+			Expected: "api read error nada encontrado",
 		},
 
 		"se espera actualización de producto ok": {
@@ -67,7 +67,7 @@ var (
 			Method:   "POST",
 			Endpoint: "create",
 			Object:   "dino",
-			Expected: "error isHandlerOk objeto: dino no encontrado",
+			Expected: "api isHandlerOk error objeto: dino no encontrado",
 		},
 		"se espera subida de archivo ok": {
 			Method:   "POST",

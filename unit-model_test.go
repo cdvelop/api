@@ -46,40 +46,48 @@ func ModuleProduct() *model.Module {
 	return newModule
 }
 
-func (m module) Create(u *model.User, params ...map[string]string) error {
+func (m module) Create(u *model.User, params ...map[string]string) (err string) {
 	// fmt.Println("parámetros Create recibidos:", params)
 
 	params[0]["id_product"] = "4"
 
-	return nil
+	return ""
 }
 
-func (m module) Read(u *model.User, params ...map[string]string) ([]map[string]string, error) {
+func (m module) Read(u *model.User, params ...map[string]string) (out []map[string]string, err string) {
 	// fmt.Println("parámetros leer todo recibidos:", params)
 	for _, v := range params {
 		if v["id_product"] == "1" {
 			return []map[string]string{
 				{"name": "manzana"},
 				{"name": "peras"},
-			}, nil
+			}, ""
 		}
 	}
-	return nil, model.Error("nada encontrado")
+	return nil, "nada encontrado"
 }
 
-func (m module) Update(u *model.User, params ...map[string]string) error {
+func (m module) Update(u *model.User, params ...map[string]string) (err string) {
 	// fmt.Println("parámetros Update recibidos:", params)
-	return nil
+	return ""
 }
 
-func (m module) Delete(u *model.User, params ...map[string]string) ([]map[string]string, error) {
+func (m module) Delete(u *model.User, params ...map[string]string) (err string) {
+
+	for i := 0; i < len(params); i++ {
+		if params[i]["id_product"] == "1" {
+			params[i]["name"] = "pera"
+			return
+		}
+	}
+
 	// fmt.Println("parámetros Delete recibidos:", params)
-	return []map[string]string{{"id_product": "1", "name": "pera"}}, nil
+	return "error nada encontrado para eliminar"
 }
 
-func (m module) FilePath(params map[string]string) (file_path, file_area string, err error) {
+func (m module) FilePath(params map[string]string) (file_path, file_area, err string) {
 	// fmt.Println("parámetros leer archivo recibidos:", params)
-	return "./README.md", "s", nil
+	return "./README.md", "s", ""
 }
 
 func (m module) GetFileSettings() *filehandler.FileSetting {
@@ -89,7 +97,7 @@ func (m module) GetFileSettings() *filehandler.FileSetting {
 	}
 }
 
-func (module) FileUpload(object_name, area_file string, file_request ...any) (out []map[string]string, err error) {
+func (module) FileUpload(object_name, area_file string, file_request ...any) (out []map[string]string, err string) {
 
-	return []map[string]string{{"id_product": "200"}}, nil
+	return []map[string]string{{"id_product": "200"}}, ""
 }

@@ -4,37 +4,30 @@ import (
 	"bytes"
 	"io"
 	"net/http"
-
-	"github.com/cdvelop/model"
 )
 
-func (c config) readBody(p *petition) ([]byte, error) {
+func (c config) readBody(p *petition) (out []byte, err string) {
 	// Cerrar el cuerpo de la solicitud original al final de la función
 	defer p.r.Body.Close()
 
-	body, err := io.ReadAll(p.r.Body)
-	if err != nil {
-		c.error(p, model.Error("error al leer el cuerpo de la solicitud"), http.StatusInternalServerError)
+	body, e := io.ReadAll(p.r.Body)
+	if e != nil {
+		c.error(p, "error al leer el cuerpo de la solicitud", http.StatusInternalServerError)
 		return nil, err
 	}
 
 	p.r.Body = io.NopCloser(bytes.NewBuffer(body))
 
-	return body, nil
+	return body, ""
 }
 
-func (c config) decodeStringMapData(p *petition) ([]map[string]string, error) {
+func (c config) decodeStringMapData(p *petition) (data []map[string]string, err string) {
 
 	body, err := c.readBody(p)
-	if err != nil {
-		return nil, err
+	if err != "" {
+		return nil, "decodeStringMapData " + err
 	}
 
-	data, err := c.DecodeMaps(body, p.o.ObjectName)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
+	return c.DecodeMaps(body, p.o.ObjectName)
 
 }

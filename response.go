@@ -18,7 +18,7 @@ func (c config) jsonResponse(p *petition, code int, message string, body_out ...
 	// fmt.Println("p.decode:", p.decode)
 
 	var out []byte
-	var err error
+	var err string
 
 	o := model.Object{ObjectName: "error"}
 
@@ -29,8 +29,8 @@ func (c config) jsonResponse(p *petition, code int, message string, body_out ...
 	var object_name = o.ObjectName
 	if p.multiple {
 		out, err = c.EncodeResponses(o.Response(body_out, p.action, message))
-		if err != nil {
-			out = []byte(`{"Action":"error", "Message":"` + err.Error() + `"}`)
+		if err != "" {
+			out = []byte(`{"Action":"error", "Message":"` + err + `"}`)
 		}
 	} else {
 		if message == "error" {
@@ -40,8 +40,8 @@ func (c config) jsonResponse(p *petition, code int, message string, body_out ...
 		// fmt.Println("ANTES DE ENCODE:", body_out)
 
 		out, err = c.EncodeMaps(body_out, object_name)
-		if err != nil {
-			out = []byte(err.Error())
+		if err != "" {
+			out = []byte(err)
 		}
 	}
 
@@ -58,17 +58,17 @@ func (c config) success(p *petition, action, message string, data ...map[string]
 
 // no puedes: reason
 func (c config) unauthorized(p *petition, reason string) {
-	c.error(p, model.Error("no puedes", reason, "si no tiene una session en el sistema"), http.StatusNetworkAuthenticationRequired)
+	c.error(p, "no puedes "+reason+" si no tiene una session en el sistema", http.StatusNetworkAuthenticationRequired)
 }
 
 // status default: StatusBadRequest
-func (c config) error(p *petition, err error, status ...int) {
+func (c config) error(p *petition, err string, status ...int) {
 	// p.decode = "error"
 	var code = http.StatusBadRequest
 	for _, n := range status {
 		code = n
 	}
-	p.w.Header().Set("Status", err.Error())
+	p.w.Header().Set("Status", err)
 	p.w.WriteHeader(code)
 
 	c.logError(p, err, code)
@@ -77,12 +77,12 @@ func (c config) error(p *petition, err error, status ...int) {
 	// fmt.Fprintln(p.w, `[{"o":["error","`+err.Error()+`"]}]`)
 }
 
-func (c config) logError(p *petition, err error, code int) {
+func (c config) logError(p *petition, err string, code int) {
 
 	var auth_state string
 	if p.u == nil {
 		p.u = &model.User{Name: "unregistered"}
-		auth_state = "auth:" + p.e.Error()
+		auth_state = "auth:" + p.err
 	}
 
 	c.Log(p.r.Method, p.r.RemoteAddr, "user:", p.u.Name, "id:", p.u.Id, err, "code:", code, auth_state)

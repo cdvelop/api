@@ -16,8 +16,9 @@ func Test_Api(t *testing.T) {
 	}
 
 	app, err := testools.NewApiTestDefault(t, h, objects...)
-	if err != nil {
+	if err != "" {
 		t.Fatal(err)
+		return
 	}
 
 	defer app.Close()
@@ -28,10 +29,10 @@ func Test_Api(t *testing.T) {
 			r.TestName = prueba
 
 			// fmt.Println("ENDPOINT:", endpoint)
-			app.SendOneRequest(r.Method, app.BuildEndPoint(r), r.Object, r.Data, func(resp []map[string]string, err error) {
+			app.SendOneRequest(r.Method, app.BuildEndPoint(r), r.Object, r.Data, func(resp []map[string]string, err string) {
 				var response any
-				if err != nil {
-					response = err.Error()
+				if err != "" {
+					response = err
 				} else {
 					response = resp
 				}

@@ -5,32 +5,32 @@ import (
 	"strings"
 )
 
-func paramsCheckIn(p *petition, its_new, its_update_or_delete bool) (map[string]string, error) {
-
-	params, err := getParams(p)
-	if err != nil {
-		return nil, err
+func paramsCheckIn(p *petition, its_new, its_update_or_delete bool) (params map[string]string, err string) {
+	const this = "paramsCheckIn error "
+	params, err = getParams(p)
+	if err != "" {
+		return nil, this + err
 	}
 
 	// fmt.Println("PARÁMETROS RECIBIDOS: ", params)
 
 	err = p.o.ValidateData(its_new, its_update_or_delete, params)
-	if err != nil {
-		return nil, err
+	if err != "" {
+		return nil, this + err
 	}
 
-	return params, nil
+	return params, ""
 }
 
 // content_type = file
-func getParams(p *petition) (map[string]string, error) {
-
-	err := p.r.ParseForm()
-	if err != nil {
-		return nil, err
+func getParams(p *petition) (params map[string]string, err string) {
+	const this = "getParams error "
+	e := p.r.ParseForm()
+	if e != nil {
+		return nil, this + e.Error()
 	}
+	params = make(map[string]string)
 
-	params := make(map[string]string)
 	for key, values := range p.r.PostForm {
 		if len(values) > 1 {
 			params[key] = strings.Join(values, ",")
@@ -41,7 +41,7 @@ func getParams(p *petition) (map[string]string, error) {
 
 	gerUrlParams(p.r, params)
 
-	return params, nil
+	return params, ""
 }
 
 func gerUrlParams(r *http.Request, params_out map[string]string) {

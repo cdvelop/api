@@ -1,13 +1,7 @@
 package api
 
-import (
-	"fmt"
-
-	"github.com/cdvelop/model"
-)
-
-func (c config) isHandlerOk(p *petition, action_type, api_name string) error {
-
+func (c config) isHandlerOk(p *petition, action_type, api_name string) (err string) {
+	const this = "api isHandlerOk error "
 	// fmt.Println("TOTAL MANEJADORES", len(c.GetObjects()))
 	// for _, o := range c.GetObjects() {
 	// 	fmt.Printf("Estás en el Manejador de lectura de data de %s\n", o.ObjectName)
@@ -16,12 +10,12 @@ func (c config) isHandlerOk(p *petition, action_type, api_name string) error {
 	if action_type == "crud" {
 		p.action = "crud"
 		p.multiple = true
-		return nil
+		return ""
 	}
 
 	h, err := c.GetObjectByName(api_name)
-	if err != nil {
-		return model.Error("error isHandlerOk", err)
+	if err != "" {
+		return this + err
 	}
 
 	switch action_type {
@@ -30,35 +24,35 @@ func (c config) isHandlerOk(p *petition, action_type, api_name string) error {
 		if h.BackHandler.CreateApi != nil {
 			p.action = "create"
 			p.o = h
-			return nil
+			return ""
 		}
 
 	case "read":
 		if h.BackHandler.ReadApi != nil {
 			p.action = "read"
 			p.o = h
-			return nil
+			return ""
 		}
 
 	case "update":
 		if h.BackHandler.UpdateApi != nil {
 			p.action = "update"
 			p.o = h
-			return nil
+			return ""
 		}
 
 	case "delete":
 		if h.BackHandler.DeleteApi != nil {
 			p.action = "delete"
 			p.o = h
-			return nil
+			return ""
 		}
 
 	case "upload":
 		p.action = "upload"
 		p.o = h
-		return nil
+		return ""
 	}
 
-	return fmt.Errorf("no existe el controlador: %v para la acción: %v", api_name, action_type)
+	return this + "no existe el controlador: " + api_name + " para la acción: " + action_type
 }

@@ -2,29 +2,27 @@ package api
 
 import (
 	"net/http"
-
-	"github.com/cdvelop/model"
 )
 
 func (c config) read(p *petition) {
-
+	const this = "api read error "
 	params, err := c.decodeStringMapData(p)
-	if err != nil {
-		c.error(p, err)
+	if err != "" {
+		c.error(p, this+err)
 		return
 	}
 
 	err = p.o.ValidateData(false, true, params...)
-	if err != nil {
-		c.error(p, err)
+	if err != "" {
+		c.error(p, this+err)
 		return
 	}
 
 	// fmt.Printf("params read(p *petition) %s\n", params)
 
 	data, err := p.o.BackHandler.Read(p.u, params...)
-	if err != nil {
-		c.error(p, err)
+	if err != "" {
+		c.error(p, this+err)
 		return
 	}
 
@@ -32,6 +30,7 @@ func (c config) read(p *petition) {
 }
 
 func (c config) readFile(p *petition) {
+	const this = "api readFile error "
 	// retorna objeto estático ej imagen.jpg
 	params := make(map[string]string)
 
@@ -40,15 +39,15 @@ func (c config) readFile(p *petition) {
 	// fmt.Printf("Estás en la página de lectura archivo %s\n", params)
 
 	file_path, file_area, err := c.FilePath(params)
-	if err != nil {
-		c.error(p, err, http.StatusBadRequest)
+	if err != "" {
+		c.error(p, this+err, http.StatusBadRequest)
 		return
 	}
 
 	// fmt.Println("AREA USUARIO", u.Area)
 
 	if file_area != p.u.Area {
-		c.error(p, model.Error("no autorizado para leer archivo"), http.StatusUnauthorized)
+		c.error(p, this+"no autorizado para leer archivo", http.StatusUnauthorized)
 		return
 	}
 

@@ -4,8 +4,6 @@ import (
 	"os"
 
 	"github.com/cdvelop/strings"
-
-	"github.com/cdvelop/gotools"
 )
 
 func (c *config) processOptions(options ...string) {
@@ -15,8 +13,8 @@ func (c *config) processOptions(options ...string) {
 
 		case strings.Contains(option, "cache:") != 0:
 			var cache_option string
-			err := gotools.ExtractTwoPointArgument(option, &cache_option)
-			if err == nil {
+			err := strings.ExtractTwoPointArgument(option, &cache_option)
+			if err == "" {
 
 				var seconds string
 
@@ -40,7 +38,7 @@ func (c *config) processOptions(options ...string) {
 
 	for _, arg := range os.Args {
 		if arg == "dev" {
-			c.developer_mode = true
+			c.production_mode = false
 		}
 	}
 

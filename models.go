@@ -15,8 +15,8 @@ type config struct {
 	model.FileApi
 	model.Logger
 
-	developer_mode bool
-	static_cache   string
+	production_mode bool
+	static_cache    string
 }
 
 type petition struct {
@@ -26,6 +26,6 @@ type petition struct {
 	r        *http.Request
 	w        http.ResponseWriter
 	t        time.Time
-	e        error
+	err      string
 	multiple bool
 }
