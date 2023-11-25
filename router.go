@@ -134,26 +134,10 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 						}
 					}
 
-					var testData []byte
-
-					if !c.production_mode {
-						fmt.Println("EN DESARROLLO CARGANDO TEST")
-						var responses []model.Response
-						for _, m := range c.GetModules() {
-							responses = append(responses, m.Tests...)
-						}
-
-						testData, err = c.EncodeResponses(responses...)
-						if err != "" {
-							c.error(p, err, http.StatusInternalServerError)
-							return
-						}
-					}
-
 					var actions = model.BootActions{
 						// JsonBootActions: "sin data x",
 						JsonBootActions: string(data),
-						JsonBootTests:   string(testData),
+						JsonBootTests:   c.LoadE2Etests(os.Args),
 					}
 
 					e = t.Execute(w, actions)

@@ -18,6 +18,7 @@ func Add(h *model.Handlers, options ...string) (c *config, err string) {
 		DataConverter:  h,
 		FileApi:        h,
 		Logger:         h,
+		TestAdapter:    h,
 
 		static_cache: "public, max-age=86400", // Configurar el encabezado de caché para 1 día
 	}
