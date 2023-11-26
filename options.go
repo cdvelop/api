@@ -40,6 +40,10 @@ func (c *config) processOptions(options ...string) {
 		if arg == "dev" {
 			c.production_mode = false
 		}
+
+		if arg == "no-cache" {
+			c.static_cache = "no-cache"
+		}
 	}
 
 }

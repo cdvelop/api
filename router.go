@@ -107,7 +107,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 						return
 					}
 
-					var data []byte
+					var boot_data_byte []byte
 
 					if registered_user {
 
@@ -127,16 +127,21 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 							}
 						}
 
-						data, err = c.EncodeResponses(responses...)
+						boot_data_byte, err = c.EncodeResponses(responses...)
 						if err != "" {
 							c.error(p, err, http.StatusInternalServerError)
 							return
 						}
 					}
 
+					var boot_data_st = "none"
+					if len(boot_data_byte) != 0 {
+						boot_data_st = string(boot_data_byte)
+					}
+
 					var actions = model.BootActions{
 						// JsonBootActions: "sin data x",
-						JsonBootActions: string(data),
+						JsonBootActions: boot_data_st,
 						JsonBootTests:   c.LoadE2Etests(os.Args),
 					}
 
