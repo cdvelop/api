@@ -27,7 +27,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 			registered_user = true
 		}
 
-		// fmt.Println("registered_user", registered_user, u)
+		// fmt.Println("registered_user:", registered_user, u)
 
 		p := &petition{
 			u:   u,
@@ -43,9 +43,10 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 		}
 
 		if r.Method == "POST" {
+			time.Sleep(1 * time.Second)
 
 			if !registered_user {
-				c.unauthorized(p, "realizar cambios")
+				c.unauthorized(p, "realizar operaciones de lectura o escritura")
 				return
 			}
 
@@ -139,10 +140,8 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 						boot_data_st = string(boot_data_byte)
 					}
 
-					var actions = model.BootActions{
-						// JsonBootActions: "sin data x",
+					var actions = model.BootPageData{
 						JsonBootActions: boot_data_st,
-						JsonBootTests:   c.LoadE2Etests(os.Args),
 					}
 
 					e = t.Execute(w, actions)

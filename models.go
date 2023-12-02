@@ -14,7 +14,6 @@ type config struct {
 	model.DataConverter
 	model.FileApi
 	model.Logger
-	model.TestAdapter
 
 	production_mode bool
 	static_cache    string

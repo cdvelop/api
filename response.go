@@ -69,12 +69,17 @@ func (c config) error(p *petition, err string, status ...int) {
 		code = n
 	}
 	p.w.Header().Set("Status", err)
+	// p.w.Header().Set("Status-Text", err)
+
+	// fmt.Println("CODIGO RESPUESTA:", code)
+
 	p.w.WriteHeader(code)
 
 	c.logError(p, err, code)
 
 	// c.jsonResponse(p, code, "error", map[string]string{"error": err.Error()})
 	// fmt.Fprintln(p.w, `[{"o":["error","`+err.Error()+`"]}]`)
+	p.w.Write([]byte(err))
 }
 
 func (c config) logError(p *petition, err string, code int) {

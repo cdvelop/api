@@ -2,22 +2,21 @@ module github.com/cdvelop/api
 
 go 1.20
 
-require github.com/cdvelop/model v0.0.73
+require github.com/cdvelop/model v0.0.74
 
 require (
 	github.com/cdvelop/input v0.0.57
 	github.com/cdvelop/strings v0.0.7
-	github.com/cdvelop/testools v0.0.43
+	github.com/cdvelop/testools v0.0.44
 )
 
 require (
 	github.com/cdvelop/cutkey v0.6.0 // indirect
 	github.com/cdvelop/maps v0.0.7 // indirect
-	github.com/cdvelop/object v0.0.37 // indirect
+	github.com/cdvelop/object v0.0.38 // indirect
 	github.com/cdvelop/timetools v0.0.23 // indirect
-	github.com/cdvelop/wetest v0.0.4 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
-	golang.org/x/net v0.18.0 // indirect
+	golang.org/x/net v0.19.0 // indirect
 )
 
 require (
