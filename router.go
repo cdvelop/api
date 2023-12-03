@@ -43,11 +43,17 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 		}
 
 		if r.Method == "POST" {
-			time.Sleep(1 * time.Second)
 
-			if !registered_user {
-				c.unauthorized(p, "realizar operaciones de lectura o escritura")
-				return
+			c.Log("OK HANLDER AUTH", c.NameOfAuthHandler())
+			c.Log("-- API NAME", api_name)
+			// time.Sleep(1 * time.Second)
+
+			if c.NameOfAuthHandler() != api_name {
+
+				if !registered_user {
+					c.unauthorized(p, "realizar operaciones de lectura o escritura")
+					return
+				}
 			}
 
 			err := c.isHandlerOk(p, action_type, api_name)
