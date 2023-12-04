@@ -23,7 +23,11 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 		var registered_user bool
 		u, err := c.GetLoginUser(r)
-		if err == "" {
+		if err != "" {
+			u = &model.User{
+				Ip: GetIP(r),
+			}
+		} else {
 			registered_user = true
 		}
 
@@ -60,6 +64,11 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 			if err != "" {
 				c.error(p, err)
 				return
+			}
+
+			p.object_response = api_name
+			if c.NameOfAuthHandler() == api_name {
+				p.object_response = "" // cuando es login permitimos que responda multiples datos
 			}
 
 			switch p.action {
@@ -114,36 +123,13 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 						return
 					}
 
-					var boot_data_byte []byte
-
+					var boot_data_st = "none"
 					if registered_user {
-
-						var responses []model.Response
-						for _, o := range c.GetObjects() {
-
-							// fmt.Println("BackHandler.BootResponse", o.ObjectName)
-							// fmt.Println("Estado Back:", o.BackHandler.BootResponse)
-
-							if o.BackHandler.BootResponse != nil {
-								resp, err := o.BackHandler.AddBootResponse(p.u)
-								if err != "" {
-									out.PrintError("error boot response:", o.ObjectName, err)
-								} else if len(resp) != 0 {
-									responses = append(responses, resp...)
-								}
-							}
-						}
-
-						boot_data_byte, err = c.EncodeResponses(responses...)
+						boot_data_st, err = c.BackendLoadBootData(p.u)
 						if err != "" {
 							c.error(p, err, http.StatusInternalServerError)
 							return
 						}
-					}
-
-					var boot_data_st = "none"
-					if len(boot_data_byte) != 0 {
-						boot_data_st = string(boot_data_byte)
 					}
 
 					var actions = model.BootPageData{

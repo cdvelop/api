@@ -21,6 +21,7 @@ func Add(h *model.Handlers, options ...string) (c *config, err string) {
 
 		static_cache: "public, max-age=86400", // Configurar el encabezado de caché para 1 día
 	}
+	h.BackendBootDataUser = c
 
 	c.production_mode = h.ProductionMode
 

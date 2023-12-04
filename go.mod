@@ -2,12 +2,12 @@ module github.com/cdvelop/api
 
 go 1.20
 
-require github.com/cdvelop/model v0.0.75
+require github.com/cdvelop/model v0.0.76
 
 require (
 	github.com/cdvelop/input v0.0.59
 	github.com/cdvelop/strings v0.0.7
-	github.com/cdvelop/testools v0.0.45
+	github.com/cdvelop/testools v0.0.46
 )
 
 require (
@@ -22,7 +22,7 @@ require (
 require (
 	github.com/cdvelop/fetchserver v0.0.9 // indirect
 	github.com/cdvelop/filehandler v0.0.12
-	github.com/cdvelop/fileserver v0.0.29
+	github.com/cdvelop/fileserver v0.0.30
 	github.com/cdvelop/logserver v0.0.10 // indirect
 	github.com/cdvelop/output v0.0.16
 	github.com/cdvelop/unixid v0.0.25

@@ -39,6 +39,7 @@ func Test_Api(t *testing.T) {
 				// fmt.Println("RESPUESTA:", response)
 				if !r.CheckTest(r.Expected, response) {
 					t.Fatal()
+					return
 				}
 			})
 

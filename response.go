@@ -26,7 +26,7 @@ func (c config) jsonResponse(p *petition, code int, message string, body_out ...
 		o = *p.o
 	}
 
-	var object_name = o.ObjectName
+	// var object_name = o.ObjectName
 	if p.multiple {
 		out, err = c.EncodeResponses(o.Response(body_out, p.action, message))
 		if err != "" {
@@ -34,12 +34,12 @@ func (c config) jsonResponse(p *petition, code int, message string, body_out ...
 		}
 	} else {
 		if message == "error" {
-			object_name = ""
+			p.object_response = ""
 		}
 		// fmt.Println("OBJECT:", object_name)
 		// fmt.Println("ANTES DE ENCODE:", body_out)
 
-		out, err = c.EncodeMaps(body_out, object_name)
+		out, err = c.EncodeMaps(body_out, p.object_response)
 		if err != "" {
 			out = []byte(err)
 		}
