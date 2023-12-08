@@ -22,7 +22,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 		// fmt.Println("ACTION", action_type, "API NAME", api_name)
 
 		var registered_user bool
-		u, err := c.GetLoginUser(r)
+		u, err := c.BackendCheckUser(r)
 		if err != "" {
 			u = &model.User{
 				Ip: GetIP(r),

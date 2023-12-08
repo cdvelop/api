@@ -8,7 +8,7 @@ import (
 )
 
 type config struct {
-	model.AuthAdapter
+	model.AuthBackendAdapter
 	model.ObjectsHandler
 	model.ModuleHandler
 	model.DataConverter

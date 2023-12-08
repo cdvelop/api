@@ -12,12 +12,12 @@ import (
 func Add(h *model.Handlers, options ...string) (c *config, err string) {
 
 	c = &config{
-		AuthAdapter:    h,
-		ObjectsHandler: h,
-		ModuleHandler:  h,
-		DataConverter:  h,
-		FileApi:        h,
-		Logger:         h,
+		AuthBackendAdapter: h.AuthBackendAdapter,
+		ObjectsHandler:     h,
+		ModuleHandler:      h,
+		DataConverter:      h,
+		FileApi:            h,
+		Logger:             h,
 
 		static_cache: "public, max-age=86400", // Configurar el encabezado de caché para 1 día
 	}

@@ -2,30 +2,30 @@ module github.com/cdvelop/api
 
 go 1.20
 
-require github.com/cdvelop/model v0.0.76
+require github.com/cdvelop/model v0.0.77
 
 require (
-	github.com/cdvelop/input v0.0.59
+	github.com/cdvelop/input v0.0.60
 	github.com/cdvelop/strings v0.0.7
-	github.com/cdvelop/testools v0.0.46
+	github.com/cdvelop/testools v0.0.47
 )
 
 require (
 	github.com/cdvelop/cutkey v0.6.0 // indirect
 	github.com/cdvelop/maps v0.0.7 // indirect
-	github.com/cdvelop/object v0.0.40 // indirect
-	github.com/cdvelop/timetools v0.0.25 // indirect
+	github.com/cdvelop/object v0.0.41 // indirect
+	github.com/cdvelop/timetools v0.0.26 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	golang.org/x/net v0.19.0 // indirect
 )
 
 require (
-	github.com/cdvelop/fetchserver v0.0.9 // indirect
-	github.com/cdvelop/filehandler v0.0.12
+	github.com/cdvelop/fetchserver v0.0.10 // indirect
+	github.com/cdvelop/filehandler v0.0.13
 	github.com/cdvelop/fileserver v0.0.30
-	github.com/cdvelop/logserver v0.0.10 // indirect
+	github.com/cdvelop/logserver v0.0.11 // indirect
 	github.com/cdvelop/output v0.0.16
-	github.com/cdvelop/unixid v0.0.25
+	github.com/cdvelop/unixid v0.0.26
 )
 
 replace github.com/cdvelop/model => ../model
