@@ -6,8 +6,8 @@ github.com/cdvelop/fetchserver v0.0.11/go.mod h1:f4KzXTwtJ1Zs457CDAJOymg+aTgkyCH
 github.com/cdvelop/filehandler v0.0.15 h1:rQCvCMbdmvOP7BePjZ2UdXIBSOvOvb/UAVtENDLv9Es=
 github.com/cdvelop/filehandler v0.0.15/go.mod h1:9vu1Qnqq2f0AnIq94VCW0C+GUeCaaKslh4+utPYwPBI=
 github.com/cdvelop/fileinput v0.0.39 h1:lkNeqSv7Q6u7JlGU3ZXhhjN/hrNxvDghlM1cejYhzNI=
-github.com/cdvelop/fileserver v0.0.33 h1:BNaR0W+EuYqmJhFdEl5y44G1XXDNEFr2OnBLu0FKqQg=
-github.com/cdvelop/fileserver v0.0.33/go.mod h1:dTlledbL0DlJQs+VLiGFFUZr4pgLY1HB9vKXwVPCzqk=
+github.com/cdvelop/fileserver v0.0.34 h1:qekuqa0TJr1JMEOZoqdeg4m58hQa4mj/rDFKd6oo2e8=
+github.com/cdvelop/fileserver v0.0.34/go.mod h1:gBtwsqe10wl4QcYSpxbh6rTVRtZheZ3sOuPzQYfxfXI=
 github.com/cdvelop/gotools v0.0.66 h1:ySqb43BgGHdsDfyc81bypm4xjhXJLDAGrdiPtEbqbeE=
 github.com/cdvelop/input v0.0.62 h1:UeSYYBfGUaeMFLW85v9f+7Yqahmsw8KynFpvNzu2USM=
 github.com/cdvelop/input v0.0.62/go.mod h1:jQwrSqhJlrIXM1phVzwlLm2m/kEsU1DCIWqnpWgegfg=
