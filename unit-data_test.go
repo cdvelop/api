@@ -67,7 +67,7 @@ var (
 			Method:   "POST",
 			Endpoint: "create",
 			Object:   "dino",
-			Expected: "api isHandlerOk error objeto: dino no encontrado",
+			Expected: "api isHandlerOk error GetObjectByName objeto: dino no encontrado",
 		},
 		"se espera subida de archivo ok": {
 			Method:   "POST",
