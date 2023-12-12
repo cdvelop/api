@@ -3,13 +3,13 @@ module github.com/cdvelop/api
 go 1.20
 
 require (
-	github.com/cdvelop/filehandler v0.0.16
+	github.com/cdvelop/filehandler v0.0.18
 	github.com/cdvelop/fileserver v0.0.35
-	github.com/cdvelop/input v0.0.62
-	github.com/cdvelop/model v0.0.85
+	github.com/cdvelop/input v0.0.63
+	github.com/cdvelop/model v0.0.86
 	github.com/cdvelop/output v0.0.16
 	github.com/cdvelop/strings v0.0.8
-	github.com/cdvelop/testools v0.0.54
+	github.com/cdvelop/testools v0.0.55
 	github.com/cdvelop/unixid v0.0.28
 )
 
