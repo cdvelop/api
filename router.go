@@ -25,7 +25,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 		u, err := c.BackendCheckUser(r)
 		if err != "" {
 			u = &model.User{
-				Ip: GetIP(r),
+				Ip: GetIP(r), //USUARIO NO IDENTIFICADO
 			}
 		} else {
 			registered_user = true
@@ -48,7 +48,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 		if r.Method == "POST" {
 
-			c.Log("OK HANLDER AUTH", c.NameOfAuthHandler())
+			c.Log("OK HANDLER AUTH", c.NameOfAuthHandler())
 			c.Log("-- API NAME", api_name)
 			// time.Sleep(1 * time.Second)
 
@@ -69,6 +69,8 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 			p.object_response = api_name
 			if c.NameOfAuthHandler() == api_name {
 				p.object_response = "" // cuando es login permitimos que responda multiples datos
+				// agregamos el writer al usuario para que el manejador de authentication pueda crear la cookie
+				u.W = p.w
 			}
 
 			switch p.action {
