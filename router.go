@@ -125,20 +125,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 						return
 					}
 
-					var boot_data_st = "none"
-					if registered_user {
-						boot_data_st, err = c.BackendLoadBootData(p.u)
-						if err != "" {
-							c.error(p, err, http.StatusInternalServerError)
-							return
-						}
-					}
-
-					var actions = model.BootPageData{
-						JsonBootActions: boot_data_st,
-					}
-
-					e = t.Execute(w, actions)
+					e = t.Execute(w, c.BackendLoadBootData(p.u))
 					if e != nil {
 						c.error(p, "error al renderizar sitio", http.StatusInternalServerError)
 						c.Log(e)
