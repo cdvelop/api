@@ -1,8 +1,8 @@
 github.com/cdvelop/cutkey v1.0.1 h1:ENcBzTYYGI0bBDl0bcJC17i9u9SHRWxuLpSN3iutqYg=
 github.com/cdvelop/cutkey v1.0.1/go.mod h1:xg546M226BOMRynqU1l9zPaMG9rJEmSEZCFAqvkd0CA=
 github.com/cdvelop/dbtools v0.0.69 h1:rJGBA6WHTI4JLcRjoJI7j4eUBKuAACgaWE1LYthvFe4=
-github.com/cdvelop/fetchserver v0.0.14 h1:82erA5wgWj+6sU/XdyqzrbmlUQWvmJ1xduVGhMfN0MU=
-github.com/cdvelop/fetchserver v0.0.14/go.mod h1:QjWPQfxLALff43EYY8ni0uoK0SZvC9TxSy5HIkmnqTc=
+github.com/cdvelop/fetchserver v0.0.15 h1:GXNrthgAMgIoDS1UgKYm7EslPgzwQdiQ7DET3p0U/ao=
+github.com/cdvelop/fetchserver v0.0.15/go.mod h1:qhOcKZY/hBWBSpo/ZQ5EEUn+i9qOsXJmfTm5Q93FCBg=
 github.com/cdvelop/filehandler v0.0.21 h1:o0WzKpeyqqB8wuzyqPLMhlJs/Mc2LcvHtn1Ub+s/2Z8=
 github.com/cdvelop/filehandler v0.0.21/go.mod h1:FfZA3F+gTnIawQEJQGxJKkSwun2erCb7EmHhNurKEEY=
 github.com/cdvelop/fileinput v0.0.46 h1:FBB4Poz1xvOyiCT4mObeXrzOHzPLYTOycA5oCUtaabk=
