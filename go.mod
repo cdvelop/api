@@ -2,7 +2,6 @@ module github.com/cdvelop/api
 
 go 1.20
 
-
 require (
 	github.com/cdvelop/filehandler v0.0.23
 	github.com/cdvelop/fileserver v0.0.42
@@ -10,7 +9,7 @@ require (
 	github.com/cdvelop/model v0.0.93
 	github.com/cdvelop/output v0.0.16
 	github.com/cdvelop/strings v0.0.9
-	github.com/cdvelop/testools v0.0.62
+	github.com/cdvelop/testools v0.0.63
 	github.com/cdvelop/unixid v0.0.33
 )
 
