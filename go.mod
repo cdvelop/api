@@ -5,11 +5,11 @@ go 1.20
 require (
 	github.com/cdvelop/filehandler v0.0.20
 	github.com/cdvelop/fileserver v0.0.38
-	github.com/cdvelop/input v0.0.65
-	github.com/cdvelop/model v0.0.89
+	github.com/cdvelop/input v0.0.66
+	github.com/cdvelop/model v0.0.90
 	github.com/cdvelop/output v0.0.16
 	github.com/cdvelop/strings v0.0.9
-	github.com/cdvelop/testools v0.0.57
+	github.com/cdvelop/testools v0.0.58
 	github.com/cdvelop/unixid v0.0.30
 )
 
