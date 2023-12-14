@@ -33,19 +33,17 @@ func (c config) jsonResponse(p *petition, code int, message string, body_out ...
 			out = []byte(`{"Action":"error", "Message":"` + err + `"}`)
 		}
 	} else {
-		if message == "error" {
-			p.object_response = ""
-		}
-		// fmt.Println("OBJECT:", object_name)
+
+		// fmt.Println("OBJECT:", p.object_response)
 		// fmt.Println("ANTES DE ENCODE:", body_out)
 
-		out, err = c.EncodeMaps(body_out, p.object_response)
+		out, err = c.EncodeMaps(body_out)
 		if err != "" {
 			out = []byte(err)
 		}
 	}
 
-	// temp, _ := c.DecodeMaps(out, object_name)
+	// temp, _ := c.DecodeMaps(out, p.object_response)
 	// fmt.Println("LO QUE SE ENVIÓ:", temp)
 	//NOTIFY HERE
 

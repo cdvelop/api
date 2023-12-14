@@ -28,6 +28,6 @@ func (c config) decodeStringMapData(p *petition) (data []map[string]string, err 
 		return nil, "decodeStringMapData " + err
 	}
 
-	return c.DecodeMaps(body, p.o.ObjectName)
+	return c.DecodeMaps(body)
 
 }

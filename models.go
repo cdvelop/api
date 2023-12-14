@@ -21,13 +21,12 @@ type config struct {
 }
 
 type petition struct {
-	action          string // action ej: create,delete,crud,update,upload
-	object_response string // nombre del objeto respuesta
-	u               *model.User
-	o               *model.Object
-	r               *http.Request
-	w               http.ResponseWriter
-	t               time.Time
-	err             string
-	multiple        bool
+	action   string // action ej: create,delete,crud,update,upload
+	u        *model.User
+	o        *model.Object
+	r        *http.Request
+	w        http.ResponseWriter
+	t        time.Time
+	err      string
+	multiple bool
 }

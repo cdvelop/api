@@ -48,8 +48,8 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 		if r.Method == "POST" {
 
-			c.Log("OK HANDLER AUTH", c.NameOfAuthHandler())
-			c.Log("-- API NAME", api_name)
+			// c.Log("OK HANDLER AUTH", c.NameOfAuthHandler())
+			// c.Log("-- API NAME", api_name)
 			// time.Sleep(1 * time.Second)
 
 			if c.NameOfAuthHandler() != api_name {
@@ -66,9 +66,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 				return
 			}
 
-			p.object_response = api_name
 			if c.NameOfAuthHandler() == api_name {
-				p.object_response = "" // cuando es login permitimos que responda multiples datos
 				// agregamos el writer al usuario para que el manejador de authentication pueda crear la cookie
 				u.W = p.w
 			}

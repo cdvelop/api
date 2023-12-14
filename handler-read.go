@@ -12,7 +12,7 @@ func (c config) read(p *petition) {
 		return
 	}
 
-	err = p.o.ValidateData(false, true, params...)
+	err = p.o.ValidateData(false, false, params...)
 	if err != "" {
 		c.error(p, this+err)
 		return
