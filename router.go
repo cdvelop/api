@@ -48,11 +48,11 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 
 		if r.Method == "POST" {
 
-			// c.Log("OK HANDLER AUTH", c.NameOfAuthHandler())
+			// c.Log("OK HANDLER AUTH", c.SessionHandlerName())
 			// c.Log("-- API NAME", api_name)
 			// time.Sleep(1 * time.Second)
 
-			if c.NameOfAuthHandler() != api_name {
+			if c.SessionHandlerName() != api_name {
 
 				if !registered_user {
 					c.unauthorized(p, "realizar operaciones de lectura o escritura")
@@ -66,7 +66,7 @@ func (c config) ServeMuxAndRoutes() *http.ServeMux {
 				return
 			}
 
-			if c.NameOfAuthHandler() == api_name {
+			if c.SessionHandlerName() == api_name {
 				// agregamos el writer al usuario para que el manejador de authentication pueda crear la cookie
 				u.W = p.w
 			}
