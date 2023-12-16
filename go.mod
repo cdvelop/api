@@ -4,12 +4,12 @@ go 1.20
 
 require (
 	github.com/cdvelop/filehandler v0.0.24
-	github.com/cdvelop/fileserver v0.0.44
+	github.com/cdvelop/fileserver v0.0.45
 	github.com/cdvelop/input v0.0.73
-	github.com/cdvelop/model v0.0.101
+	github.com/cdvelop/model v0.0.102
 	github.com/cdvelop/output v0.0.16
 	github.com/cdvelop/strings v0.0.9
-	github.com/cdvelop/testools v0.0.64
+	github.com/cdvelop/testools v0.0.65
 	github.com/cdvelop/unixid v0.0.39
 )
 
