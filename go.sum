@@ -11,8 +11,8 @@ github.com/cdvelop/fileserver v0.0.47/go.mod h1:3DH2PG+3uhWYa0wtFuqUN2CTLsw8enEy
 github.com/cdvelop/gotools v0.0.77 h1:w+80uUz/x0uj1QZiztHEYeuCZptuG5RzhLmXMKnP2Dc=
 github.com/cdvelop/input v0.0.74 h1:cmWGapOQ4utj7bXRqmGITAMlOfmVQ5AsNUolItz8e5o=
 github.com/cdvelop/input v0.0.74/go.mod h1:dSC3vWPEe6DmOX8Q+tR9O9rec+2QGWinVQxmLnFSGSM=
-github.com/cdvelop/logserver v0.0.25 h1:h7BpK5jRuJLQtnibhnRr6tASvPrBYzk/mux7PyaH5XQ=
-github.com/cdvelop/logserver v0.0.25/go.mod h1:HaoewI1sfCwb4SVzO3V7kmuK9txlJtrqdBjuH/sqarE=
+github.com/cdvelop/logserver v0.0.27 h1:c64hWil9ALLDlDraPgT5cQQcXqaaYxhkSvlJtUzl7pw=
+github.com/cdvelop/logserver v0.0.27/go.mod h1:HaoewI1sfCwb4SVzO3V7kmuK9txlJtrqdBjuH/sqarE=
 github.com/cdvelop/maps v0.0.8 h1:7pc/iRC5mhf91TB8TaGoXkyFloH1pH1TWbLBR4kZhZY=
 github.com/cdvelop/maps v0.0.8/go.mod h1:00f/VqX/M0iiiY/BG2KxfxfFuoU5jAaNLEDGw7Tlduk=
 github.com/cdvelop/object v0.0.59 h1:WC4aeDcvhVMr2pZBsTOtJCD9zJ6gu6mLIECPBnSmIXc=
