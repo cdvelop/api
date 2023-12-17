@@ -9,14 +9,14 @@ require (
 	github.com/cdvelop/model v0.0.102
 	github.com/cdvelop/output v0.0.16
 	github.com/cdvelop/strings v0.0.9
-	github.com/cdvelop/testools v0.0.69
-	github.com/cdvelop/unixid v0.0.41
+	github.com/cdvelop/testools v0.0.70
+	github.com/cdvelop/unixid v0.0.42
 )
 
 require (
 	github.com/cdvelop/cutkey v1.0.8 // indirect
 	github.com/cdvelop/fetchserver v0.0.22 // indirect
-	github.com/cdvelop/logserver v0.0.27 // indirect
+	github.com/cdvelop/logserver v0.0.28 // indirect
 	github.com/cdvelop/maps v0.0.8 // indirect
 	github.com/cdvelop/object v0.0.59 // indirect
 	github.com/cdvelop/timetools v0.0.32 // indirect
