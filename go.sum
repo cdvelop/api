@@ -3,8 +3,8 @@ github.com/cdvelop/cutkey v1.0.8/go.mod h1:8qjc4PbLgoIQKgrBM+a4x1CxukI+BDIx1ogX1
 github.com/cdvelop/dbtools v0.0.77 h1:5kOiyHIltMeGduj9P+Tj6ICKUFDcnc8VD0lN915O7zQ=
 github.com/cdvelop/fetchserver v0.0.22 h1:S5CgvSHDCnFYuHBwlnd8YoYzoMTetdEha1VLZ0Yr25E=
 github.com/cdvelop/fetchserver v0.0.22/go.mod h1:/SL709VOYq9FvCZjlJeEwDEofdvjBnB8GKPU51aintI=
-github.com/cdvelop/filehandler v0.0.26 h1:nnNyk2Cy4L0C7IZSDCS49OurlXJ4pp7XlrejHY67KWI=
-github.com/cdvelop/filehandler v0.0.26/go.mod h1:0yWdIgpGlCD4FKBwp+fxmWp0R3tyzUkoKViwZoe5r9E=
+github.com/cdvelop/filehandler v0.0.27 h1:l5UKMuk+qbea3ocxi0GivCvRLbRmQQ38UuLTWDUmzv4=
+github.com/cdvelop/filehandler v0.0.27/go.mod h1:527MTFDz9rLajBnBNMc+aDpS0UT0lzlRG6OM0fGg4Uw=
 github.com/cdvelop/fileinput v0.0.52 h1:w2X0n+RpyiuhUBpjuO8+h6PHjy7gyOjCCOfNFWqd5w4=
 github.com/cdvelop/fileserver v0.0.47 h1:XItp1O3qaosJEf5mn4vIpdgmCh7XQSZQg5jsiYFb3hg=
 github.com/cdvelop/fileserver v0.0.47/go.mod h1:3DH2PG+3uhWYa0wtFuqUN2CTLsw8enEy4bAizGd/We0=
@@ -26,8 +26,8 @@ github.com/cdvelop/strings v0.0.9/go.mod h1:zNexDeXHRETbMmlmNThQeM7ksRsvzrphsCfw
 github.com/cdvelop/timeserver v0.0.31 h1:+Yt1ydpmtNDMJbFu29hcnmkwtK+BW+gBQyhbVVAvnHg=
 github.com/cdvelop/timetools v0.0.32 h1:tQPO4BwrEBrIGVMZHhsoYYeu8UXyF6hicm/Q54SET6k=
 github.com/cdvelop/timetools v0.0.32/go.mod h1:Y6C9bgqYnwI+WUuIiJs5VlfyNdVPsCN+42LxUB1S2yo=
-github.com/cdvelop/unixid v0.0.42 h1:7VN8YyOrAWPOzNAzeY2HMY79vI3tWwmSfuQBk5QiZm8=
-github.com/cdvelop/unixid v0.0.42/go.mod h1:KVMyT1jZphNqKVb4BwB0De1ziNmm0NlVR50WMnRPmmo=
+github.com/cdvelop/unixid v0.0.44 h1:LYsNyUHtPzFVQoJWo9kwST6kAToqB/CA8rLT4eyl/Ro=
+github.com/cdvelop/unixid v0.0.44/go.mod h1:KVMyT1jZphNqKVb4BwB0De1ziNmm0NlVR50WMnRPmmo=
 github.com/gabriel-vasile/mimetype v1.4.3 h1:in2uUcidCuFcDKtdcBxlR0rJ1+fsokWf+uqxgUFjbI0=
 github.com/gabriel-vasile/mimetype v1.4.3/go.mod h1:d8uq/6HKRL6CGdk+aubisF/M5GcPfT7nKyLpA0lbSSk=
 github.com/mattn/go-sqlite3 v1.14.19 h1:fhGleo2h1p8tVChob4I9HpmVFIAkKGpiukdrgQbWfGI=
