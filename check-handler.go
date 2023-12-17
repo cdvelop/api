@@ -2,8 +2,8 @@ package api
 
 func (c config) isHandlerOk(p *petition, action_type, api_name string) (err string) {
 	const this = "api isHandlerOk error "
-	// fmt.Println("TOTAL MANEJADORES", len(c.GetObjects()))
-	// for _, o := range c.GetObjects() {
+	// fmt.Println("TOTAL MANEJADORES", len(c.GetAllObjectsFromMainHandler()))
+	// for _, o := range c.GetAllObjectsFromMainHandler() {
 	// 	fmt.Printf("Estás en el Manejador de lectura de data de %s\n", o.ObjectName)
 	// }
 
@@ -13,7 +13,7 @@ func (c config) isHandlerOk(p *petition, action_type, api_name string) (err stri
 		return ""
 	}
 
-	h, err := c.GetObjectByName(api_name)
+	h, err := c.GetObjectByNameMainHandler(api_name)
 	if err != "" {
 		return this + err
 	}

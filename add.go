@@ -9,7 +9,7 @@ import (
 // static cache duración de archivos estáticos en el navegador
 // ej: "cache:year" (un año), week (semana), month (mes) default day. NOTE: modo dev = no-cache
 // ej: authAdapter = GetUser(r *http.Request) *model.User. nil case default dev user
-func Add(h *model.Handlers, options ...string) (c *config, err string) {
+func Add(h *model.MainHandler, options ...string) (c *config, err string) {
 
 	c = &config{
 		SessionBackendAdapter: h.SessionBackendAdapter,

@@ -9,13 +9,11 @@ import (
 
 func Test_Api(t *testing.T) {
 
-	objects := ModuleProduct().Objects
-
-	h := &model.Handlers{
+	h := &model.MainHandler{
 		FileApi: module{},
 	}
 
-	app, err := testools.NewApiTestDefault(t, h, objects...)
+	app, err := testools.NewApiTestDefault(t, h, ModuleProduct())
 	if err != "" {
 		t.Fatal(err)
 		return
