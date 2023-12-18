@@ -67,7 +67,7 @@ var (
 			Method:   "POST",
 			Endpoint: "create",
 			Object:   "dino",
-			Expected: "api isHandlerOk error dino no encontrado func GetObjectByNameMainHandler",
+			Expected: "api isHandlerOk error dino no encontrado func MainHandlerGetObjectByName",
 		},
 		"se espera subida de archivo ok": {
 			Method:   "POST",

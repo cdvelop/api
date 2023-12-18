@@ -4,12 +4,12 @@ go 1.20
 
 require (
 	github.com/cdvelop/filehandler v0.0.30
-	github.com/cdvelop/fileserver v0.0.48
+	github.com/cdvelop/fileserver v0.0.49
 	github.com/cdvelop/input v0.0.76
-	github.com/cdvelop/model v0.0.103
+	github.com/cdvelop/model v0.0.104
 	github.com/cdvelop/output v0.0.16
 	github.com/cdvelop/strings v0.0.9
-	github.com/cdvelop/testools v0.0.72
+	github.com/cdvelop/testools v0.0.74
 	github.com/cdvelop/unixid v0.0.45
 )
 
@@ -25,7 +25,10 @@ require (
 )
 
 replace github.com/cdvelop/model => ../model
+replace github.com/cdvelop/cutkey => ../cutkey
+replace github.com/cdvelop/object => ../object
 
 replace github.com/cdvelop/fileserver => ../fileserver
+replace github.com/cdvelop/filehandler => ../filehandler
 
 replace github.com/cdvelop/testools => ../testools

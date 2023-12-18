@@ -13,7 +13,7 @@ func Add(h *model.MainHandler, options ...string) (c *config, err string) {
 
 	c = &config{
 		SessionBackendAdapter: h.SessionBackendAdapter,
-		ObjectsHandler:        h,
+		ObjectHandler:         h,
 		ModuleHandler:         h,
 		DataConverter:         h,
 		FileApi:               h,

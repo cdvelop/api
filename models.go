@@ -9,7 +9,7 @@ import (
 
 type config struct {
 	model.SessionBackendAdapter
-	model.ObjectsHandler
+	model.ObjectHandler
 	model.ModuleHandler
 	model.DataConverter
 	model.FileApi
