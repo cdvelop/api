@@ -1,7 +1,7 @@
-github.com/cdvelop/dbtools v0.0.78 h1:3gQtUUDrT3bXp5FY3V7r4GOW/tstWF3WE9b+GDOv7zc=
+github.com/cdvelop/dbtools v0.0.79 h1:fDda6y1/ltIkeVzCeUxjXDe9WRG2e0RjFOkuWPvK2l0=
 github.com/cdvelop/fetchserver v0.0.24 h1:W9DBbG9VnEts8yd6DmNwn1xhJUpfOIc414z4Pcay48Y=
 github.com/cdvelop/fetchserver v0.0.24/go.mod h1:udyFEUTBJEJbaqr2yr2ggvGMjEcQd/A5GJq2cskb2Dw=
-github.com/cdvelop/fileinput v0.0.56 h1:Rpur31e6jPfHNZ6SD8qAA9BWSkO/lLMX+JIQTcPVZaE=
+github.com/cdvelop/fileinput v0.0.58 h1:YW3XHSI7xbHJSFfYk/43kvhYy0u4if1QaowaQqqBCe0=
 github.com/cdvelop/gotools v0.0.78 h1:LC5nFFGjdtbmqh77bTkf6Le12ACrFkqv1amwKHoKPac=
 github.com/cdvelop/input v0.0.77 h1:2NQ9+/RgE+4ES7gi6RcBwK10gSMoTxdxQP+QsWxq28Q=
 github.com/cdvelop/input v0.0.77/go.mod h1:phQj6lxRpgxcxaJljgESZ2EKKUVMcNXs+aYJj9vKmv8=
@@ -9,12 +9,14 @@ github.com/cdvelop/logserver v0.0.31 h1:6PdaCJSTcok5BykDU3/wYw2TAZPHnCbJ5oNlH9I7
 github.com/cdvelop/logserver v0.0.31/go.mod h1:3Fp1fwHapFu2tbbMGmpNWHLdVcSz5wkQUf6tFU9RPcU=
 github.com/cdvelop/maps v0.0.8 h1:7pc/iRC5mhf91TB8TaGoXkyFloH1pH1TWbLBR4kZhZY=
 github.com/cdvelop/maps v0.0.8/go.mod h1:00f/VqX/M0iiiY/BG2KxfxfFuoU5jAaNLEDGw7Tlduk=
-github.com/cdvelop/objectdb v0.0.108 h1:edi2psklUh7W9XGfaxE5IpIeHdhSiPGSbQtBtJxUWBU=
+github.com/cdvelop/objectdb v0.0.109 h1:CQChsbn/+dU5OjLtyZk9ctpySmY2/uPwk5pNohYY/IU=
 github.com/cdvelop/output v0.0.16 h1:4hmAy0kF98dVEWj2qq6fMtiq3pz1ZTDmxf9AgHiBb7g=
 github.com/cdvelop/output v0.0.16/go.mod h1:J0NdlSxlURjPlX82VUmaq7o9Z4omOSH0yLUoioPdELc=
-github.com/cdvelop/sqlite v0.0.99 h1:8t7dxL+/ndEqkdAxbm4iA8asg3IPtYHBETqz1/egt4k=
+github.com/cdvelop/sqlite v0.0.100 h1:y+OpD0CjWI8CNFj7FcQa7YKVcAAGSiagHHnDAup8J48=
 github.com/cdvelop/strings v0.0.9 h1:yDh2msl3EQja0dHw+oOHfD9ymQMa50KakKTkjsXDnvw=
 github.com/cdvelop/strings v0.0.9/go.mod h1:zNexDeXHRETbMmlmNThQeM7ksRsvzrphsCfwuSxaURk=
+github.com/cdvelop/structs v0.0.1 h1:9H4JUJ/dK1zaUOpIgay4xZpP3O/Jh991nErccKknKZ8=
+github.com/cdvelop/structs v0.0.1/go.mod h1:dvym7DUgaMRqhdcDTgCQNkbuhr+HqfwdaDMeZTmIWEI=
 github.com/cdvelop/timeserver v0.0.31 h1:+Yt1ydpmtNDMJbFu29hcnmkwtK+BW+gBQyhbVVAvnHg=
 github.com/cdvelop/timetools v0.0.32 h1:tQPO4BwrEBrIGVMZHhsoYYeu8UXyF6hicm/Q54SET6k=
 github.com/cdvelop/timetools v0.0.32/go.mod h1:Y6C9bgqYnwI+WUuIiJs5VlfyNdVPsCN+42LxUB1S2yo=

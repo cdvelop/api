@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/cdvelop/model"
 	out "github.com/cdvelop/output"
+	"github.com/cdvelop/structs"
 )
 
 // options:
@@ -13,8 +14,7 @@ func Add(h *model.MainHandler, options ...string) (c *config, err string) {
 
 	c = &config{
 		SessionBackendAdapter: h.SessionBackendAdapter,
-		ObjectHandler:         h,
-		ModuleHandler:         h,
+		ObjectsHandlerAdapter: h,
 		DataConverter:         h,
 		FileApi:               h,
 		Logger:                h,
@@ -36,7 +36,7 @@ func Add(h *model.MainHandler, options ...string) (c *config, err string) {
 		c.static_cache = "no-cache"
 	}
 
-	err = h.CheckInterfaces("api config", *c)
+	err = structs.CheckInterfaces("api config", *c)
 	if err != "" {
 		return nil, err
 	}

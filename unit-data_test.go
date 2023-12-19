@@ -12,14 +12,14 @@ var (
 		"se espera creación de producto ok": {
 			Method:   "POST",
 			Endpoint: "create",
-			Object:   product.Objects[0].ObjectName,
+			Object:   product.GetObjects()[0].ObjectName,
 			Data:     []map[string]string{{"name": "manzana"}},
 			Expected: []map[string]string{{"id_product": "4", "name": "manzana"}},
 		},
 		"se espera lectura json de producto ok": {
 			Method:   "POST",
 			Endpoint: "read",
-			Object:   product.Objects[0].ObjectName,
+			Object:   product.GetObjects()[0].ObjectName,
 			Data:     []map[string]string{{"id_product": "1"}},
 			Expected: []map[string]string{{"name": "manzana"}, {"name": "peras"}},
 		},
@@ -27,7 +27,7 @@ var (
 		"se espera error id 2 no esta en el controlador": {
 			Method:   "POST",
 			Endpoint: "read",
-			Object:   product.Objects[0].ObjectName,
+			Object:   product.GetObjects()[0].ObjectName,
 			Data:     []map[string]string{{"id_product": "2"}},
 			Expected: "api read error nada encontrado",
 		},
@@ -35,7 +35,7 @@ var (
 		"se espera actualización de producto ok": {
 			Method:   "POST",
 			Endpoint: "update",
-			Object:   product.Objects[0].ObjectName,
+			Object:   product.GetObjects()[0].ObjectName,
 			Data:     []map[string]string{{"id_product": "1", "name": "pera"}},
 			Expected: []map[string]string{{"id_product": "1", "name": "pera"}},
 		},
@@ -43,7 +43,7 @@ var (
 		"se espera eliminación de producto ok": {
 			Method:   "POST",
 			Endpoint: "delete",
-			Object:   product.Objects[0].ObjectName,
+			Object:   product.GetObjects()[0].ObjectName,
 			Data:     []map[string]string{{"id_product": "1"}},
 			Expected: []map[string]string{{"id_product": "1", "name": "pera"}},
 		},
@@ -67,12 +67,12 @@ var (
 			Method:   "POST",
 			Endpoint: "create",
 			Object:   "dino",
-			Expected: "api isHandlerOk error dino no encontrado func MainHandlerGetObjectByName",
+			Expected: "api isHandlerOk error objeto:dino no encontrado.",
 		},
 		"se espera subida de archivo ok": {
 			Method:   "POST",
 			Endpoint: "upload",
-			Object:   product.Objects[0].ObjectName,
+			Object:   product.GetObjects()[0].ObjectName,
 			Data:     []map[string]string{{"name": "1"}},
 			Expected: []map[string]string{{"id_product": "200"}},
 		},

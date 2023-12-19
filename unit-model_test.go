@@ -19,10 +19,9 @@ func ModuleProduct() *model.Module {
 	newModule := &model.Module{
 		ModuleName: "product",
 		Title:      "Producto",
-		Objects:    nil,
 	}
 
-	newObject := model.Object{
+	newObject := &model.Object{
 		ObjectName: "product",
 		Table:      "product",
 
@@ -39,7 +38,7 @@ func ModuleProduct() *model.Module {
 		},
 	}
 
-	newModule.Objects = append(newModule.Objects, &newObject)
+	newModule.AddObjectsToModule(newObject)
 
 	// fmt.Printf("TAMAÑO OBJETOS MODULO: [%v]\n", len(newModule.Objects))
 
