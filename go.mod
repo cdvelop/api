@@ -3,8 +3,8 @@ module github.com/cdvelop/api
 go 1.20
 
 require (
-	github.com/cdvelop/filehandler v0.0.31
-	github.com/cdvelop/fileserver v0.0.50
+	github.com/cdvelop/filehandler v0.0.32
+	github.com/cdvelop/fileserver v0.0.51
 	github.com/cdvelop/input v0.0.77
 	github.com/cdvelop/model v0.0.105
 	github.com/cdvelop/output v0.0.16
@@ -15,7 +15,7 @@ require (
 )
 
 require (
-	github.com/cdvelop/cutkey v1.0.11 // indirect
+	github.com/cdvelop/cutkey v1.0.12 // indirect
 	github.com/cdvelop/fetchserver v0.0.24 // indirect
 	github.com/cdvelop/logserver v0.0.31 // indirect
 	github.com/cdvelop/maps v0.0.8 // indirect
