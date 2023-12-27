@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/cdvelop/filehandler v0.0.34
-	github.com/cdvelop/fileserver v0.0.53
+	github.com/cdvelop/fileserver v0.0.54
 	github.com/cdvelop/input v0.0.81
 	github.com/cdvelop/model v0.0.107
 	github.com/cdvelop/output v0.0.16
