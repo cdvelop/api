@@ -3,7 +3,7 @@ module github.com/cdvelop/api
 go 1.20
 
 require (
-	github.com/cdvelop/filehandler v0.0.38
+	github.com/cdvelop/filehandler v0.0.39
 	github.com/cdvelop/fileserver v0.0.59
 	github.com/cdvelop/input v0.0.83
 	github.com/cdvelop/model v0.0.111
