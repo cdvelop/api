@@ -13,7 +13,7 @@ func (c config) isHandlerOk(p *petition, action_type, api_name string) (err stri
 		return ""
 	}
 
-	h, err := c.GetObjectByName(api_name)
+	h, err := c.GetObjectBY(api_name, "")
 	if err != "" {
 		return this + err
 	}
