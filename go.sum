@@ -1,7 +1,7 @@
 github.com/cdvelop/dbtools v0.0.81 h1:1l6Dk3D5drReyaxacIzSF+mrDRNk/J1DKZU8bQbyGVg=
 github.com/cdvelop/fetchserver v0.0.26 h1:X/xPu+YkoUaxD5KNnkyZSSmXF4HF9xQ55/H8rRN/HXQ=
 github.com/cdvelop/fetchserver v0.0.26/go.mod h1:6VtPsHweXFI4Z8b8DrJxP4bLhVR0kYrrQKpmCWk/xpk=
-github.com/cdvelop/fileinput v0.0.72 h1:BWnU9TAP+oU7DKtsqCua0fyhiGIlNuJlqXhv9dpzWMw=
+github.com/cdvelop/fileinput v0.0.73 h1:KUFTzmdR6SgUPzJgA+VeqrRRwO+h6v+8YCf+c8ErBzc=
 github.com/cdvelop/gotools v0.0.82 h1:TaDhR4IhfcBdbvCeDyV0Tvyg7sxvxAZBPktpBDpgn2c=
 github.com/cdvelop/input v0.0.83 h1:GNtOgYFwS/PVjePEDGGiiNP9jn/bT2K80oHQ0ea2jK4=
 github.com/cdvelop/input v0.0.83/go.mod h1:IkjU2/0tE71mN1C6bLfeAAxe7P8MNM2w/+p7mUWCypA=
@@ -25,6 +25,6 @@ github.com/cdvelop/unixid v0.0.49/go.mod h1:/O2BOVFHMQy7WT7QrP6a52wispBn/TpUZT3c
 github.com/gabriel-vasile/mimetype v1.4.3 h1:in2uUcidCuFcDKtdcBxlR0rJ1+fsokWf+uqxgUFjbI0=
 github.com/gabriel-vasile/mimetype v1.4.3/go.mod h1:d8uq/6HKRL6CGdk+aubisF/M5GcPfT7nKyLpA0lbSSk=
 github.com/mattn/go-sqlite3 v1.14.19 h1:fhGleo2h1p8tVChob4I9HpmVFIAkKGpiukdrgQbWfGI=
-golang.org/x/net v0.19.0 h1:zTwKpTd2XuCqf8huc7Fo2iSy+4RHPd10s4KzeTnVr1c=
-golang.org/x/net v0.19.0/go.mod h1:CfAk/cbD4CthTvqiEl8NpboMuiuOYsAr/7NOjZJtv1U=
+golang.org/x/net v0.20.0 h1:aCL9BSgETF1k+blQaYUBx9hJ9LOGP3gAVemcZlf1Kpo=
+golang.org/x/net v0.20.0/go.mod h1:z8BVo6PvndSri0LbOE3hAn0apkU+1YvI6E70E9jsnvY=
 golang.org/x/text v0.14.0 h1:ScX5w1eTa3QqT8oi6+ziP7dTV1S2+ALU0bI+0zXKWiQ=
