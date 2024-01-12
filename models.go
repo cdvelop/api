@@ -1,6 +1,7 @@
 package api
 
 import (
+	"crypto/tls"
 	"net/http"
 	"time"
 
@@ -17,6 +18,8 @@ type config struct {
 
 	production_mode bool
 	static_cache    string
+
+	sslHandler
 }
 
 type petition struct {
@@ -28,4 +31,8 @@ type petition struct {
 	t        time.Time
 	err      string
 	multiple bool
+}
+
+type sslHandler interface {
+	GetCertificate(hello *tls.ClientHelloInfo) (*tls.Certificate, error)
 }
