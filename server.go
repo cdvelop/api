@@ -48,7 +48,7 @@ func (c config) StartServer() {
 		}
 
 		if err := server.ListenAndServeTLS("", ""); err != nil {
-			log.Fatal(err)
+			log.Println(err)
 		}
 
 	} else {
