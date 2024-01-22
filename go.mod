@@ -9,7 +9,7 @@ require (
 	github.com/cdvelop/model v0.0.119
 	github.com/cdvelop/output v0.0.16
 	github.com/cdvelop/strings v0.0.9
-	github.com/cdvelop/testools v0.0.93
+	github.com/cdvelop/testools v0.0.95
 	github.com/cdvelop/unixid v0.0.51
 )
 
@@ -20,7 +20,7 @@ require (
 	github.com/cdvelop/maps v0.0.8 // indirect
 	github.com/cdvelop/object v0.0.75 // indirect
 	github.com/cdvelop/structs v0.0.1 // indirect
-	github.com/cdvelop/timetools v0.0.40 // indirect
+	github.com/cdvelop/timetools v0.0.41 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	golang.org/x/net v0.20.0 // indirect
 )
