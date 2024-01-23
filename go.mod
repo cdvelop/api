@@ -6,7 +6,7 @@ require (
 	github.com/cdvelop/filehandler v0.0.46
 	github.com/cdvelop/fileserver v0.0.60
 	github.com/cdvelop/input v0.0.87
-	github.com/cdvelop/model v0.0.119
+	github.com/cdvelop/model v0.0.120
 	github.com/cdvelop/output v0.0.16
 	github.com/cdvelop/strings v0.0.9
 	github.com/cdvelop/testools v0.0.96
