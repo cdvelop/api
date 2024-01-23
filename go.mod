@@ -14,7 +14,7 @@ require (
 )
 
 require (
-	github.com/cdvelop/cutkey v1.0.16 // indirect
+	github.com/cdvelop/cutkey v1.0.17 // indirect
 	github.com/cdvelop/fetchserver v0.0.26 // indirect
 	github.com/cdvelop/logserver v0.0.41 // indirect
 	github.com/cdvelop/maps v0.0.8 // indirect
